@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Quobject.SocketIoClientDotNet.Client;
+using Crosstales.RTVoice;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class ServerPackage
@@ -20,8 +22,14 @@ public class SocketIOScript : MonoBehaviour
 	public Button uiSend = null;
 	public Text uiChatLog = null;
 
+	public AudioSource audioSource;
+	public string VoiceName;
+
 	protected Socket socket = null;
 	protected List<string> chatLog = new List<string>();
+
+	private Speaker speaker;
+	private List<string> voiceQueue = new List<string>();
 
 	void Destroy() {
 		DoClose();
@@ -35,8 +43,8 @@ public class SocketIOScript : MonoBehaviour
 			uiInput.text = "";
 			uiInput.ActivateInputField();
 		});
-
 	}
+
 
 	void Update() {
 		lock (chatLog) {
@@ -47,6 +55,15 @@ public class SocketIOScript : MonoBehaviour
 				}
 				uiChatLog.text = str;
 				chatLog.Clear();
+			}
+		}
+
+		lock (voiceQueue) {
+			if (voiceQueue.Count > 0) {
+				if (!audioSource.isPlaying) {
+					Speaker.Speak(voiceQueue[0], audioSource, Speaker.VoiceForName(VoiceName), true, 1, 1, 1, "_Speeches/TestFile");
+					voiceQueue.RemoveAt(0);
+				}
 			}
 		}
 	}
@@ -65,7 +82,11 @@ public class SocketIOScript : MonoBehaviour
 
 				ServerPackage package = JsonUtility.FromJson<ServerPackage>(str);
 				string strChatLog = "Server: " + package.text;
-				
+
+				lock (voiceQueue) {
+					voiceQueue.Add(package.text);
+				}
+
 				// Access to Unity UI is not allowed in a background thread, so let's put into a shared variable
 				lock (chatLog) {
 					chatLog.Add(strChatLog);
@@ -86,6 +107,7 @@ public class SocketIOScript : MonoBehaviour
 		if (socket != null) {
 			socket.Emit("user_uttered", str);
 			chatLog.Add("Unity: " + str);
+
 		}
 	}
 
