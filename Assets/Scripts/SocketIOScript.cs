@@ -116,9 +116,9 @@ public class SocketIOScript : MonoBehaviour
             JObject message = new JObject();
             message.Add("message", str);
 
-            socket.Emit("user_uttered", message);
-
             chatLog.Add("Unity: " + str);
+
+            socket.Emit("user_uttered", message);
         }
     }
 
