@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Quobject.SocketIoClientDotNet.Client;
 using Crosstales.RTVoice;
 using UnityEngine.Events;
@@ -21,7 +22,7 @@ public class SocketIOScript : MonoBehaviour
 	public InputField uiInput = null;
 	public Button uiSend = null;
 	public Text uiChatLog = null;
-
+    
 	public AudioSource audioSource;
 	public string VoiceName;
 
@@ -80,11 +81,15 @@ public class SocketIOScript : MonoBehaviour
 			socket.On("bot_uttered", (data) => {
 				string str = data.ToString();
 
-				ServerPackage package = JsonUtility.FromJson<ServerPackage>(str);
-				string strChatLog = "Server: " + package.text;
+                var jsonString = JsonConvert.SerializeObject(data);
 
-				lock (voiceQueue) {
-					voiceQueue.Add(package.text);
+                var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
+                print(serverMessage);
+
+                string strChatLog = "Server: " + serverMessage.text;
+
+                lock (voiceQueue) {
+					voiceQueue.Add(serverMessage.text);
 				}
 
 				// Access to Unity UI is not allowed in a background thread, so let's put into a shared variable
@@ -103,15 +108,22 @@ public class SocketIOScript : MonoBehaviour
 	}
 
 
-	void SendChat(string str) {
-		if (socket != null) {
-			socket.Emit("user_uttered", str);
-			chatLog.Add("Unity: " + str);
+    void SendChat(string str)
+    {
+        if (socket != null)
+        {
 
-		}
-	}
+            JObject message = new JObject();
+            message.Add("message", str);
 
-	public void OnApplicationQuit() {
+            socket.Emit("user_uttered", message);
+
+            chatLog.Add("Unity: " + str);
+        }
+    }
+
+
+    public void OnApplicationQuit() {
 		DoClose();
 	}
 }
