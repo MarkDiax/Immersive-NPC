@@ -12,15 +12,16 @@ public class NPC : MonoBehaviour
 
 	[Header("AI")]
 	public float rotationSpeed = 20;
-	public float playerInteractionRange = 2f;
+	public readonly float playerInteractionRange = 2f;
 
 	private bool _isTalking = false;
 	private Player _player;
 	private string _currentMessage;
 
 	private void Start() {
+		NPCManager.Instance.RegisterNPC(this);
+
 		_player = Player.Instance;
-		_player.InteractEvent.AddListener(InteractWithPlayer);
 		_player.StopInteract.AddListener(InteractWithPlayer);
 
 		//set random rotation at start
@@ -41,7 +42,7 @@ public class NPC : MonoBehaviour
 		}
 	}
 
-	void InteractWithPlayer() {
+	public void InteractWithPlayer() {
 		if (!_isTalking && InInteractRange) {
 			_isTalking = true;
 			_player.SetInteraction(true);

@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class Player : MonoSingleton<Player>
 {
 	[HideInInspector]
-	public UnityEvent InteractEvent, StopInteract;
+	public UnityEvent OnInteractRequest, StopInteract;
 	public InputField inputField;
 
 	private FirstPersonController _controller;
@@ -14,7 +14,7 @@ public class Player : MonoSingleton<Player>
 	private bool _isInteracting;
 
 	private void Awake() {
-		InteractEvent = new UnityEvent();
+		OnInteractRequest = new UnityEvent();
 		StopInteract = new UnityEvent();
 	}
 
@@ -35,7 +35,7 @@ public class Player : MonoSingleton<Player>
 		}
 		else {
 			if (Input.GetMouseButtonDown(0)) {
-				InteractEvent.Invoke();
+				OnInteractRequest.Invoke();
 			}
 		}
 	}

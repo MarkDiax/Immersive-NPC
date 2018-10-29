@@ -21,9 +21,6 @@ public class ClientScript : MonoBehaviour
 	private List<string> _voiceQueue = new List<string>();
 	public List<string> messageQueue = new List<string>();
 
-	public class OnBotResponse : UnityEvent<string> { }
-	public OnBotResponse onBotResponse;
-
 	enum MessageStatus
 	{
 		Undiscovered,
@@ -38,14 +35,6 @@ public class ClientScript : MonoBehaviour
 
 	void Start() {
 		DoOpen();
-		onBotResponse = new OnBotResponse();
-
-		/*
-		uiSend.onClick.AddListener(() => {
-			SendChat(uiInput.text);
-			uiInput.text = "";
-			uiInput.ActivateInputField();
-		});*/
 	}
 
 	void Update() {
