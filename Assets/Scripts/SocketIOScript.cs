@@ -12,7 +12,8 @@ using UnityEngine.Events;
 public class ServerPackage
 {
 	public string text;
-	//to be expanded...
+	public int status = -1; //will be parsed to enum
+	public string keyword;
 }
 
 public class SocketIOScript : MonoBehaviour
@@ -21,13 +22,13 @@ public class SocketIOScript : MonoBehaviour
 
 	public InputField uiInput = null;
 	public Button uiSend = null;
-	public Text uiChatLog = null;
 
 	public Text messagePlaceholder;
 	public ScrollRect scrollRect;
 	public float scrollSpeed = 2f;
 	public int maxMessageCount = 16;
 
+	public bool usingRTVoice = false;
 	public AudioSource audioSource;
 	public string VoiceName;
 
@@ -38,6 +39,14 @@ public class SocketIOScript : MonoBehaviour
 	private List<string> _voiceQueue = new List<string>();
 	private List<string> _messageQueue = new List<string>();
 	private Transform _scrollArea = null;
+
+	enum MessageStatus
+	{
+		Undiscovered,
+		Discovered,
+		InProgress,
+		Completed
+	}
 
 	void Destroy() {
 		DoClose();
@@ -105,18 +114,27 @@ public class SocketIOScript : MonoBehaviour
 				ReadyMessage("Socket.IO connected.");
 			});
 
+
 			socket.On("bot_uttered", (data) => {
-				string str = data.ToString();
+				Debug.Log(data);
 
 				var jsonString = JsonConvert.SerializeObject(data);
 				var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
 
 				string strChatLog = "Server: " + serverMessage.text;
-				ReadyMessage(strChatLog);
+				Debug.Log(jsonString);
 
-				lock (_voiceQueue) {
-					_voiceQueue.Add(serverMessage.text);
-				}
+				/*
+				//if (serverMessage.status != -1) {
+					MessageStatus status = (MessageStatus)serverMessage.status;
+					Debug.Log(status.ToString());
+				//}
+
+				//if (!string.IsNullOrEmpty(serverMessage.keyword))
+					Debug.Log(serverMessage.keyword);
+					*/
+				ReadyMessage(strChatLog);
+				ReadyVoiceMessage(serverMessage.text);
 			});
 		}
 	}
@@ -137,6 +155,13 @@ public class SocketIOScript : MonoBehaviour
 	private void ReadyMessage(string Message) {
 		lock (_messageQueue) {
 			_messageQueue.Add(Message);
+		}
+	}
+
+	private void ReadyVoiceMessage(string Message) {
+		lock (_voiceQueue) {
+			if (usingRTVoice)
+				_voiceQueue.Add(Message);
 		}
 	}
 
