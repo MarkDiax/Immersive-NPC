@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10af8f55af03b8b469e49835a87f05d4, type: 3}
+  m_Name: WalkToTrashcanState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 8ac40c2db71e3c34eb5356753b3ce6da, type: 2}
+  - {fileID: 11400000, guid: 2696e0d7bbbb2d149a81278b1ecf3173, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 78f29968f451fe141ad8fe74e3c0e4c6, type: 2}
+    trueState: {fileID: 11400000, guid: f7b00b7823c8e7a458ff7949e2f0900a, type: 2}
+    falseState: {fileID: 11400000, guid: 678eb9725a2c49f4f8fa1b80fbe102dd, type: 2}
+  sceneGizmoColor: {r: 1, g: 0, b: 0.7070737, a: 1}
+  animationTriggerName: isWalking
+  StateCategory: 0
+  Interutable: 1

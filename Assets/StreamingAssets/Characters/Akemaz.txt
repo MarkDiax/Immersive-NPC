@@ -1,0 +1,26 @@
+{
+  "DataConstruct": [
+    {
+      "DataKey": "DataKey1",
+      "CustomDictionary": {
+        "DataSate": 0,
+        "Information": [
+          "DataKey1 Akemaz Discoverd Text",
+          "DataKey1 Akemaz InProgress Text",
+          "DataKey1 Akemaz Completed Text"
+        ]
+      }
+    },
+    {
+      "DataKey": "DataKey2",
+      "CustomDictionary": {
+        "DataSate": 1,
+        "Information": [
+          "DataKey2 Akemaz Discoverd Text",
+          "DataKey2 Akemaz InProgress Text",
+          "DataKey2 Akemaz Completed Text"
+        ]
+      }
+    }
+  ]
+}

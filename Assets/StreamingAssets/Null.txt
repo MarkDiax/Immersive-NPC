@@ -1,0 +1,26 @@
+{
+  "DataConstruct": [
+    {
+      "DataKey": "DataKey1",
+      "CustomDictionary": {
+        "DataSate": 0,
+        "Information": [
+          "DataKey1 Discoverd Text",
+          "DataKey1 InProgress Text",
+          "DataKey1 Completed Text"
+        ]
+      }
+    },
+    {
+      "DataKey": "DataKey2",
+      "CustomDictionary": {
+        "DataSate": 1,
+        "Information": [
+          "DataKey2 Discoverd Text",
+          "DataKey2 InProgress Text",
+          "DataKey2 Completed Text"
+        ]
+      }
+    }
+  ]
+}
