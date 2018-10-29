@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class CustomInputField : InputField
 {
-
 	protected override void Start() {
-
 		onEndEdit.AddListener(Enter);
 	}
 

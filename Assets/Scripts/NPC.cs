@@ -7,84 +7,78 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
 	[Header("UI")]
-	public Text interactPrompt;
+	public InteractionPrompt interactionPrompt;
 	public TextMesh dialogueText;
 
 	[Header("AI")]
 	public float rotationSpeed = 20;
 	public readonly float playerInteractionRange = 2f;
 
-	private bool _isTalking = false;
 	private Player _player;
+	private ClientScript _client;
 	private string _currentMessage;
+	private bool _isInteracting = false;
+
+	private Coroutine InteractRoutine;
 
 	private void Start() {
+		_client = GetComponent<ClientScript>();
 		NPCManager.Instance.RegisterNPC(this);
+		NPCManager.Instance.onMessageSend.AddListener(GetMessage);
 
 		_player = Player.Instance;
-		_player.StopInteract.AddListener(InteractWithPlayer);
+		_player.onInteractStop.AddListener(StopInteraction);
 
 		//set random rotation at start
 		transform.eulerAngles = new Vector3(GetRandomFloat(-45, 45), GetRandomFloat(-45, 45), GetRandomFloat(-45, 45));
 	}
 
+	void GetMessage(System.Object pMessage) {
+		Debug.Log("Sending message: " + pMessage);
+		_client.SendUserMessage(pMessage.ToString());
+	}
+
 	void StopInteraction() {
-		_isTalking = false;
-		_player.SetInteraction(_isTalking);
-		dialogueText.gameObject.SetActive(_isTalking);
+		StopCoroutine(InteractRoutine);
+		dialogueText.gameObject.SetActive(false);
+
+		_isInteracting = false;
 	}
 
-	void StartInteraction() {
-		if (InInteractRange) {
-			_isTalking = true;
-			_player.SetInteraction(_isTalking);
-			dialogueText.gameObject.SetActive(_isTalking);
-		}
+	public void Interact() {
+		InteractRoutine = StartCoroutine(Interacting());
 	}
 
-	public void InteractWithPlayer() {
-		if (!_isTalking && InInteractRange) {
-			_isTalking = true;
-			_player.SetInteraction(true);
-			dialogueText.gameObject.SetActive(true);
-			return;
-		}
-		_isTalking = !_isTalking;
-		dialogueText.gameObject.SetActive(_isTalking);
-		_player.SetInteraction(_isTalking);
-	}
+	IEnumerator Interacting() {
+		_isInteracting = true;
+		dialogueText.gameObject.SetActive(true);
+		interactionPrompt.EnableText(true);
 
-	void Update() {
-		if (_isTalking) {
-			lock (_player.client.messageQueue) {
-				if (_player.client.messageQueue.Count > 0)
-					dialogueText.text = _player.client.GetMessage;
+		while (true) {
+			lock (_client.messageQueue) {
+				if (_client.messageQueue.Count > 0)
+					dialogueText.text = _client.GetMessage;
 			}
 
 			transform.LookAt(_player.transform);
 
-			interactPrompt.text = "Press MB2 to stop interaction";
+			yield return new WaitForEndOfFrame();
+		}
+	}
 
-			if (Input.GetMouseButtonDown(1)) {
-				_isTalking = false;
-			}
+	void Update() {
+		if (_isInteracting) {
+			interactionPrompt.SetText("Press MB2 to stop interaction");
 		}
 		else {
-			interactPrompt.text = "Press MB1 to interact";
+			interactionPrompt.SetText("Press MB1 to interact");
 			Rotate();
 		}
 
-		if (InInteractRange) {
-			interactPrompt.enabled = true;
+		if (!InInteractRange) {
+			interactionPrompt.EnableText(false);
 		}
-		else {
-			interactPrompt.enabled = false;
-			if (_isTalking) {
-				_isTalking = false;
-				_player.SetInteraction(false);
-				dialogueText.gameObject.SetActive(false);
-			}
-		}
+		else interactionPrompt.EnableText(true);
 	}
 
 	void Rotate() {

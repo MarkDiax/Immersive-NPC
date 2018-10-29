@@ -1,26 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
-public class NPCManager : Singleton<NPCManager>
+public class NPCManager : MonoSingleton<NPCManager>
 {
 	private List<NPC> _NPCs;
 	private Player _player;
 
-	/// <summary>
-	/// Functions as Awake() for this Singleton class.
-	/// </summary>
-	public override void Init() {
+	private Coroutine NPCTracker;
+
+	public Event onMessageSend;
+
+	private void Start() {
 		_NPCs = new List<NPC>();
+		onMessageSend = new Event();
 
 		_player = Player.Instance;
-		_player.OnInteractRequest.AddListener(OnInteractRequest);
+		_player.onInteractRequest.AddListener(OnInteractRequest);
+	}
+
+	private IEnumerator NPCTrackRoutine(NPC pNPC) {
+		yield return new WaitWhile(() => pNPC.InInteractRange);
+
+		_player.onInteractStop.Invoke();
 	}
 
 	private void OnInteractRequest() {
 		NPC npc = GetClosestInteractableNPC();
 		if (npc != null) {
-			npc.InteractWithPlayer();
+			npc.Interact();
+			NPCTracker = StartCoroutine(NPCTrackRoutine(npc));
 		}
 	}
 
