@@ -62,22 +62,28 @@ namespace RogoDigital.Lipsync {
         /// </summary>
         /// <param name="clip">AudioClip to be processed.</param>
         /// <param name="languageModel">Name of a language model present in the project.</param>
-        /// <param name="dataReadyCallback">Method that will receive the results of the process.</param>
+        /// <param name="	dataReadyCallback">Method that will receive the results of the process.</param>
         /// <param name="progressPrefix">Prefix shown on the progress bar.</param>
         /// <param name="enableConversion">If true, audio files will be temporarily converted if possible to maximise compatibility.</param>
         public static void ProcessAudio (AudioClip clip, AutoSyncDataReadyDelegate dataReadyCallback, AutoSyncFailedDelegate failedCallback, string progressPrefix, AutoSyncOptions options) {
-            if (clip == null) return;
+			if (clip == null) {
+				Debug.LogError("AudioClip to process is NULL!");
+				return;
+			}
             EditorUtility.DisplayProgressBar(progressPrefix + " - Analysing Audio File", "Please wait, analysing file " + progressPrefix, 0.1f);
-
             bool converted = false;
-            string audioPath = AssetDatabase.GetAssetPath(clip).Substring("/Assets".Length);
+			string audioPath = "/Resources/Audio/VoiceTest0.wav";
+			//string audioPath = AssetDatabase.GetAssetPath(clip).Substring("/Assets/Resources/Audio".Length);
+			//Debug.Log(audioPath);
 
             if (audioPath != null) {
-                // Get absolute path
-                audioPath = Application.dataPath + "/" + audioPath;
+				// Get absolute path
+				audioPath = Application.dataPath + audioPath;
+				//audioPath = "D:/Projects/_unity/Immersive-NPC/" + audioPath;
+				Debug.Log(audioPath);
 
-                // Check Path
-                if (audioPath.IndexOfAny(Path.GetInvalidPathChars()) >= 0 || Path.GetFileNameWithoutExtension(audioPath).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
+				// Check Path
+				if (audioPath.IndexOfAny(Path.GetInvalidPathChars()) >= 0 || Path.GetFileNameWithoutExtension(audioPath).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
                     EditorUtility.ClearProgressBar();
                     failedCallback.Invoke("AutoSync failed. Audio path or filename contained invalid characters.");
                     return;

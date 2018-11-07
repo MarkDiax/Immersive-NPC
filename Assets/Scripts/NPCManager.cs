@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class NPCManager : MonoSingleton<NPCManager>
 {
-	private List<NPC> _NPCs;
+	private List<NPC> _NPCs = new List<NPC>();
 	private Player _player;
 
 	private Coroutine NPCTracker;

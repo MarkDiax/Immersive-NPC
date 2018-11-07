@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using Crosstales.RTVoice;
+using Crosstales.RTVoice.Model;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,18 +25,18 @@ public class NPC : MonoBehaviour
 	private Coroutine InteractRoutine;
 
 	private void Start() {
-		_client = GetComponent<ClientScript>();
 		NPCManager.Instance.RegisterNPC(this);
-		NPCManager.Instance.onMessageSend.AddListener(GetMessage);
+		NPCManager.Instance.onMessageSend.AddListener(SendUserMessage);
+		_client = GetComponent<ClientScript>();
 
 		_player = Player.Instance;
 		_player.onInteractStop.AddListener(StopInteraction);
 
 		//set random rotation at start
-		transform.eulerAngles = new Vector3(GetRandomFloat(-45, 45), GetRandomFloat(-45, 45), GetRandomFloat(-45, 45));
+		//transform.eulerAngles = new Vector3(GetRandomFloat(-45, 45), GetRandomFloat(-45, 45), GetRandomFloat(-45, 45));
 	}
 
-	void GetMessage(System.Object pMessage) {
+	void SendUserMessage(object pMessage) {
 		Debug.Log("Sending message: " + pMessage);
 		_client.SendUserMessage(pMessage.ToString());
 	}
@@ -57,7 +60,10 @@ public class NPC : MonoBehaviour
 		while (true) {
 			lock (_client.messageQueue) {
 				if (_client.messageQueue.Count > 0)
+				{
 					dialogueText.text = _client.GetMessage;
+					
+				}
 			}
 
 			transform.LookAt(_player.transform);
@@ -72,7 +78,7 @@ public class NPC : MonoBehaviour
 		}
 		else {
 			interactionPrompt.SetText("Press MB1 to interact");
-			Rotate();
+			//Rotate();
 		}
 
 		if (!InInteractRange) {

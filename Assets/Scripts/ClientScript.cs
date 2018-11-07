@@ -1,15 +1,18 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Quobject.SocketIoClientDotNet.Client;
-using Crosstales.RTVoice;
 using UnityEngine.Events;
+using Crosstales.RTVoice;
+using RogoDigital.Lipsync;
 
 public class ClientScript : MonoBehaviour
 {
+	public LipSyncData lipdata;
 	public string serverURL = "http://localhost:5005";
 
 	public bool usingRTVoice = false;
@@ -20,6 +23,8 @@ public class ClientScript : MonoBehaviour
 
 	private List<string> _voiceQueue = new List<string>();
 	public List<string> messageQueue = new List<string>();
+
+	private int _audioFileIndex;
 
 	enum MessageStatus
 	{
@@ -34,11 +39,28 @@ public class ClientScript : MonoBehaviour
 	}
 
 	void Start() {
-		DoOpen();
+		//DoOpen();
+
+	}
+
+	public void TestMessageGeneration(string pMessage) {
+		GenerateAudioFile("Assets/Resources/Audio/", "VoiceTest", pMessage);
+	}
+
+	private void GenerateAudioFile(string FileDirectory, string FileName, string TextToGenerateFrom) {
+		if (!Directory.Exists(FileDirectory))
+			Directory.CreateDirectory(FileDirectory);
+
+		Debug.Log("Generating TTS audio file for text: " + TextToGenerateFrom);
+		Speaker.Generate(TextToGenerateFrom, FileDirectory + FileName + _audioFileIndex, Speaker.VoiceForName(VoiceName));
 	}
 
 	void Update() {
-		UpdateVoiceQueue();
+		if (Input.GetKeyDown(KeyCode.Space))
+			GenerateAudioFile("Assets/Resources/Audio/", "VoiceTest", "hello i am garfield and i love lasagne");
+
+
+		//UpdateVoiceQueue();
 	}
 
 	void UpdateVoiceQueue() {
@@ -48,7 +70,10 @@ public class ClientScript : MonoBehaviour
 					_voiceQueue.RemoveAt(0);
 
 				else if (!audioSource.isPlaying) {
-					Speaker.Speak(_voiceQueue[0], audioSource, Speaker.VoiceForName(VoiceName), true, 1, 1, 1, "_Speeches/TestFile");
+					//Speaker.Speak(_voiceQueue[0], audioSource, Speaker.VoiceForName(VoiceName), true, 1, 1, 1, "_Speeches/TestFile");
+					Speaker.Generate(_voiceQueue[0], "_AudioCache/Voices/VoiceTest" + _audioFileIndex, Speaker.VoiceForName(VoiceName));
+					_audioFileIndex++;
+
 					_voiceQueue.RemoveAt(0);
 				}
 			}
