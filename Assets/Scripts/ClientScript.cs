@@ -13,11 +13,10 @@ using System;
 
 public class ClientScript : MonoSingleton<ClientScript>
 {
-
 	public LipSyncData lipdata;
 	public string serverURL = "http://localhost:5005";
 
-	public bool usingRTVoice = false;
+	public bool usingRTVoice = false; //move to NPC
 	public AudioSource audioSource;
 	public string VoiceName;
 
@@ -26,7 +25,7 @@ public class ClientScript : MonoSingleton<ClientScript>
 	private List<string> _voiceQueue = new List<string>();
 	public List<string> messageQueue = new List<string>();
 
-
+	public Dictionary<object, int> clientRegistry;
 	private int _audioFileIndex;
 
 	enum MessageStatus
@@ -44,7 +43,8 @@ public class ClientScript : MonoSingleton<ClientScript>
 	void Start() {
 		//DoOpen();
 		Speaker.OnSpeakAudioGenerationComplete += OnAudioGenerationComplete;
-		LipSyncPhenomeGenerator.onPhenomeGenerateSuccess += OnPhenomeGenerationComplete;
+		LipSyncPhenomeGenerator.onPhenomeGenerateSuccess += OnPhenomeGenerationComplete; // move this to NPC script
+		LipSyncPhenomeGenerator.onPhenomeGenerateFail += OnPhenomeGenerationFail; // move this to NPC script
 	}
 
 	private void OnPhenomeGenerationComplete(AudioClip audioClip, List<PhonemeMarker> markers) {
@@ -58,18 +58,21 @@ public class ClientScript : MonoSingleton<ClientScript>
 		audioSource.Play();
 	}
 
+	private void OnPhenomeGenerationFail(string pError) {
+		Debug.LogError(pError);
+	}
+
 	private void OnAudioGenerationComplete(Crosstales.RTVoice.Model.Wrapper wrapper) {
 		string filePath = "D:/Projects/_unity/Immersive-NPC/" + wrapper.OutputFile;
 		Debug.Log("Loading from: " + filePath);
 		WWW www = new WWW("file://" + filePath);
-
 		AudioClip clip = www.GetAudioClip(true, true);
 
 		LipSyncPhenomeGenerator.GeneratePhenomes(clip);
 	}
 
 	public void TestMessageGeneration(string pMessage) {
-		GenerateAudioFile("Assets/Resources/Audio/", "VoiceTest", pMessage);
+		GenerateAudioFile("Assets/StreamingAssets/Audio/", "VoiceTest", pMessage);
 	}
 
 	private void GenerateAudioFile(string FileDirectory, string FileName, string TextToGenerateFrom) {
@@ -83,7 +86,7 @@ public class ClientScript : MonoSingleton<ClientScript>
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 
-			GenerateAudioFile("Assets/Resources/Audio/", "VoiceTest", "I did not hit her. Its not true. Its bullshit. I did not hit her. I did naught.");
+			GenerateAudioFile("Assets/StreamingAssets/Audio/", "VoiceTest", "I did not hit her. Its not true. Its bullshit. I did not hit her. I did naught.");
 		}
 
 

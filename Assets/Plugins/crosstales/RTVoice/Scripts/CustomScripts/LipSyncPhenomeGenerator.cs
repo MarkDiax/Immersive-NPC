@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using RogoDigital.Lipsync;
-using System;
+using Crosstales.RTVoice;
 
-namespace Crosstales.RTVoice
+namespace RogoDigital.Lipsync
 {
 	public class LipSyncPhenomeGenerator
 	{
@@ -12,10 +12,6 @@ namespace Crosstales.RTVoice
 
 		public static OnPhenomeGenerationSuccess onPhenomeGenerateSuccess;
 		public static OnPhenomeGenerationFail onPhenomeGenerateFail;
-
-		//place generated audioclip in output channel
-		public AudioSource outputChannel;
-		public bool autoplay;
 
 		/// <summary>
 		/// Generates Phenome set based on the audio clip.

@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
+	[Header("NPC Info")]
+	public string npcName = "Default-NPC";
+
 	[Header("UI")]
 	public InteractionPrompt interactionPrompt;
 	public TextMesh dialogueText;
@@ -88,6 +91,9 @@ public class NPC : MonoBehaviour
 		else interactionPrompt.EnableText(true);
 	}
 
+	/// <summary>
+	/// For idleing cube, remove after whitebox stage.
+	/// </summary>
 	void Rotate() {
 		Vector3 normalizedRotation = transform.eulerAngles.normalized;
 		Vector3 signedVector = new Vector3(Mathf.Sin(normalizedRotation.x), Mathf.Sin(normalizedRotation.y), Mathf.Sin(normalizedRotation.y));

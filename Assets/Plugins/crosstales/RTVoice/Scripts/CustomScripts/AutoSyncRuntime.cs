@@ -7,6 +7,7 @@ using RogoDigital.Lipsync;
 using System;
 using UnityEditor;
 using RogoDigital;
+using System.Collections;
 
 namespace Crosstales.RTVoice
 {
@@ -50,7 +51,7 @@ namespace Crosstales.RTVoice
 			}
 
 			bool converted = false;
-			string audioPath = "/Resources/Audio/VoiceTest0.wav";
+			string subPath, audioPath = "/StreamingAssets/Audio/VoiceTest0.wav";
 			//string audioPath = AssetDatabase.GetAssetPath(clip).Substring("/Assets/Resources/Audio".Length);
 			//Debug.Log(audioPath);
 
@@ -160,8 +161,7 @@ namespace Crosstales.RTVoice
 					if (File.Exists(audioPath)) {
 						File.Delete(audioPath);
 					}
-
-					ProcessAudio(AssetDatabase.LoadAssetAtPath<AudioClip>(tempPaths[0]), MultiClipCallback, failedCallback, options, soxPath);
+					ProcessAudio((AudioClip)Resources.Load(tempPaths[0]), MultiClipCallback, failedCallback, options, soxPath);
 					return;
 				}
 
@@ -190,23 +190,26 @@ namespace Crosstales.RTVoice
 				args.Add("-lw"); args.Add(options.lwValue.ToString());
 
 				SphinxWrapper.Recognize(args.ToArray());
-
+				GameObject o = new GameObject();
+				MonoUpdatePassthrough g = o.AddComponent<MonoUpdatePassthrough>();
+				g.StartCoroutine(Waitforabit());
+				/*
 				ContinuationManager.Add(() => SphinxWrapper.isFinished, () => {
 					if (SphinxWrapper.error != null) {
-						EditorUtility.ClearProgressBar();
 						failedCallback.Invoke("AutoSync Failed.");
-						EditorUtility.DisplayDialog("AutoSync Failed",
-							"AutoSync failed. Check the console for more information.", "OK");
 						return;
 					}
+					Debug.Log("stuff happening3");
 
-					EditorUtility.DisplayProgressBar(progressPrefix + " - Generating Data", "Please wait, generating LipSync data.", 0.85f);
 
 					List<PhonemeMarker> data = ParseOutput(
 							SphinxWrapper.result.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries),
 							model,
 							clip
 						);
+
+					Debug.Log("stuff happening4");
+
 
 					if (options.useAudioConversion) data = CleanupOutput(data, options.cleanupAggression);
 
@@ -215,16 +218,22 @@ namespace Crosstales.RTVoice
 						data
 					);
 
+					Debug.Log("Ready with all bs??");
 					if (converted) {
 						if (File.Exists(audioPath)) {
 							File.Delete(audioPath);
-							AssetDatabase.Refresh();
 						}
 					}
 				});
+				*/
 			}
 		}
 
+		static IEnumerator Waitforabit() {
+			yield return new WaitForSeconds(3f);
+			Debug.Log(SphinxWrapper.isFinished);
+			Debug.Log(SphinxWrapper.dataReady);
+		}
 		/// <summary>
 		/// Begin processing an audioclip. Phoneme data will be passed along with the input AudioClip to the AutoSyncDataReadyDelegate callback. 
 		/// </summary>
@@ -251,7 +260,7 @@ namespace Crosstales.RTVoice
 
 			if (multiFileIndex < tempData.Length) {
 				tempOptions.useAudioConversion = false;
-				ProcessAudio(AssetDatabase.LoadAssetAtPath<AudioClip>(tempPaths[multiFileIndex]), MultiClipCallback, tempFailDelegate, tempOptions);
+				ProcessAudio((AudioClip)Resources.Load(tempPaths[multiFileIndex]), MultiClipCallback, tempFailDelegate, tempOptions);
 			}
 			else {
 				// Delete temp files
@@ -305,28 +314,7 @@ namespace Crosstales.RTVoice
 
 			Dictionary<string, string> phonemeMapper = new Dictionary<string, string>();
 
-			// Get Settings File
-			string[] guids = AssetDatabase.FindAssets("ProjectSettings t:LipSyncProject");
-			string path = "";
-
-			if (guids.Length > 0) {
-				path = AssetDatabase.GUIDToAssetPath(guids[0]);
-
-				if (guids.Length > 1) Debug.LogWarning("LipSync: Multiple LipSyncProject files found. Only one will be used.");
-			}
-
-			LipSyncProject settings = (LipSyncProject)AssetDatabase.LoadAssetAtPath(path, typeof(LipSyncProject));
-
-			if (settings == null) {
-				LipSyncProject newSettings = ScriptableObject.CreateInstance<LipSyncProject>();
-				newSettings.emotions = new string[] { "default" };
-				newSettings.emotionColors = new Color[] { new Color(1f, 0.7f, 0.1f) };
-
-				AssetDatabase.CreateAsset(settings, "Assets/Rogo Digital/LipSync Pro/ProjectSettings.asset");
-				AssetDatabase.Refresh();
-
-				settings = newSettings;
-			}
+			LipSyncProject settings = LipSyncRuntimeManager.Instance.projectSettings;
 
 			if (lm.phonemeMapper.Length == 0) {
 				// Default Phoneme Mapper

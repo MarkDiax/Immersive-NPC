@@ -13,18 +13,8 @@ namespace RogoDigital.Lipsync {
         public static bool dataReady = false;
         public static bool isFinished = false;
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-#if UNITY_EDITOR_64
-		[DllImport("Assets/Plugins/Editor/Rogo Digital/LipSync/AutoSync 64bit/libpocketsphinx.3.dylib", EntryPoint = "ps_run")]
-		public static extern int psRun([MarshalAs(UnmanagedType.FunctionPtr)] MessageCallback msgCallbackPtr, [MarshalAs(UnmanagedType.FunctionPtr)] ResultCallback resCallbackPtr, int argsCount, string[] argsArray);
-#else
-		[DllImport("Assets/Plugins/Editor/Rogo Digital/LipSync/AutoSync 32bit/libpocketsphinx.3.dylib", EntryPoint = "ps_run")]
-		public static extern int psRun([MarshalAs(UnmanagedType.FunctionPtr)] MessageCallback msgCallbackPtr, [MarshalAs(UnmanagedType.FunctionPtr)] ResultCallback resCallbackPtr, int argsCount, string[] argsArray);
-#endif
-#else
         [DllImport("pocketsphinx", EntryPoint = "ps_run")]
         public static extern int psRun ([MarshalAs(UnmanagedType.FunctionPtr)] MessageCallback msgCallbackPtr, [MarshalAs(UnmanagedType.FunctionPtr)] ResultCallback resCallbackPtr, int argsCount, string[] argsArray);
-#endif
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate void MessageCallback (string value);
@@ -36,6 +26,7 @@ namespace RogoDigital.Lipsync {
         public static void Recognize (string[] args, bool multiThread = true) {
             dataReady = false;
             isFinished = false;
+
             if (SystemInfo.processorCount == 1) multiThread = false;
 
             RecognizeProcess(args, multiThread);
@@ -136,11 +127,9 @@ namespace RogoDigital.Lipsync {
             return result;
         }
 
-
         static void RemoveSIL () {
             result = result.Replace("SIL ", "").Replace(" SIL", "");
         }
-
 
         static string[] ConvertToPhonemes (string dictFile, string[] words) {
             string line;
@@ -171,19 +160,6 @@ namespace RogoDigital.Lipsync {
                 }
             }
             return null;
-        }
-    }
-
-    public class PluginPathClass {
-        public string currentPath;
-        public string dllPath;
-
-        public PluginPathClass () {
-            currentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
-            dllPath = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "Assets" + Path.DirectorySeparatorChar + "Plugins";
-            if (currentPath.Contains(dllPath) == false) {
-                Environment.SetEnvironmentVariable("PATH", currentPath + Path.PathSeparator + dllPath, EnvironmentVariableTarget.Process);
-            }
         }
     }
 }
