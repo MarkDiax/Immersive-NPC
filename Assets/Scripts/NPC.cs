@@ -25,6 +25,7 @@ public class NPC : MonoBehaviour
 	private Coroutine InteractRoutine;
 
 	private void Start() {
+
 		NPCManager.Instance.RegisterNPC(this);
 		NPCManager.Instance.onMessageSend.AddListener(SendUserMessage);
 		_client = GetComponent<ClientScript>();

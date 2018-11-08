@@ -9,9 +9,11 @@ using Quobject.SocketIoClientDotNet.Client;
 using UnityEngine.Events;
 using Crosstales.RTVoice;
 using RogoDigital.Lipsync;
+using System;
 
-public class ClientScript : MonoBehaviour
+public class ClientScript : MonoSingleton<ClientScript>
 {
+
 	public LipSyncData lipdata;
 	public string serverURL = "http://localhost:5005";
 
@@ -23,6 +25,7 @@ public class ClientScript : MonoBehaviour
 
 	private List<string> _voiceQueue = new List<string>();
 	public List<string> messageQueue = new List<string>();
+
 
 	private int _audioFileIndex;
 
@@ -40,7 +43,29 @@ public class ClientScript : MonoBehaviour
 
 	void Start() {
 		//DoOpen();
+		Speaker.OnSpeakAudioGenerationComplete += OnAudioGenerationComplete;
+		LipSyncPhenomeGenerator.onPhenomeGenerateSuccess += OnPhenomeGenerationComplete;
+	}
 
+	private void OnPhenomeGenerationComplete(AudioClip audioClip, List<PhonemeMarker> markers) {
+		LipSyncData data = lipdata;// CreateInstance<LipSyncData>();
+		data.clip = audioClip;
+		data.phonemeData = markers.ToArray();
+
+		Debug.Log("Playing LipSync data");
+		GetComponent<LipSync>().Play(data);
+		audioSource.clip = audioClip;
+		audioSource.Play();
+	}
+
+	private void OnAudioGenerationComplete(Crosstales.RTVoice.Model.Wrapper wrapper) {
+		string filePath = "D:/Projects/_unity/Immersive-NPC/" + wrapper.OutputFile;
+		Debug.Log("Loading from: " + filePath);
+		WWW www = new WWW("file://" + filePath);
+
+		AudioClip clip = www.GetAudioClip(true, true);
+
+		LipSyncPhenomeGenerator.GeneratePhenomes(clip);
 	}
 
 	public void TestMessageGeneration(string pMessage) {
@@ -56,8 +81,10 @@ public class ClientScript : MonoBehaviour
 	}
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space))
-			GenerateAudioFile("Assets/Resources/Audio/", "VoiceTest", "hello i am garfield and i love lasagne");
+		if (Input.GetKeyDown(KeyCode.Space)) {
+
+			GenerateAudioFile("Assets/Resources/Audio/", "VoiceTest", "I did not hit her. Its not true. Its bullshit. I did not hit her. I did naught.");
+		}
 
 
 		//UpdateVoiceQueue();
