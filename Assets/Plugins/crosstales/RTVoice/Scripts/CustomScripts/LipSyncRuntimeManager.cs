@@ -7,7 +7,7 @@ namespace RogoDigital.Lipsync
 	{
 		public AutoSyncRTLanguageModel languageModel;
 		public LipSyncProject projectSettings;
-		public string languageModelPath = "Resources/Language Models/EN-US/";
+		public string languageModelPath = "StreamingAssets/Language Models/EN-US/";
 
 		private static LipSyncRuntimeManager _instance;
 		private static bool _initialized;

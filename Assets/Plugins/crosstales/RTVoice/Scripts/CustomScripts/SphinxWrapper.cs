@@ -115,8 +115,7 @@ namespace RogoDigital.Lipsync {
                     }
                 } catch (Exception e) {
                     error = "FAILED: " + e.Message;
-                    return error;
-
+					return error;
                 }
 
 

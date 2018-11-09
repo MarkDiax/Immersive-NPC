@@ -391,6 +391,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114867677314581376, guid: 6be85666cbedc994d936ba64f80cc08e,
+        type: 2}
+      propertyPath: languageModelPath
+      value: StreamingAssets/Language Models/EN-US/
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6be85666cbedc994d936ba64f80cc08e, type: 2}
   m_IsPrefabAsset: 0

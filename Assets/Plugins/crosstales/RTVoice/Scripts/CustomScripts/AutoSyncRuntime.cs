@@ -72,7 +72,7 @@ namespace Crosstales.RTVoice
 				if (options.useAudioConversion) {
 					converted = true;
 
-					string newAudioPath = Application.dataPath + "/" + Path.GetFileNameWithoutExtension(audioPath) + "_temp_converted.wav";
+					string newAudioPath = Application.dataPath + "/StreamingAssets/Audio/" + Path.GetFileNameWithoutExtension(audioPath) + "_temp_converted.wav";
 
 					// Convert to compatible .wav file
 					string soXArgs = "\"" + audioPath + "\" -c 1 -b 16 -e s -r 16k \"" + newAudioPath + "\"";
@@ -190,25 +190,18 @@ namespace Crosstales.RTVoice
 				args.Add("-lw"); args.Add(options.lwValue.ToString());
 
 				SphinxWrapper.Recognize(args.ToArray());
-				GameObject o = new GameObject();
-				MonoUpdatePassthrough g = o.AddComponent<MonoUpdatePassthrough>();
-				g.StartCoroutine(Waitforabit());
-				/*
+
 				ContinuationManager.Add(() => SphinxWrapper.isFinished, () => {
 					if (SphinxWrapper.error != null) {
 						failedCallback.Invoke("AutoSync Failed.");
 						return;
 					}
-					Debug.Log("stuff happening3");
-
 
 					List<PhonemeMarker> data = ParseOutput(
 							SphinxWrapper.result.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries),
 							model,
 							clip
 						);
-
-					Debug.Log("stuff happening4");
 
 
 					if (options.useAudioConversion) data = CleanupOutput(data, options.cleanupAggression);
@@ -218,22 +211,15 @@ namespace Crosstales.RTVoice
 						data
 					);
 
-					Debug.Log("Ready with all bs??");
 					if (converted) {
 						if (File.Exists(audioPath)) {
 							File.Delete(audioPath);
 						}
 					}
 				});
-				*/
 			}
 		}
 
-		static IEnumerator Waitforabit() {
-			yield return new WaitForSeconds(3f);
-			Debug.Log(SphinxWrapper.isFinished);
-			Debug.Log(SphinxWrapper.dataReady);
-		}
 		/// <summary>
 		/// Begin processing an audioclip. Phoneme data will be passed along with the input AudioClip to the AutoSyncDataReadyDelegate callback. 
 		/// </summary>
