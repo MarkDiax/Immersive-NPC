@@ -6,11 +6,13 @@ using System.Data;
 using System;
 
 
+
 public class DatabaseLoader : MonoBehaviour {
 
     void Start() {
-        LoadSomeData();
+        //LoadSomeData();
     }
+
 
 
     private void LoadSomeData() {
