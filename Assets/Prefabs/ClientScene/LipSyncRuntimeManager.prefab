@@ -52,4 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   languageModel: {fileID: 11400000, guid: 4797e6cede23ae644a8ba5158e4e2237, type: 2}
+  languageModelPath: StreamingAssets/Language Models/EN-US/
+  rtVoiceModel: Microsoft Zira Desktop
+  audioSavePath: StreamingAssets/Audio/
+  lipSyncData: {fileID: 11400000, guid: bac9405a87792594cbf9c55c6606fb12, type: 2}
   projectSettings: {fileID: 11400000, guid: 9b2ff63322d0223438d40d7ed35a642b, type: 2}

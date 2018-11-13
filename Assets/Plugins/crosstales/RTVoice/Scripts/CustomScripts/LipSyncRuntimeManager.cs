@@ -5,9 +5,18 @@ namespace RogoDigital.Lipsync
 {
 	public class LipSyncRuntimeManager : MonoBehaviour
 	{
+		[Header("RTVoice/Audio Settings")]
 		public AutoSyncRTLanguageModel languageModel;
-		public LipSyncProject projectSettings;
 		public string languageModelPath = "StreamingAssets/Language Models/EN-US/";
+		public string rtVoiceModel = "Microsoft Zira Desktop";
+
+		public string StreamingAssetsAudioPath {
+			get{ return Application.streamingAssetsPath + "/Audio/"; }
+		}
+
+		[Header("LipSync Settings")]
+		public LipSyncData lipSyncData;
+		public LipSyncProject projectSettings;
 
 		private static LipSyncRuntimeManager _instance;
 		private static bool _initialized;

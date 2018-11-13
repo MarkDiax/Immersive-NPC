@@ -25,6 +25,13 @@ namespace Crosstales.RTVoice
 		private static float multiFileOffset = 0;
 
 		private static string savedSoxPath;
+
+		public static string audioPath;
+
+		public static void SetAudioPath(string pAudioPath) {
+			audioPath = pAudioPath;
+		}
+
 		/// <summary>
 		/// Begin processing an audioclip. Phoneme data will be passed along with the input AudioClip to the AutoSyncDataReadyDelegate callback. 
 		/// </summary>
@@ -51,15 +58,9 @@ namespace Crosstales.RTVoice
 			}
 
 			bool converted = false;
-			string subPath, audioPath = "/StreamingAssets/Audio/VoiceTest0.wav";
-			//string audioPath = AssetDatabase.GetAssetPath(clip).Substring("/Assets/Resources/Audio".Length);
-			//Debug.Log(audioPath);
 
 			if (audioPath != null) {
-				// Get absolute path
-				audioPath = Application.dataPath + audioPath;
-				//audioPath = "D:/Projects/_unity/Immersive-NPC/" + audioPath;
-				Debug.Log(audioPath);
+				Debug.Log("Generating LipSync phonemes from: " + audioPath);
 
 				// Check Path
 				if (audioPath.IndexOfAny(Path.GetInvalidPathChars()) >= 0 || Path.GetFileNameWithoutExtension(audioPath).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
@@ -72,11 +73,18 @@ namespace Crosstales.RTVoice
 				if (options.useAudioConversion) {
 					converted = true;
 
-					string newAudioPath = Application.dataPath + "/StreamingAssets/Audio/" + Path.GetFileNameWithoutExtension(audioPath) + "_temp_converted.wav";
+					string tempFileDir = LipSyncRuntimeManager.Instance.StreamingAssetsAudioPath + "Temp/";
+					if (Directory.Exists(tempFileDir))
+						Directory.Delete(tempFileDir, true);
+					Directory.CreateDirectory(tempFileDir);
+
+					string newAudioPath = tempFileDir + Path.GetFileNameWithoutExtension(audioPath) + "_temp_converted.wav";
 
 					// Convert to compatible .wav file
 					string soXArgs = "\"" + audioPath + "\" -c 1 -b 16 -e s -r 16k \"" + newAudioPath + "\"";
 					audioPath = newAudioPath;
+
+					Debug.Log("Creating temporary file: " + audioPath);
 
 					System.Diagnostics.Process process = new System.Diagnostics.Process();
 					process.StartInfo.FileName = savedSoxPath;
@@ -99,71 +107,10 @@ namespace Crosstales.RTVoice
 					process.Start();
 					process.BeginErrorReadLine();
 					process.WaitForExit(5000);
-
 				}
 
 				if (!File.Exists(audioPath) || failed)
 					return;
-
-				// Split into multiple clips if necessary
-				if (clip.length > 30 && options.useAudioConversion) {
-
-					multiFileLength = clip.length;
-					multiFileOffset = 0;
-					tempData = new List<PhonemeMarker>[Mathf.CeilToInt(clip.length / 30)];
-					tempPaths = new string[Mathf.CeilToInt(clip.length / 30)];
-
-					// Create paths
-					for (int l = 0; l < Mathf.CeilToInt(clip.length / 30); l++) {
-						tempPaths[l] = Application.dataPath + "/" + Path.GetFileNameWithoutExtension(audioPath) + "_chunk_" + (l + 1) + ".wav";
-					}
-
-					string soXArgs = "\"" + audioPath + "\" \"" + Application.dataPath + "/" + Path.GetFileNameWithoutExtension(audioPath) + "_chunk_%1n.wav\" trim 0 30 : newfile : restart";
-
-					System.Diagnostics.Process process = new System.Diagnostics.Process();
-					process.StartInfo.FileName = soxPath;
-					process.StartInfo.Arguments = soXArgs;
-					process.StartInfo.UseShellExecute = false;
-					process.StartInfo.CreateNoWindow = true;
-					process.StartInfo.RedirectStandardError = true;
-
-					process.ErrorDataReceived += (object e, System.Diagnostics.DataReceivedEventArgs outLine) => {
-						if (!string.IsNullOrEmpty(outLine.Data)) {
-							if (outLine.Data.Contains("FAIL")) {
-								failedCallback.Invoke("AutoSync: SoX Audio Splitting Failed: " + outLine.Data);
-								failed = true;
-								converted = false;
-								process.Close();
-							}
-						}
-					};
-
-					process.Start();
-					process.BeginErrorReadLine();
-					process.WaitForExit(5000);
-
-					if (!File.Exists(audioPath) || failed)
-						return;
-
-					// Fix paths
-					for (int l = 0; l < tempPaths.Length; l++) {
-						tempPaths[l] = "Assets" + tempPaths[l].Substring(Application.dataPath.Length);
-					}
-
-					// Delete overlong temporary converted file and prevent autosync from attempting it
-					tempDelegate = dataReadyCallback;
-					tempFailDelegate = failedCallback;
-					tempClip = clip;
-					tempOptions = options;
-
-					multiFileIndex = 0;
-
-					if (File.Exists(audioPath)) {
-						File.Delete(audioPath);
-					}
-					ProcessAudio((AudioClip)Resources.Load(tempPaths[0]), MultiClipCallback, failedCallback, options, soxPath);
-					return;
-				}
 
 				// Load Language Model
 				AutoSyncRTLanguageModel model = AutoSyncRTLanguageModel.Load(options.languageModel);
@@ -229,42 +176,6 @@ namespace Crosstales.RTVoice
 		/// <param name="enableConversion">If true, audio files will be temporarily converted if possible to maximise compatibility.</param>
 		public static void ProcessAudio(AudioClip clip, AutoSyncDataReadyDelegate callback, AutoSyncFailedDelegate failedCallback, AutoSyncOptions options, string soxPath = null) {
 			ProcessAudio(clip, callback, failedCallback, "", options, soxPath);
-		}
-
-		// Delegate for assembling multiple files together
-		private static void MultiClipCallback(AudioClip clip, List<PhonemeMarker> data) {
-			// Adjust data to fit within subclip
-			for (int i = 0; i < data.Count; i++) {
-				float newTime = multiFileOffset + (data[i].time * (clip.length / multiFileLength));
-				data[i].time = newTime;
-			}
-
-			tempData[multiFileIndex] = data;
-
-			multiFileIndex++;
-			multiFileOffset += (clip.length / multiFileLength);
-
-			if (multiFileIndex < tempData.Length) {
-				tempOptions.useAudioConversion = false;
-				ProcessAudio((AudioClip)Resources.Load(tempPaths[multiFileIndex]), MultiClipCallback, tempFailDelegate, tempOptions);
-			}
-			else {
-				// Delete temp files
-				foreach (string path in tempPaths) {
-					if (File.Exists(path)) {
-						File.Delete(path);
-					}
-				}
-
-				// Final assembly
-				List<PhonemeMarker> finalMarkers = new List<PhonemeMarker>();
-
-				foreach (List<PhonemeMarker> markers in tempData) {
-					finalMarkers.AddRange(markers);
-				}
-
-				tempDelegate.Invoke(tempClip, finalMarkers);
-			}
 		}
 
 		public static List<PhonemeMarker> CleanupOutput(List<PhonemeMarker> data, float aggressiveness) {

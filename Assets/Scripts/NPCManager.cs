@@ -10,12 +10,7 @@ public class NPCManager : MonoSingleton<NPCManager>
 
 	private Coroutine NPCTracker;
 
-	public BasicEvent onMessageSend;
-
 	private void Start() {
-		_NPCs = new List<NPC>();
-		onMessageSend = new BasicEvent();
-
 		_player = Player.Instance;
 		_player.onInteractRequest.AddListener(OnInteractRequest);
 	}

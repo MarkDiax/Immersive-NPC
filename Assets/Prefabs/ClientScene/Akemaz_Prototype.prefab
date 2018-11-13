@@ -260,8 +260,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f2d6afe568dab594199362b87ce57820, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -495,14 +495,14 @@ MonoBehaviour:
     bones: []
     verified: 1
     emotion: Sad
-  playOnAwake: 1
+  playOnAwake: 0
   loop: 0
   defaultClip: {fileID: 11400000, guid: e3fb6b0c14105a54491a0d667e344624, type: 2}
   defaultDelay: 2
-  scaleAudioSpeed: 1
+  scaleAudioSpeed: 0
   m_animationTimingMode: 0
   frameRate: 30
-  restTime: 0.2
+  restTime: 0.3
   restHoldTime: 0.4
   phonemeCurveGenerationMode: 1
   emotionCurveGenerationMode: 0
@@ -6310,9 +6310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverURL: http://localhost:5005
-  usingRTVoice: 1
-  audioSource: {fileID: 0}
-  VoiceName: Microsoft Zira Desktop
   messageQueue: []
 --- !u!114 &114869650610549876
 MonoBehaviour:
@@ -6362,6 +6359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796520edf792e8c4f847ac0cce9a60b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcName: Akemaz
   interactionPrompt: {fileID: 0}
   dialogueText: {fileID: 0}
   rotationSpeed: 20

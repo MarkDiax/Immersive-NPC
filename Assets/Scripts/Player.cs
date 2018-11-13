@@ -21,7 +21,6 @@ public class Player : MonoSingleton<Player>
 	private void Start() {
 		_controller = GetComponent<FirstPersonController>();
 
-		inputField.onEndEdit.AddListener(SendUserMessage);
 		onInteractRequest.AddListener(OnInteractStart);
 		onInteractStop.AddListener(OnInteractStop);
 	}
@@ -46,7 +45,7 @@ public class Player : MonoSingleton<Player>
 		if (string.IsNullOrEmpty(Message))
 			return;
 
-		NPCManager.Instance.onMessageSend.Invoke(Message);
+		//NPCManager.Instance.onMessageSend.Invoke(Message);
 	}
 
 	private void Update() {

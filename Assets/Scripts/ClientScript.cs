@@ -1,32 +1,21 @@
-﻿using System.IO;
-using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Quobject.SocketIoClientDotNet.Client;
-using UnityEngine.Events;
-using Crosstales.RTVoice;
-using RogoDigital.Lipsync;
-using System;
 
-public class ClientScript : MonoSingleton<ClientScript>
+
+public class ClientScript : MonoBehaviour
 {
-	public LipSyncData lipdata;
 	public string serverURL = "http://localhost:5005";
 
-	public bool usingRTVoice = false; //move to NPC
-	public AudioSource audioSource;
-	public string VoiceName;
+	public delegate void OnMessageReceived(ServerPackage serverPackage);
+	public OnMessageReceived onMessageReceived;
 
-	protected Socket socket = null;
+	public readonly object eventLocker = new object();
 
-	private List<string> _voiceQueue = new List<string>();
-	public List<string> messageQueue = new List<string>();
-
-	public Dictionary<object, int> clientRegistry;
-	private int _audioFileIndex;
+	private Socket _socket = null;
+	private List<ServerPackage> _packageQueue = new List<ServerPackage>();
 
 	enum MessageStatus
 	{
@@ -40,135 +29,59 @@ public class ClientScript : MonoSingleton<ClientScript>
 		DoClose();
 	}
 
-	void Start() {
-		//DoOpen();
-		Speaker.OnSpeakAudioGenerationComplete += OnAudioGenerationComplete;
-		LipSyncPhenomeGenerator.onPhenomeGenerateSuccess += OnPhenomeGenerationComplete; // move this to NPC script
-		LipSyncPhenomeGenerator.onPhenomeGenerateFail += OnPhenomeGenerationFail; // move this to NPC script
-	}
-
-	private void OnPhenomeGenerationComplete(AudioClip audioClip, List<PhonemeMarker> markers) {
-		LipSyncData data = lipdata;// CreateInstance<LipSyncData>();
-		data.clip = audioClip;
-		data.phonemeData = markers.ToArray();
-
-		Debug.Log("Playing LipSync data");
-		GetComponent<LipSync>().Play(data);
-		audioSource.clip = audioClip;
-		audioSource.Play();
-	}
-
-	private void OnPhenomeGenerationFail(string pError) {
-		Debug.LogError(pError);
-	}
-
-	private void OnAudioGenerationComplete(Crosstales.RTVoice.Model.Wrapper wrapper) {
-		string filePath = "D:/Projects/_unity/Immersive-NPC/" + wrapper.OutputFile;
-		Debug.Log("Loading from: " + filePath);
-		WWW www = new WWW("file://" + filePath);
-		AudioClip clip = www.GetAudioClip(true, true);
-
-		LipSyncPhenomeGenerator.GeneratePhenomes(clip);
-	}
-
-	public void TestMessageGeneration(string pMessage) {
-		GenerateAudioFile("Assets/StreamingAssets/Audio/", "VoiceTest", pMessage);
-	}
-
-	private void GenerateAudioFile(string FileDirectory, string FileName, string TextToGenerateFrom) {
-		if (!Directory.Exists(FileDirectory))
-			Directory.CreateDirectory(FileDirectory);
-
-		Debug.Log("Generating TTS audio file for text: " + TextToGenerateFrom);
-		Speaker.Generate(TextToGenerateFrom, FileDirectory + FileName + _audioFileIndex, Speaker.VoiceForName(VoiceName));
-	}
-
-	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space)) {
-
-			GenerateAudioFile("Assets/StreamingAssets/Audio/", "VoiceTest", "I did not hit her. Its not true. Its bullshit. I did not hit her. I did naught.");
-		}
-
-
-		//UpdateVoiceQueue();
-	}
-
-	void UpdateVoiceQueue() {
-		lock (_voiceQueue) {
-			if (_voiceQueue.Count > 0) {
-				if (string.IsNullOrEmpty(_voiceQueue[0]))
-					_voiceQueue.RemoveAt(0);
-
-				else if (!audioSource.isPlaying) {
-					//Speaker.Speak(_voiceQueue[0], audioSource, Speaker.VoiceForName(VoiceName), true, 1, 1, 1, "_Speeches/TestFile");
-					Speaker.Generate(_voiceQueue[0], "_AudioCache/Voices/VoiceTest" + _audioFileIndex, Speaker.VoiceForName(VoiceName));
-					_audioFileIndex++;
-
-					_voiceQueue.RemoveAt(0);
+	private void Update() {
+		if (_packageQueue.Count > 0) {
+			//Send the event here, in the main thread, because every action 
+			//after this has to be called in the main thread as well.
+			lock (eventLocker) {
+				for (int i = _packageQueue.Count; i-- > 0;) {
+					onMessageReceived.Invoke(_packageQueue[i]);
+					_packageQueue.RemoveAt(i);
 				}
 			}
 		}
 	}
 
-	public void DoOpen() {
-		if (socket == null) {
-			socket = IO.Socket(serverURL);
-			socket.On(Socket.EVENT_CONNECT, () => {
-				ReadyMessage("Socket.IO connected.");
+	public void OpenServerChannel() {
+		if (_socket == null) {
+			Debug.Log("Connecting to server..");
+
+			_socket = IO.Socket(serverURL);
+			_socket.On(Socket.EVENT_CONNECT, () => {
+				Debug.Log("Socket.IO connected.");
 			});
 
-			socket.On("bot_uttered", (data) => {
+			_socket.On("bot_uttered", (data) => {
 
 				var jsonString = JsonConvert.SerializeObject(data);
 				var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
 
-				string strChatLog = "Server: " + serverMessage.text;
+				if (string.IsNullOrEmpty(serverMessage.text) || string.IsNullOrWhiteSpace(serverMessage.text))
+					Debug.LogError("Server text was null or whitespace! Ignoring server message.");
+				else {
+					string strChatLog = "Server: " + serverMessage.text;
+					Debug.Log(strChatLog);
 
-				ReadyMessage(serverMessage.text);
-				ReadyVoiceMessage(serverMessage.text);
+					//add message to list that is iterated on in the main thread
+					lock (eventLocker)
+						_packageQueue.Add(serverMessage);
+				}
 			});
 		}
 	}
 
-	public string GetMessage {
-		get {
-			lock (messageQueue) {
-				if (messageQueue.Count > 0) {
-					string message = messageQueue[0];
-					messageQueue.RemoveAt(0);
-					return message;
-				}
-
-				return null;
-			}
-		}
-	}
-
 	public void SendUserMessage(string str) {
-		if (socket != null) {
+		if (_socket != null) {
 			JObject message = new JObject();
 			message.Add("message", str);
-			socket.Emit("user_uttered", message);
-		}
-	}
-
-	private void ReadyMessage(string Message) {
-		lock (messageQueue) {
-			messageQueue.Add(Message);
-		}
-	}
-
-	public void ReadyVoiceMessage(string Message) {
-		lock (_voiceQueue) {
-			if (usingRTVoice)
-				_voiceQueue.Add(Message);
+			_socket.Emit("user_uttered", message);
 		}
 	}
 
 	public virtual void DoClose() {
-		if (socket != null) {
-			socket.Disconnect();
-			socket = null;
+		if (_socket != null) {
+			_socket.Disconnect();
+			_socket = null;
 		}
 	}
 
