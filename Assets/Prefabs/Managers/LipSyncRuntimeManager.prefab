@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1568784177548486}
+  m_RootGameObject: {fileID: 1254146471898134}
   m_IsPrefabAsset: 1
---- !u!1 &1568784177548486
+--- !u!1 &1254146471898134
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4980190286704022}
-  - component: {fileID: 114867677314581376}
+  - component: {fileID: 4979328333360546}
+  - component: {fileID: 114661804703043570}
   m_Layer: 0
   m_Name: LipSyncRuntimeManager
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4980190286704022
+--- !u!4 &4979328333360546
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1568784177548486}
+  m_GameObject: {fileID: 1254146471898134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +40,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114867677314581376
+--- !u!114 &114661804703043570
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1568784177548486}
+  m_GameObject: {fileID: 1254146471898134}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a691581faa220b44bb487e07df63d2ba, type: 3}
@@ -54,6 +54,5 @@ MonoBehaviour:
   languageModel: {fileID: 11400000, guid: 4797e6cede23ae644a8ba5158e4e2237, type: 2}
   languageModelPath: StreamingAssets/Language Models/EN-US/
   rtVoiceModel: Microsoft Zira Desktop
-  audioSavePath: StreamingAssets/Audio/
   lipSyncData: {fileID: 11400000, guid: bac9405a87792594cbf9c55c6606fb12, type: 2}
   projectSettings: {fileID: 11400000, guid: 9b2ff63322d0223438d40d7ed35a642b, type: 2}

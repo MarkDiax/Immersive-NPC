@@ -9,56 +9,48 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1580676178484164}
+  m_RootGameObject: {fileID: 1104403508801220}
   m_IsPrefabAsset: 1
---- !u!1 &1580676178484164
+--- !u!1 &1104403508801220
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4166950557281926}
-  - component: {fileID: 114914587592989152}
+  - component: {fileID: 4502850581606108}
+  - component: {fileID: 114931898895856466}
   m_Layer: 0
-  m_Name: SocketIO
+  m_Name: NPCManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4166950557281926
+--- !u!4 &4502850581606108
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1580676178484164}
+  m_GameObject: {fileID: 1104403508801220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.38369668, y: 0.22454405, z: 3.8730378}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114914587592989152
+--- !u!114 &114931898895856466
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1580676178484164}
+  m_GameObject: {fileID: 1104403508801220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd029138c4f061342918787f2558425c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62dcb2363aa4ef3439655ef84bd077f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverURL: http://localhost:5005
-  uiInput: {fileID: 0}
-  uiSend: {fileID: 0}
-  messagePlaceholder: {fileID: 114076591651386530, guid: 9cf1ab514d12164469e500e3bbd0fd0c,
-    type: 2}
-  scrollRect: {fileID: 0}
-  scrollSpeed: 1.5
-  maxMessageCount: 50
-  usingRTVoice: 0
-  audioSource: {fileID: 0}
-  VoiceName: Microsoft Zira Desktop
+  dontDestroyOnLoad: 1
+  npcInteractionPrompt: {fileID: 0}
+  currentInteractingNPC: {fileID: 0}

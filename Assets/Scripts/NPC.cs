@@ -14,34 +14,29 @@ public class NPC : MonoBehaviour
 	[Header("NPC Info")]
 	public string npcName = "Default-NPC";
 
-	[Header("UI")]
-	public InteractionPrompt interactionPrompt;
-	public TextMesh dialogueText;
-
 	[Header("AI")]
-	public float rotationSpeed = 20;
-	public readonly float playerInteractionRange = 2f;
+	public float playerInteractionRange = 3f;
 
 	private Player _player;
 	private ClientScript _client;
 	private LipSync _lipSync;
 	private AudioSource _audioSource;
-	private string _currentMessage;
-	private bool _isInteracting = false;
-	private Coroutine _interactRoutine;
+
+	private bool _processingMessage;
+
+	private List<ServerPackage> _messageQueue = new List<ServerPackage>();
 
 	private void Start() {
 		NPCManager.Instance.RegisterNPC(this);
 
 		_player = Player.Instance;
-		_player.onInteractStop.AddListener(StopInteraction);
 
 		_client = GetComponent<ClientScript>();
 		_lipSync = GetComponent<LipSync>();
 		_audioSource = GetComponent<AudioSource>();
 
-		_client.onMessageReceived += GenerateAudioFile;
-		_client.OpenServerChannel();
+		//_client.onMessageReceived += OnMessageReceived;
+		//_client.OpenServerChannel();
 
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
@@ -49,58 +44,56 @@ public class NPC : MonoBehaviour
 	}
 
 	public void SendUserMessage(string pMessage) {
-		Debug.Log("Sending message: " + pMessage);
-		_client.SendUserMessage(pMessage);
-	}
+		if (string.IsNullOrEmpty(pMessage) || string.IsNullOrWhiteSpace(pMessage))
+			return;
 
-	private void StopInteraction() {
-		StopCoroutine(_interactRoutine);
-		dialogueText.gameObject.SetActive(false);
+		if (_client.IsConnected) {
+			Debug.Log("Sending message: " + pMessage);
+			_client.SendUserMessage(pMessage);
+		}
 
-		_isInteracting = false;
+		//FOR DEBUGGING ONLY
+		else {
+			ServerPackage package = new ServerPackage {
+				text = pMessage
+			};
+			OnMessageReceived(package);
+		}
+		//
 	}
 
 	public void Interact() {
-		_interactRoutine = StartCoroutine(Interacting());
-	}
-
-	private IEnumerator Interacting() {
-		//_isInteracting = true;
-		//dialogueText.gameObject.SetActive(true);
-		//interactionPrompt.EnableText(true);
-
-		//while (true) {
-		//	lock (_client.messageQueue) {
-		//		if (_client.messageQueue.Count > 0) {
-		//			dialogueText.text = _client.GetMessage;
-
-		//		}
-		//	}
-
-		//	transform.LookAt(_player.transform);
-
-		yield return new WaitForEndOfFrame();
-		//}
+		Vector3 localEuler = transform.eulerAngles;
+		transform.LookAt(_player.transform);
+		transform.eulerAngles = new Vector3(localEuler.x, transform.eulerAngles.y, localEuler.z);
 	}
 
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Semicolon)) {
-			LipSyncRuntimeGenerator.GenerateAudioFile("This is an example for the lipsync generation in runtime.", npcName);
+			ServerPackage p = new ServerPackage {
+				text = "This is an example for the lipsync generation in runtime."
+			};
+			OnMessageReceived(p);
 		}
 
-		//if (_isInteracting) {
-		//	interactionPrompt.SetText("Press MB2 to stop interaction");
-		//}
-		//else {
-		//	interactionPrompt.SetText("Press MB1 to interact");
-		//}
-
-		//if (!InInteractRange) {
-		//	interactionPrompt.EnableText(false);
-		//}
-		//else interactionPrompt.EnableText(true);
+		UpdateMessageQueue();
 	}
 
+	/// <summary>
+	/// This queue exists to make sure the NPC is not overriding its own spoken lines.
+	/// </summary>
+	private void UpdateMessageQueue() {
+		if (_processingMessage || (_lipSync.IsPlaying && _audioSource.isPlaying))
+			return;
+
+		if (_messageQueue.Count > 0) {
+			Debug.LogWarning("Dequeuing ServerPackage");
+			GenerateLipSync(_messageQueue[0]);
+			_messageQueue.RemoveAt(0);
+		}
+	}
+
+	#region LipSync/Audio Generation
 	private IEnumerator LoadAudioRoutine(Wrapper pWrapper) {
 		Debug.Log("Audio generation complete");
 		string filePath = pWrapper.OutputFile;
@@ -124,11 +117,19 @@ public class NPC : MonoBehaviour
 		yield return null;
 	}
 
-	#region LipSync/Audio Generation
+	private void GenerateLipSync(ServerPackage pPackage) {
+		_processingMessage = true;
+		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName);
+	}
 
-	private void GenerateAudioFile(ServerPackage pPackage) {
-		if (!Speaker.isSpeaking)
-			LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName);
+	private void OnMessageReceived(ServerPackage pPackage) {
+		if (!(_lipSync.IsPlaying && _audioSource.isPlaying)) {
+			GenerateLipSync(pPackage);
+			return;
+		}
+
+		Debug.LogWarning("NPC is busy, adding ServerPackage to queue");
+		_messageQueue.Add(pPackage);
 	}
 
 	private void OnPhonemeGenerationFail(string pError) {
@@ -139,11 +140,12 @@ public class NPC : MonoBehaviour
 		LipSyncData data = LipSyncRuntimeManager.Instance.lipSyncData;
 		data.clip = pAudioClip;
 		data.phonemeData = pMarkers.ToArray();
-		
+
 		Debug.Log("Playing LipSync data");
 		_lipSync.Play(data);
 		_audioSource.clip = pAudioClip;
 		_audioSource.Play();
+		_processingMessage = false;
 	}
 	#endregion
 
