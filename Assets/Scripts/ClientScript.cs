@@ -49,6 +49,7 @@ public class ClientScript : MonoBehaviour
 			_socket = IO.Socket(serverURL);
 			_socket.On(Socket.EVENT_CONNECT, () => {
 				Debug.Log("Socket.IO connected.");
+				IsConnected = true;
 			});
 
 			_socket.On("bot_uttered", (data) => {
@@ -82,10 +83,13 @@ public class ClientScript : MonoBehaviour
 		if (_socket != null) {
 			_socket.Disconnect();
 			_socket = null;
+			IsConnected = false;
 		}
 	}
 
 	protected virtual void OnApplicationQuit() {
 		DoClose();
 	}
+
+	public bool IsConnected { get; set; }
 }

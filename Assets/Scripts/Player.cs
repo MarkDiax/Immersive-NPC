@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
@@ -10,52 +11,51 @@ public class Player : MonoSingleton<Player>
 	private bool _isInteracting;
 	private FirstPersonController _controller;
 
-	[HideInInspector]
-	public UnityEvent onInteractRequest, onInteractStop;
-
-	private void Awake() {
-		onInteractRequest = new UnityEvent();
-		onInteractStop = new UnityEvent();
-	}
+	public delegate void OnInteractWithNPCRequest(bool pIteracting);
+	public OnInteractWithNPCRequest onInteractWithNPCRequest;
 
 	private void Start() {
 		_controller = GetComponent<FirstPersonController>();
 
-		onInteractRequest.AddListener(OnInteractStart);
-		onInteractStop.AddListener(OnInteractStop);
+		inputField.onEndEdit.AddListener(SendUserMessage);
+
+		NPCManager.Instance.onInteractWithNPC += OnInteract;
+		NPCManager.Instance.onPlayerOutOfRange += () => ToggleInteract(false);
 	}
 
-	private void OnInteractStop() {
-		_isInteracting = false;
+	private void ToggleInteract(bool pInteracting) {
+		_isInteracting = pInteracting;
+		_controller.enabled = !pInteracting;
+		inputField.gameObject.SetActive(pInteracting);
 
-		inputField.DeactivateInputField();
-		inputField.gameObject.SetActive(false);
-		_controller.enabled = true;
+		if (_isInteracting)
+			inputField.ActivateInputField();
+		else
+			inputField.DeactivateInputField();
 	}
 
-	private void OnInteractStart() {
-		_isInteracting = true;
-
-		inputField.gameObject.SetActive(true);
-		inputField.ActivateInputField();
-		_controller.enabled = false;
+	private void OnInteract(NPC pNPC) {
+		ToggleInteract(pNPC == null ? false : true);
 	}
 
-	public void SendUserMessage(string Message) {
-		if (string.IsNullOrEmpty(Message))
+	public void SendUserMessage(string pMessage) {
+		if (string.IsNullOrEmpty(pMessage) || string.IsNullOrWhiteSpace(pMessage))
 			return;
 
-		//NPCManager.Instance.onMessageSend.Invoke(Message);
+		NPC npc = NPCManager.Instance.currentInteractingNPC;
+		if (npc != null)
+			npc.SendUserMessage(pMessage);
 	}
 
 	private void Update() {
 		if (_isInteracting) {
 			if (Input.GetMouseButtonDown(1))
-				onInteractStop.Invoke();
+
+				onInteractWithNPCRequest.Invoke(false);
 		}
 		else {
-			if (Input.GetMouseButtonDown(0)) 
-				onInteractRequest.Invoke();
+			if (Input.GetMouseButtonDown(0))
+				onInteractWithNPCRequest.Invoke(true);
 		}
 	}
 }

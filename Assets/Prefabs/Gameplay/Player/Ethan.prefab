@@ -2605,6 +2605,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
+  Instance: {fileID: 0}
+  translation: 0
+  straffe: 0
 --- !u!114 &114711125240845262
 MonoBehaviour:
   m_ObjectHideFlags: 1
