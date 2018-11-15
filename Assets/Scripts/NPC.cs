@@ -51,7 +51,7 @@ public class NPC : MonoBehaviour
 			Debug.Log("Sending message: " + pMessage);
 			_client.SendUserMessage(pMessage);
 		}
-		
+
 		//FOR DEBUGGING ONLY
 		else {
 			ServerPackage package = new ServerPackage {
@@ -143,7 +143,11 @@ public class NPC : MonoBehaviour
 		data.phonemeData = pMarkers.ToArray();
 
 		Debug.Log("Playing LipSync data");
+		_lipSync.ClearDataCache();
 		_lipSync.Play(data);
+		_lipSync.ProcessData();
+
+
 		_audioSource.clip = pAudioClip;
 		_audioSource.Play();
 		_processingMessage = false;
