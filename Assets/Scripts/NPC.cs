@@ -35,8 +35,8 @@ public class NPC : MonoBehaviour
 		_lipSync = GetComponent<LipSync>();
 		_audioSource = GetComponent<AudioSource>();
 
-		//_client.onMessageReceived += OnMessageReceived;
-		//_client.OpenServerChannel();
+		_client.onMessageReceived += OnMessageReceived;
+		_client.OpenServerChannel();
 
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
@@ -51,7 +51,7 @@ public class NPC : MonoBehaviour
 			Debug.Log("Sending message: " + pMessage);
 			_client.SendUserMessage(pMessage);
 		}
-
+		
 		//FOR DEBUGGING ONLY
 		else {
 			ServerPackage package = new ServerPackage {
@@ -88,7 +88,7 @@ public class NPC : MonoBehaviour
 
 		if (_messageQueue.Count > 0) {
 			Debug.LogWarning("Dequeuing ServerPackage");
-			GenerateLipSync(_messageQueue[0]);
+			OnMessageReceived(_messageQueue[0]);
 			_messageQueue.RemoveAt(0);
 		}
 	}
@@ -125,6 +125,7 @@ public class NPC : MonoBehaviour
 	private void OnMessageReceived(ServerPackage pPackage) {
 		if (!(_lipSync.IsPlaying && _audioSource.isPlaying)) {
 			GenerateLipSync(pPackage);
+			GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
 			return;
 		}
 

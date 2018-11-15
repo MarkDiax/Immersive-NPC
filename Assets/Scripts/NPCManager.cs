@@ -33,8 +33,15 @@ public class NPCManager : MonoSingleton<NPCManager>
 			bool inRange = _NPCs[i].InInteractRange;
 			if (inRange != _isNPCInRange) {
 				_isNPCInRange = inRange;
-				npcInteractionPrompt.EnableText(_isNPCInRange);
-				npcInteractionPrompt.SetText(_isNPCInRange ? _interactionPromptText : _interactionStopText);
+
+				if (!_isNPCInRange) {
+					InteractStop();
+					npcInteractionPrompt.gameObject.SetActive(false);
+					break;
+				}
+
+				npcInteractionPrompt.gameObject.SetActive(true);
+				npcInteractionPrompt.SetText(_interactionPromptText);
 				break;
 			}
 		}
@@ -56,6 +63,7 @@ public class NPCManager : MonoSingleton<NPCManager>
 	private void InteractStart() {
 		NPC npc = GetClosestInteractableNPC();
 		if (npc != null) {
+			npcInteractionPrompt.gameObject.SetActive(true);
 			npcInteractionPrompt.SetText(_interactionStopText);
 			currentInteractingNPC = npc;
 			currentInteractingNPC.Interact();

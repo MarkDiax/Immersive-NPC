@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.UI;
 
 [Serializable]
 public class ConfigFile {
@@ -13,12 +14,16 @@ public class ConfigFile {
 
 
 public class GameManger : MonoBehaviour {
+	public ChatLog chatLog;
+
     [HideInInspector]
     public static GameManger Instance = null;
 
     private ConfigFile _configFile = null;
+	private Player _player;
+	private NPCManager _npcManager;
 
-    public void Awake() {
+    private void Awake() {
         #region Instance And Dont Destroy On Load
         if(Instance == null) {
             Instance = this;
@@ -30,10 +35,25 @@ public class GameManger : MonoBehaviour {
         //CreateConfigFile();
     }
 
+	private void Start() {
+		_player = Player.Instance;
+		_npcManager = NPCManager.Instance;
 
+		if (chatLog == null)
+			chatLog = FindObjectOfType<ChatLog>();
+	}
 
-    #region Config File Settings
-    public void CreateConfigFile() {
+	public void AddToChatlog(string pMessage) {
+		if (chatLog == null) {
+			Debug.LogError("Can't add message to ChatLog, ChatLog is NULL!");
+			return;
+		}
+
+		chatLog.AddChatMessage(pMessage);
+	}
+
+	#region Config File Settings
+	public void CreateConfigFile() {
         ConfigFile configFile = new ConfigFile();
         configFile.Debug = true;
         configFile.OverrideDatabase = true;

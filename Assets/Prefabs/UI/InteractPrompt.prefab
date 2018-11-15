@@ -9,31 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1382386080328710}
+  m_RootGameObject: {fileID: 1967340308915142}
   m_IsPrefabAsset: 1
---- !u!1 &1382386080328710
+--- !u!1 &1967340308915142
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 224544691211129998}
-  - component: {fileID: 222066955712762516}
-  - component: {fileID: 114076591651386530}
+  - component: {fileID: 224275676558169168}
+  - component: {fileID: 222864415774082784}
+  - component: {fileID: 114949883593818066}
+  - component: {fileID: 114989400811324208}
+  - component: {fileID: 114178192875551298}
   m_Layer: 5
-  m_Name: Chat Message
+  m_Name: InteractPrompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &114076591651386530
+  m_IsActive: 0
+--- !u!114 &114178192875551298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1382386080328710}
+  m_GameObject: {fileID: 1967340308915142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105ac696f0280654d8d813d7a191cef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114949883593818066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967340308915142}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -49,10 +62,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -60,20 +73,34 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLACEHOLDER TEXT
---- !u!222 &222066955712762516
+  m_Text: Press MB1 to interact
+--- !u!114 &114989400811324208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967340308915142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 0.15, y: 0.15}
+  m_UseGraphicAlpha: 1
+--- !u!222 &222864415774082784
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1382386080328710}
+  m_GameObject: {fileID: 1967340308915142}
   m_CullTransparentMesh: 0
---- !u!224 &224544691211129998
+--- !u!224 &224275676558169168
 RectTransform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1382386080328710}
+  m_GameObject: {fileID: 1967340308915142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -83,6 +110,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 388.18, y: -24.74148}
-  m_SizeDelta: {x: 766.36, y: 39.48296}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 10, y: -5}
+  m_SizeDelta: {x: 232.7, y: 50.9}
+  m_Pivot: {x: 0, y: 1}
