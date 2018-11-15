@@ -33,6 +33,7 @@ namespace RogoDigital.Lipsync
 
 			AutoSyncRuntime.AutoSyncOptions audioOptions = new AutoSyncRuntime.AutoSyncOptions("English (US)", true, AutoSyncRuntime.AutoSyncOptionsPreset.Default);
 			string audioFilePath = LipSyncRuntimeManager.Instance.StreamingAssetsAudioPath + _audioFileName + ".wav";
+
 			AutoSyncRuntime.SetAudioPath(audioFilePath);
 			AutoSyncRuntime.ProcessAudio(pInputAudio, SuccessCallback, FailedCallback, audioOptions, "D:/Program Files (x86)/sox-14-4-2/sox.exe");
 		}
@@ -48,7 +49,6 @@ namespace RogoDigital.Lipsync
 		}
 
 		public static void GenerateAudioFile(string pTextToGenerateFrom, string pFilePrefix) {
-			//string fileDir = Application.dataPath + "/" + LipSyncRuntimeManager.Instance.audioSavePath;
 			string fileDir = LipSyncRuntimeManager.Instance.StreamingAssetsAudioPath;
 
 			if (!Directory.Exists(fileDir))

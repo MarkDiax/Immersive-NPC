@@ -370,6 +370,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114098142365714146, guid: 612d96daa0e65ca4b8db902f7144323f,
+        type: 2}
+      propertyPath: scaleAudioSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 612d96daa0e65ca4b8db902f7144323f, type: 2}
   m_IsPrefabAsset: 0
@@ -935,7 +940,7 @@ Prefab:
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00008849292
+      value: -0.000059729726
       objectReference: {fileID: 0}
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}
