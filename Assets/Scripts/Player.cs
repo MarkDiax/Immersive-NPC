@@ -45,6 +45,8 @@ public class Player : MonoSingleton<Player>
 		NPC npc = NPCManager.Instance.currentInteractingNPC;
 		if (npc != null)
 			npc.SendUserMessage(pMessage);
+
+		GameManger.Instance.AddToChatlog("Player: " + pMessage);
 	}
 
 	private void Update() {

@@ -13,8 +13,4 @@ public class InteractionPrompt : MonoBehaviour
 	public void SetText(string pText) {
 		_text.text = pText;
 	}
-
-	public void EnableText(bool pEnable) {
-		_text.enabled = pEnable;
-	}
 }
