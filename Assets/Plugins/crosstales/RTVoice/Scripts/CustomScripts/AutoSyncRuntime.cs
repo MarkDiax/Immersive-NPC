@@ -20,10 +20,6 @@ namespace Crosstales.RTVoice
 		private static AutoSyncFailedDelegate tempFailDelegate;
 		private static string[] tempPaths;
 
-		private static int multiFileIndex = 0;
-		private static float multiFileLength = 0;
-		private static float multiFileOffset = 0;
-
 		private static string savedSoxPath;
 
 		public static string audioPath;

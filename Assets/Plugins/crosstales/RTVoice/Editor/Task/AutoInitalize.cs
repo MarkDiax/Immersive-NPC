@@ -21,7 +21,7 @@ namespace Crosstales.RTVoice.EditorTask
 
         static AutoInitalize()
         {
-            EditorApplication.hierarchyWindowChanged += hierarchyWindowChanged;
+            EditorApplication.hierarchyChanged += hierarchyWindowChanged;
         }
 
         #endregion

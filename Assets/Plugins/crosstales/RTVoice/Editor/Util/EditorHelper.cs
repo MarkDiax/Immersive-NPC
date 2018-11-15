@@ -446,7 +446,7 @@ namespace Crosstales.RTVoice.EditorUtil
 
                 if (logo == null)
                 {
-                    Debug.LogWarning("Image not found: " + fileName);
+                    //Debug.LogWarning("Image not found: " + fileName);
                 }
             }
 
