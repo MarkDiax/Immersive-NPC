@@ -6,6 +6,11 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoSingleton<Player>
 {
+	[Header("Voice Input")]
+	public bool usingVoiceInput;
+	public float speechTimeoutSeconds = 0.7f;
+
+
 	public CustomInputField inputField;
 
 	private bool _isInteracting;
@@ -37,7 +42,8 @@ public class Player : MonoSingleton<Player>
 
 		inputField.ActivateInputField();
 
-		SpeechRecognizer.Instance.StartListen();
+		if (usingVoiceInput)
+			SpeechRecognizer.Instance.StartListen(speechTimeoutSeconds);
 	}
 
 	private void StopInteractWithNPC() {
@@ -46,7 +52,8 @@ public class Player : MonoSingleton<Player>
 		inputField.DeactivateInputField();
 		inputField.gameObject.SetActive(false);
 
-		SpeechRecognizer.Instance.StopListen();
+		if (usingVoiceInput)
+			SpeechRecognizer.Instance.StopListen();
 	}
 
 	private void OnInteract(NPC pNPC) {

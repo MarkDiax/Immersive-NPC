@@ -368,6 +368,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
+  usingVoiceInput: 1
+  speechTimeoutSeconds: 0.2
   inputField: {fileID: 0}
 --- !u!124 &124770070059862134
 Behaviour:
