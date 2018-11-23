@@ -6,6 +6,11 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoSingleton<Player>
 {
+	[Header("Voice Input")]
+	public bool usingVoiceInput;
+	public float speechTimeoutSeconds = 0.7f;
+
+
 	public CustomInputField inputField;
 
 	private bool _isInteracting;
@@ -20,22 +25,42 @@ public class Player : MonoSingleton<Player>
 		inputField.onEndEdit.AddListener(SendUserMessage);
 
 		NPCManager.Instance.onInteractWithNPC += OnInteract;
-		NPCManager.Instance.onPlayerOutOfRange += () => ToggleInteract(false);
+		NPCManager.Instance.onPlayerOutOfRange += StopInteractWithNPC;
+
+		SpeechRecognizer.Instance.onSpeechRecognized += (pText) => {
+			if (_isInteracting) {
+				SendUserMessage(pText);
+				inputField.text = "";
+			}
+		};
 	}
 
-	private void ToggleInteract(bool pInteracting) {
-		_isInteracting = pInteracting;
-		_controller.enabled = !pInteracting;
-		inputField.gameObject.SetActive(pInteracting);
+	private void StartInteractWithNPC() {
+		_isInteracting = true;
+		_controller.enabled = false;
+		inputField.gameObject.SetActive(true);
 
-		if (_isInteracting)
-			inputField.ActivateInputField();
-		else
-			inputField.DeactivateInputField();
+		inputField.ActivateInputField();
+
+		if (usingVoiceInput)
+			SpeechRecognizer.Instance.StartListen(speechTimeoutSeconds);
+	}
+
+	private void StopInteractWithNPC() {
+		_isInteracting = false;
+		_controller.enabled = true;
+		inputField.DeactivateInputField();
+		inputField.gameObject.SetActive(false);
+
+		if (usingVoiceInput)
+			SpeechRecognizer.Instance.StopListen();
 	}
 
 	private void OnInteract(NPC pNPC) {
-		ToggleInteract(pNPC == null ? false : true);
+		if (pNPC == null)
+			StopInteractWithNPC();
+		else
+			StartInteractWithNPC();
 	}
 
 	public void SendUserMessage(string pMessage) {
@@ -52,12 +77,16 @@ public class Player : MonoSingleton<Player>
 	private void Update() {
 		if (_isInteracting) {
 			if (Input.GetMouseButtonDown(1))
-
 				onInteractWithNPCRequest.Invoke(false);
 		}
 		else {
 			if (Input.GetMouseButtonDown(0))
 				onInteractWithNPCRequest.Invoke(true);
 		}
+	}
+
+
+	private void ListenForVoice() {
+
 	}
 }
