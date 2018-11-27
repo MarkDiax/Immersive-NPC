@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -9,8 +10,7 @@ public class Player : MonoSingleton<Player>
 	[Header("Voice Input")]
 	public bool usingVoiceInput;
 	public float speechTimeoutSeconds = 0.7f;
-
-
+	
 	public CustomInputField inputField;
 
 	private bool _isInteracting;
@@ -33,6 +33,8 @@ public class Player : MonoSingleton<Player>
 				inputField.text = "";
 			}
 		};
+
+		SpeechRecognizer.Instance.StartListen();
 	}
 
 	private void StartInteractWithNPC() {
@@ -83,10 +85,5 @@ public class Player : MonoSingleton<Player>
 			if (Input.GetMouseButtonDown(0))
 				onInteractWithNPCRequest.Invoke(true);
 		}
-	}
-
-
-	private void ListenForVoice() {
-
 	}
 }

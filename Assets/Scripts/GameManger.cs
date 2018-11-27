@@ -43,6 +43,11 @@ public class GameManger : MonoBehaviour {
 			chatLog = FindObjectOfType<ChatLog>();
 	}
 
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape))
+			Application.Quit();
+	}
+
 	public void AddToChatlog(string pMessage) {
 		if (chatLog == null) {
 			Debug.LogError("Can't add message to ChatLog, ChatLog is NULL!");

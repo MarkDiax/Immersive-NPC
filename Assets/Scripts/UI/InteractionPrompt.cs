@@ -6,11 +6,10 @@ public class InteractionPrompt : MonoBehaviour
 {
 	Text _text;
 
-	private void Start() {
-		_text = GetComponent<Text>();
-	}
-
 	public void SetText(string pText) {
+		if (_text == null)
+			_text = GetComponent<Text>();
+
 		_text.text = pText;
 	}
 }
