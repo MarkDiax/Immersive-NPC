@@ -116,34 +116,44 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 	private bool CheckForKeywords(ref string pText) {
 		pText = pText.ToLower();
 		string textCopy = pText;
+		string[] words = pText.Split(' ');
 
-		//TODO
-		//split text into seperate words. then check each word if it exist in the akemaz list.
-		//if it does, remove that part from the wordd. 
-		//check if the word string is now empty. if so, the word can be safely changed in the sentence.
+		for (int i = 0; i < words.Length; i++) {
+			for (int j = 0; j < _akemazPhrases.Count; j++) {
+				if (words[i] == _akemazPhrases[j]) {
+					words[i] = "Akemaz";
+					Debug.LogFormat("Replacing '{0}' with '{1}'", _akemazPhrases[j], words[i]);
+				}
 
-		for (int i = 0; i < _akemazPhrases.Count; i++) {
-			if (pText.Contains(_akemazPhrases[i])) {
-				pText = pText.Replace(_akemazPhrases[i], "Akemaz");
-				Debug.LogFormat("Replacing '{0}' with '{1}'", _akemazPhrases[i], "Akemaz");
-				break;
 			}
+			if (words[i] == "Akemaz")
+				continue;
+
+			for (int j = 0; j < _veeqPhrases.Count; j++) {
+				if (words[i] == _veeqPhrases[j]) {
+					words[i] = "Veeq";
+					Debug.LogFormat("Replacing '{0}' with '{1}'", _veeqPhrases[j], words[i]);
+				}
+			}
+			if (words[i] == "Veeq")
+				continue;
+
+			for (int j = 0; j < _rinnolPhrases.Count; j++) {
+				if (words[i] == _rinnolPhrases[i]) {
+					words[i] = "Rinnol";
+					Debug.LogFormat("Replacing '{0}' with '{1}'", _rinnolPhrases[j], words[i]);
+
+				}
+			}
+
 		}
 
-		for (int i = 0; i < _veeqPhrases.Count; i++) {
-			if (pText.Contains(_veeqPhrases[i])) {
-				pText = pText.Replace(_veeqPhrases[i], "Veeq");
-				Debug.LogFormat("Replacing '{0}' with '{1}'", _veeqPhrases[i], "Veeq");
-				break;
-			}
-		}
+		pText = "";
 
-		for (int i = 0; i < _rinnolPhrases.Count; i++) {
-			if (pText.Contains(_rinnolPhrases[i])) {
-				pText = pText.Replace(_rinnolPhrases[i], "Rinnol");
-				Debug.LogFormat("Replacing '{0}' with '{1}'", _rinnolPhrases[i], "Rinnol");
-				break;
-			}
+		for (int i = 0; i < words.Length; i++) {
+			pText += words[i];
+			if (i < words.Length - 1)
+				pText += ' ';
 		}
 
 		//A check for whether the text has changed in this method.
