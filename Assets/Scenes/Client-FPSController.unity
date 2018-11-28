@@ -688,6 +688,11 @@ Prefab:
       propertyPath: far clip plane
       value: 10000
       objectReference: {fileID: 0}
+    - target: {fileID: 114374792887807100, guid: 34cfdbdcba1888c4bb294a43c75595bb,
+        type: 2}
+      propertyPath: m_MouseLook.lockCursor
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34cfdbdcba1888c4bb294a43c75595bb, type: 2}
   m_IsPrefabAsset: 0
@@ -1001,22 +1006,22 @@ Prefab:
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00008509977
+      value: 0.00006717824
       objectReference: {fileID: 0}
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 49.948784
+      value: 50.197044
       objectReference: {fileID: 0}
     - target: {fileID: 224834214422147446, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -24.974392
+      value: -25.098522
       objectReference: {fileID: 0}
     - target: {fileID: 224834214422147446, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 39.948784
+      value: 40.197044
       objectReference: {fileID: 0}
     - target: {fileID: 224754631595619146, guid: e765a7d2741770f4aaf326d38b528015,
         type: 2}

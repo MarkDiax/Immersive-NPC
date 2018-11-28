@@ -33,8 +33,6 @@ public class Player : MonoSingleton<Player>
 				inputField.text = "";
 			}
 		};
-
-		SpeechRecognizer.Instance.StartListen();
 	}
 
 	private void StartInteractWithNPC() {
