@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<maryxml xmlns="http://mary.dfki.de/2002/MaryXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.5" xml:lang="en-GB">
+  <prosody rate="-15%" pitch="-40%" accent-prominence="90%" vowel-duration="80%">This is an example for the lipsync generation in runtime.</prosody>
+</maryxml>

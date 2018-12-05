@@ -77,6 +77,8 @@ public class NPC : MonoBehaviour
 		}
 
 		UpdateMessageQueue();
+
+
 	}
 
 	/// <summary>
@@ -158,9 +160,6 @@ public class NPC : MonoBehaviour
 		return ((float)new System.Random().Next(MinValue, MaxValue));
 	}
 
-	public bool InInteractRange {
-		get {
-			return Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
-		}
-	}
+	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
+	public bool IsSpeaking => _audioSource.isPlaying;
 }
