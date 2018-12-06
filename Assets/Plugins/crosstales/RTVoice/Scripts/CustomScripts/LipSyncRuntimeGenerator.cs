@@ -71,14 +71,15 @@ namespace RogoDigital.Lipsync
 			xmlWriter.WriteAttributeString("xml:lang", "en-GB");
 
 			xmlWriter.WriteStartElement("prosody");
-			xmlWriter.WriteAttributeString("rate", "-15%");
-			xmlWriter.WriteAttributeString("pitch", "-40%");
-			xmlWriter.WriteAttributeString("accent-prominence", "90%");
-			xmlWriter.WriteAttributeString("vowel-duration", "80%");
+			xmlWriter.WriteAttributeString("rate", "-10%");
+			xmlWriter.WriteAttributeString("pitch", "+80%");
+			xmlWriter.WriteAttributeString("accent-prominence", "0%");
+			xmlWriter.WriteAttributeString("vowel-duration", "200%");
+			xmlWriter.WriteAttributeString("contour", "(10%,-30%)(50%,-15%)(80%,+20%)(100%,-30%)");
 
 			xmlWriter.WriteString(pTextToGenerateFrom);
-			xmlWriter.WriteEndElement();
 
+			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
 			xmlWriter.Flush();

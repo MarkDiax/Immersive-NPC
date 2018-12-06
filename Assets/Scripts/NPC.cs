@@ -71,7 +71,7 @@ public class NPC : MonoBehaviour
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Semicolon)) {
 			ServerPackage p = new ServerPackage {
-				text = "This is an example for the lipsync generation in runtime."
+				text = "This is an example for the lipsync generation and voice synthesis for this NPC. Pause. My name is Akkamass!"
 			};
 			OnMessageReceived(p);
 		}
