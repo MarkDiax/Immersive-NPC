@@ -28,9 +28,29 @@ ModelImporter:
     9500000: //RootNode
     13700000: AkemazBODY
     13700002: AkemazLowTeeth
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AkemazBODYGAME1_blinn
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AkemazBODYGAME2_blinn
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AkemazBODYGAME3_blinn
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AkemazBODYGAME_blinn
+    second: {instanceID: 0}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
