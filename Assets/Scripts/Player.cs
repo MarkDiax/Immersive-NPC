@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Crosstales.RTVoice;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -8,19 +10,20 @@ public class Player : MonoSingleton<Player>
 {
 	[Header("Voice Input")]
 	public bool usingVoiceInput;
-	public float speechTimeoutSeconds = 0.7f;
-
+	private bool voiceIsOn;
 
 	public CustomInputField inputField;
 
 	private bool _isInteracting;
 	private FirstPersonController _controller;
+	private SpeechRecognizer _speechRecognizer;
 
 	public delegate void OnInteractWithNPCRequest(bool pIteracting);
 	public OnInteractWithNPCRequest onInteractWithNPCRequest;
 
 	private void Start() {
 		_controller = GetComponent<FirstPersonController>();
+		_speechRecognizer = SpeechRecognizer.Instance;
 
 		inputField.onEndEdit.AddListener(SendUserMessage);
 
@@ -42,8 +45,10 @@ public class Player : MonoSingleton<Player>
 
 		inputField.ActivateInputField();
 
-		if (usingVoiceInput)
-			SpeechRecognizer.Instance.StartListen(speechTimeoutSeconds);
+		if (usingVoiceInput) {
+			_speechRecognizer.StartListen();
+			voiceIsOn = true;
+		}
 	}
 
 	private void StopInteractWithNPC() {
@@ -52,8 +57,10 @@ public class Player : MonoSingleton<Player>
 		inputField.DeactivateInputField();
 		inputField.gameObject.SetActive(false);
 
-		if (usingVoiceInput)
-			SpeechRecognizer.Instance.StopListen();
+		if (usingVoiceInput) {
+			_speechRecognizer.StopListen();
+			voiceIsOn = false;
+		}
 	}
 
 	private void OnInteract(NPC pNPC) {
@@ -83,10 +90,9 @@ public class Player : MonoSingleton<Player>
 			if (Input.GetMouseButtonDown(0))
 				onInteractWithNPCRequest.Invoke(true);
 		}
-	}
 
-
-	private void ListenForVoice() {
-
+		if (Input.GetKeyDown(KeyCode.F1)) {
+			_speechRecognizer.ToggleSpeechRecognizer();
+		}
 	}
 }

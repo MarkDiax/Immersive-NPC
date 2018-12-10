@@ -71,12 +71,14 @@ public class NPC : MonoBehaviour
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Semicolon)) {
 			ServerPackage p = new ServerPackage {
-				text = "This is an example for the lipsync generation in runtime."
+				text = "This is an example for the lipsync generation and voice synthesis for this NPC. Pause. My name is Akkamass!"
 			};
 			OnMessageReceived(p);
 		}
 
 		UpdateMessageQueue();
+
+
 	}
 
 	/// <summary>
@@ -158,9 +160,6 @@ public class NPC : MonoBehaviour
 		return ((float)new System.Random().Next(MinValue, MaxValue));
 	}
 
-	public bool InInteractRange {
-		get {
-			return Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
-		}
-	}
+	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
+	public bool IsSpeaking => _audioSource.isPlaying;
 }
