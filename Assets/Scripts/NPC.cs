@@ -1,13 +1,10 @@
 ﻿using Crosstales.RTVoice;
 using Crosstales.RTVoice.Model;
 using RogoDigital.Lipsync;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
@@ -16,6 +13,10 @@ public class NPC : MonoBehaviour
 
 	[Header("AI")]
 	public float playerInteractionRange = 3f;
+
+	[Header("Voice Generation")]
+	public string maryttsVoiceName = "dfki-spike-hsmm";
+	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLAttributes;
 
 	private Player _player;
 	private ClientScript _client;
@@ -121,7 +122,7 @@ public class NPC : MonoBehaviour
 
 	private void GenerateLipSync(ServerPackage pPackage) {
 		_processingMessage = true;
-		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName);
+		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, maryXMLAttributes);
 	}
 
 	private void OnMessageReceived(ServerPackage pPackage) {

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <maryxml xmlns="http://mary.dfki.de/2002/MaryXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.5" xml:lang="en-GB">
-  <prosody rate="-10%" pitch="+80%" accent-prominence="0%" vowel-duration="200%" contour="(10%,-30%)(50%,-15%)(80%,+20%)(100%,-30%)">This is an example for the lipsync generation and voice synthesis for this NPC. Pause. My name is Akkamass!</prosody>
+  <prosody rate="-14%" pitch="-13%" preferred-accent-shape="falling" contour="(10%, -20%)(30%, +5%)(45%, +40%)(50%, +10%)(65%, -10%)(80%, -5%)(100%,-40%)">A few days ago, we managed to capture some of the most highly sought after criminals in the universe. 
+The hacker Rinnol and leader Akkamas.</prosody>
 </maryxml>

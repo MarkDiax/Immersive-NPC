@@ -104,9 +104,52 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 		string textCopy = pText;
 		string[] words = pText.Split(' ');
 
+		/*
 		//todo:
 		//check entire sentence
-		//then if there's a word
+		//then if there's "a kamaz" in whole sentence
+		//split "a kamaz" in 2 strings
+		//check if "a" is seen in a word
+		//if so, remove "a" from word. if word is now empty or null, its correct
+
+		for (int i = 0; i < _akemazPhrases.Count; i++) {
+			if (pText.Contains(_akemazPhrases[i])) {
+				string[] phrases = _akemazPhrases[i].Split(' ');
+				//"a"
+				//"kamaz"
+
+				for (int j = 0; j < words.Length; j++) {
+
+					int correctPhraseCount = 0;
+					for (int x = 0; x < phrases.Length; x++) {
+						string wordCopy = words[j];
+						//word = "apple"
+
+						words[j].Replace(phrases[x], "");
+						//word = "pple"
+						//WATCH OUT: if second word doesn't fit, we damaged the sentence
+
+						if (string.IsNullOrEmpty(words[j]) || string.IsNullOrWhiteSpace(words[j])) {
+							correctPhraseCount++;
+
+							if (correctPhraseCount == phrases.Length) {
+								//insert "Akemaz"
+
+							}
+						}
+						else {
+							//word is not null, means it doesn't fit
+							words[j] = wordCopy;
+							break;
+						}
+					}
+				}
+
+
+			}
+		}
+
+		*/
 
 		for (int i = 0; i < words.Length; i++) {
 			for (int j = 0; j < _akemazPhrases.Count; j++) {

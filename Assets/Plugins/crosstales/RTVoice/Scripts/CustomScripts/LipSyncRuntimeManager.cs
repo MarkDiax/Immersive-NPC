@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 
 namespace RogoDigital.Lipsync
 {
@@ -8,7 +8,6 @@ namespace RogoDigital.Lipsync
 		[Header("RTVoice/Audio Settings")]
 		public AutoSyncRTLanguageModel languageModel;
 		public string languageModelPath = "StreamingAssets/Language Models/EN-US/";
-		public string rtVoiceModel = "Microsoft Zira Desktop";
 
 		public string StreamingAssetsAudioPath {
 			get{ return Application.streamingAssetsPath + "/Audio/"; }

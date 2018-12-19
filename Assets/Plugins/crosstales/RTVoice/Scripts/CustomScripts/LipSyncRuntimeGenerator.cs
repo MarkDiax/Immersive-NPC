@@ -20,7 +20,6 @@ namespace RogoDigital.Lipsync
 		public static OnPhonemeGenerationFail onPhonemeGenerateFail;
 		public static OnSpeakerAudioGenerated onSpeakerAudioGenerated;
 
-		private static int _audioFileIndex;
 		private static string _audioFileName;
 
 		/// <summary>
@@ -50,13 +49,13 @@ namespace RogoDigital.Lipsync
 			Debug.LogError(pError);
 		}
 
-		public static void GenerateAudioFile(string pTextToGenerateFrom, string pFilePrefix) {
+		public static void GenerateAudioFile(string pTextToGenerateFrom, string pFilePrefix, string pMaryTTSVoice, MaryXMLAttribute[] pMaryXMLAttributes = null) {
 			string fileDir = LipSyncRuntimeManager.Instance.StreamingAssetsAudioPath;
 
 			if (!Directory.Exists(fileDir))
 				Directory.CreateDirectory(fileDir);
 
-			_audioFileName = pFilePrefix + "_VoiceLine" + _audioFileIndex;
+			_audioFileName = pFilePrefix + "_VoiceLine";
 			Debug.Log("Generating TTS audio file for text: " + pTextToGenerateFrom +
 				"\n as: " + fileDir + _audioFileName);
 
@@ -71,11 +70,9 @@ namespace RogoDigital.Lipsync
 			xmlWriter.WriteAttributeString("xml:lang", "en-GB");
 
 			xmlWriter.WriteStartElement("prosody");
-			xmlWriter.WriteAttributeString("rate", "-10%");
-			xmlWriter.WriteAttributeString("pitch", "+80%");
-			xmlWriter.WriteAttributeString("accent-prominence", "0%");
-			xmlWriter.WriteAttributeString("vowel-duration", "200%");
-			xmlWriter.WriteAttributeString("contour", "(10%,-30%)(50%,-15%)(80%,+20%)(100%,-30%)");
+
+			for (int i = 0; i < pMaryXMLAttributes.Length; i++) 
+				xmlWriter.WriteAttributeString(pMaryXMLAttributes[i].attributeTitle, pMaryXMLAttributes[i].attributeValue);
 
 			xmlWriter.WriteString(pTextToGenerateFrom);
 
@@ -87,8 +84,14 @@ namespace RogoDigital.Lipsync
 
 			XDocument xmlDoc = XDocument.Load(Application.streamingAssetsPath + "/XML/MaryTTS.xml");
 
-			Speaker.Generate(xmlDoc.ToString(), fileDir + _audioFileName, Speaker.VoiceForName(LipSyncRuntimeManager.Instance.rtVoiceModel));
-			_audioFileIndex++;
+			Speaker.Generate(xmlDoc.ToString(), fileDir + _audioFileName, Speaker.VoiceForName(pMaryTTSVoice));
+		}
+
+		[System.Serializable]
+		public class MaryXMLAttribute
+		{
+			public string attributeTitle;
+			public string attributeValue;
 		}
 	}
 }
