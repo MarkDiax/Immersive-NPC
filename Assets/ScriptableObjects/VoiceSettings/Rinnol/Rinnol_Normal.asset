@@ -17,7 +17,7 @@ MonoBehaviour:
   - attributeTitle: rate
     attributeValue: -8%
   - attributeTitle: pitch
-    attributeValue: +15%
+    attributeValue: +10%
   - attributeTitle: accent-prominence
     attributeValue: -20%
   - attributeTitle: contour
