@@ -26,9 +26,12 @@ namespace RogoDigital
 		public static void Add(Func<bool> completed, System.Action continueWith) {
 			if (!jobs.Any()) {
 				if (updatePass == null) {
-					GameObject obj = new GameObject("MonoUpdatePassthrough");
-					updatePass = obj.AddComponent<MonoUpdatePassthrough>();
-
+					updatePass = GameObject.FindObjectOfType<MonoUpdatePassthrough>();
+					
+					if (updatePass == null) {
+						GameObject obj = new GameObject("MonoUpdatePassthrough");
+						updatePass = obj.AddComponent<MonoUpdatePassthrough>();
+					}
 				}
 
 				updatePass.onUpdate += Update;

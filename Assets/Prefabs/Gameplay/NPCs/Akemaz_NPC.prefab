@@ -6144,16 +6144,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Akemaz
   playerInteractionRange: 3
-  maryttsVoiceName: dfki-spike-hsmm
+  maryttsVoiceName: dfki-obadiah-hsmm
   maryXMLAttributes:
   - attributeTitle: rate
-    attributeValue: -10%
+    attributeValue: -13%
   - attributeTitle: pitch
-    attributeValue: +80%
+    attributeValue: +20%
   - attributeTitle: accent-prominence
-    attributeValue: -20%
+    attributeValue: +80%
   - attributeTitle: contour
-    attributeValue: (10%,-30%)(50%,-15%)(80%,+20%)(100%,-30%)
+    attributeValue: (10%,+10%)(30%, +0%)(50%,-10%)(80%,-10%)(100%,-30%)
 --- !u!114 &114866658223190636
 MonoBehaviour:
   m_ObjectHideFlags: 0

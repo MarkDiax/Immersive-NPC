@@ -4,6 +4,7 @@ using RogoDigital.Lipsync;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class NPC : MonoBehaviour
@@ -14,8 +15,15 @@ public class NPC : MonoBehaviour
 	[Header("AI")]
 	public float playerInteractionRange = 3f;
 
-	[Header("Voice Generation")]
+	[Header("Voice Settings")]
 	public string maryttsVoiceName = "dfki-spike-hsmm";
+	public NPCVoiceSettings normalVoiceSettings;
+	public NPCVoiceSettings happyVoiceSettings;
+	public NPCVoiceSettings angryVoiceSettings;
+	public NPCVoiceSettings surprisedVoiceSettings;
+	public NPCVoiceSettings confusedVoiceSettings;
+
+	[Header("Voice Generation")]
 	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLAttributes;
 
 	private Player _player;
@@ -42,6 +50,24 @@ public class NPC : MonoBehaviour
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
+	}
+
+	public void SaveVoiceSettings() {
+		NPCVoiceSettings voiceSettings = ScriptableObject.CreateInstance<NPCVoiceSettings>();
+		voiceSettings.maryttsVoiceName = maryttsVoiceName;
+		voiceSettings.maryXMLAttributes = maryXMLAttributes;
+
+		string npcAssetPath = "/ScriptableObjects/VoiceSettings/" + npcName + "/";
+		string folderPath = Application.dataPath + npcAssetPath;
+		
+		if (!Directory.Exists(folderPath))
+			Directory.CreateDirectory(folderPath);
+
+		string fileName = npcName + "_VoiceSettings";
+		AssetDatabase.CreateAsset(voiceSettings, "Assets" + npcAssetPath + fileName + ".asset");
+		AssetDatabase.SaveAssets();
+		EditorUtility.FocusProjectWindow();
+		Selection.activeObject = voiceSettings;
 	}
 
 	public void SendUserMessage(string pMessage) {
@@ -150,7 +176,6 @@ public class NPC : MonoBehaviour
 		_lipSync.Play(data);
 		_lipSync.ProcessData();
 
-
 		_audioSource.clip = pAudioClip;
 		_audioSource.Play();
 		_processingMessage = false;
@@ -164,3 +189,4 @@ public class NPC : MonoBehaviour
 	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
 	public bool IsSpeaking => _audioSource.isPlaying;
 }
+ 
