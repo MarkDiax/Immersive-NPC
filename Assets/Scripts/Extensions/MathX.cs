@@ -21,8 +21,7 @@ public static class MathX
                 return diff / (absA + absB) < Epsilon;
             }
         }
-
-    }
+	}
 
     public static class Int
     {
