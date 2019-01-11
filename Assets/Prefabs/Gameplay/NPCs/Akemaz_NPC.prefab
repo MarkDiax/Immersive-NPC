@@ -6029,13 +6029,13 @@ MonoBehaviour:
   - number: 2
     currentWeight: 0
   - number: 3
-    currentWeight: 0
+    currentWeight: 100
   - number: 4
     currentWeight: 0
   - number: 5
     currentWeight: 0
   - number: 6
-    currentWeight: 0
+    currentWeight: 100
   - number: 7
     currentWeight: 0
   - number: 8
@@ -6047,7 +6047,7 @@ MonoBehaviour:
   - number: 11
     currentWeight: 0
   - number: 12
-    currentWeight: 100
+    currentWeight: 0
   - number: 13
     currentWeight: 0
   characterMesh: {fileID: 1741923918}
@@ -6374,10 +6374,10 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
+  - 100
   - 0
   - 0
-  - 0
-  - 0
+  - 100
   - 0
   - 0
   - 0
@@ -6622,10 +6622,10 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
+  - 100
   - 0
   - 0
-  - 0
-  - 0
+  - 100
   - 0
   - 0
   - 0
