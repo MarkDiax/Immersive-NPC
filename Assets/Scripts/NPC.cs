@@ -1,6 +1,7 @@
 ﻿using Crosstales.RTVoice;
 using Crosstales.RTVoice.Model;
 using RogoDigital.Lipsync;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -26,16 +27,25 @@ public class NPC : MonoBehaviour
 	[Header("Voice Generation")]
 	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLAttributes;
 
+	private enum FacialExpressions
+	{
+		Happy, Angry, Confused, Surprised
+	}
+
+	private string _currentExpression;
+
 	private Player _player;
 	private ClientScript _client;
 	private LipSync _lipSync;
 	private AudioSource _audioSource;
+	private Animator _animator;
 
 	private bool _processingMessage;
 
 	private List<ServerPackage> _messageQueue = new List<ServerPackage>();
 
-	private void Start() {
+	private void Start()
+	{
 		NPCManager.Instance.RegisterNPC(this);
 
 		_player = Player.Instance;
@@ -43,8 +53,10 @@ public class NPC : MonoBehaviour
 		_client = GetComponent<ClientScript>();
 		_lipSync = GetComponent<LipSync>();
 		_audioSource = GetComponent<AudioSource>();
+		_animator = GetComponent<Animator>();
 
 		_client.onMessageReceived += OnMessageReceived;
+		_client.onAnimationEventReceived += OnAnimationEventReceived;
 		_client.OpenServerChannel();
 
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
@@ -52,14 +64,15 @@ public class NPC : MonoBehaviour
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
 	}
 
-	public void SaveVoiceSettings() {
+	public void SaveVoiceSettings()
+	{
 		NPCVoiceSettings voiceSettings = ScriptableObject.CreateInstance<NPCVoiceSettings>();
 		voiceSettings.maryttsVoiceName = maryttsVoiceName;
 		voiceSettings.maryXMLAttributes = maryXMLAttributes;
 
 		string npcAssetPath = "/ScriptableObjects/VoiceSettings/" + npcName + "/";
 		string folderPath = Application.dataPath + npcAssetPath;
-		
+
 		if (!Directory.Exists(folderPath))
 			Directory.CreateDirectory(folderPath);
 
@@ -70,18 +83,22 @@ public class NPC : MonoBehaviour
 		Selection.activeObject = voiceSettings;
 	}
 
-	public void SendUserMessage(string pMessage) {
+	public void SendUserMessage(string pMessage)
+	{
 		if (string.IsNullOrEmpty(pMessage) || string.IsNullOrWhiteSpace(pMessage))
 			return;
 
-		if (_client.IsConnected) {
+		if (_client.IsConnected)
+		{
 			Debug.Log("Sending message: " + pMessage);
 			_client.SendUserMessage(pMessage);
 		}
 
 		//FOR DEBUGGING ONLY
-		else {
-			ServerPackage package = new ServerPackage {
+		else
+		{
+			ServerPackage package = new ServerPackage
+			{
 				text = pMessage
 			};
 			OnMessageReceived(package);
@@ -89,15 +106,37 @@ public class NPC : MonoBehaviour
 		//
 	}
 
-	public void Interact() {
+	public void Interact()
+	{
 		Vector3 localEuler = transform.eulerAngles;
 		transform.LookAt(_player.transform);
 		transform.eulerAngles = new Vector3(localEuler.x, transform.eulerAngles.y, localEuler.z);
 	}
 
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Semicolon)) {
-			ServerPackage p = new ServerPackage {
+	private void Update()
+	{
+
+		if (Input.GetKeyDown(KeyCode.Keypad1))
+		{
+			OnAnimationEventReceived("Happy");
+		}
+		if (Input.GetKeyDown(KeyCode.Keypad2))
+		{
+			OnAnimationEventReceived("Angry");
+		}
+		if (Input.GetKeyDown(KeyCode.Keypad3))
+		{
+			OnAnimationEventReceived("Confused");
+		}
+		if (Input.GetKeyDown(KeyCode.Keypad4))
+		{
+			OnAnimationEventReceived("Surprised");
+		}
+
+		if (Input.GetKeyDown(KeyCode.Semicolon))
+		{
+			ServerPackage p = new ServerPackage
+			{
 				text = "This is an example for the lipsync generation and voice synthesis for this NPC. Pause. My name is Akkamass!"
 			};
 			OnMessageReceived(p);
@@ -109,11 +148,13 @@ public class NPC : MonoBehaviour
 	/// <summary>
 	/// This queue exists to make sure the NPC is not overriding its own spoken lines.
 	/// </summary>
-	private void UpdateMessageQueue() {
+	private void UpdateMessageQueue()
+	{
 		if (_processingMessage || (_lipSync.IsPlaying && _audioSource.isPlaying))
 			return;
 
-		if (_messageQueue.Count > 0) {
+		if (_messageQueue.Count > 0)
+		{
 			Debug.LogWarning("Dequeuing ServerPackage");
 			OnMessageReceived(_messageQueue[0]);
 			_messageQueue.RemoveAt(0);
@@ -121,11 +162,13 @@ public class NPC : MonoBehaviour
 	}
 
 	#region LipSync/Audio Generation
-	private IEnumerator LoadAudioRoutine(Wrapper pWrapper) {
+	private IEnumerator LoadAudioRoutine(Wrapper pWrapper)
+	{
 		Debug.Log("Audio generation complete");
 		string filePath = pWrapper.OutputFile;
 
-		if (filePath.IndexOfAny(Path.GetInvalidPathChars()) >= 0 || Path.GetFileNameWithoutExtension(filePath).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
+		if (filePath.IndexOfAny(Path.GetInvalidPathChars()) >= 0 || Path.GetFileNameWithoutExtension(filePath).IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+		{
 			Debug.LogError("AudioClip loading failed. Audio path or filename contained invalid characters.");
 			yield return null;
 		}
@@ -144,13 +187,16 @@ public class NPC : MonoBehaviour
 		yield return null;
 	}
 
-	private void GenerateLipSync(ServerPackage pPackage) {
+	private void GenerateLipSync(ServerPackage pPackage)
+	{
 		_processingMessage = true;
 		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, maryXMLAttributes);
 	}
 
-	private void OnMessageReceived(ServerPackage pPackage) {
-		if (!(_lipSync.IsPlaying && _audioSource.isPlaying)) {
+	private void OnMessageReceived(ServerPackage pPackage)
+	{
+		if (!(_lipSync.IsPlaying && _audioSource.isPlaying))
+		{
 			GenerateLipSync(pPackage);
 			GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
 			return;
@@ -160,11 +206,65 @@ public class NPC : MonoBehaviour
 		_messageQueue.Add(pPackage);
 	}
 
-	private void OnPhonemeGenerationFail(string pError) {
+	private void OnAnimationEventReceived(string pAnimationEvent)
+	{
+		//reset the expressions
+		foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
+		{
+			if (expression.ToString() != _currentExpression && expression.ToString() != pAnimationEvent)
+				SetFloatAnimator(expression.ToString(), 0, 0.5f);
+		}
+
+		if (string.IsNullOrEmpty(_currentExpression) || string.IsNullOrWhiteSpace(_currentExpression))
+		{
+			_currentExpression = pAnimationEvent;
+			SetFloatAnimator(_currentExpression, 0.5f, 0.5f);
+			return;
+		}
+
+		if (_currentExpression == pAnimationEvent)
+			SetFloatAnimator(pAnimationEvent, 1f, 0.5f);
+		else
+		{
+			SetFloatAnimator(_currentExpression, 0.5f, 0.5f);
+			SetFloatAnimator(pAnimationEvent, 0.5f, 0.5f);
+			_currentExpression = pAnimationEvent;
+		}
+
+		Debug.Log($"Switching Facial Animation for {npcName} to {pAnimationEvent}.");
+	}
+
+	/// <summary>
+	/// Sets a float parameter in the animator over time (in seconds).
+	/// </summary>
+	/// <param name="pParamName"></param>
+	/// <param name="pValue"></param>
+	/// <param name="pTime"></param>
+	private void SetFloatAnimator(string pParamName, float pValue, float pTime = 0f)
+	{
+		StartCoroutine(SetOverTime());
+		IEnumerator SetOverTime()
+		{
+			while (pTime > 0)
+			{
+				float deltaTime = Time.deltaTime;
+				_animator.SetFloat(pParamName, pValue, pTime, deltaTime);
+				pTime -= deltaTime;
+
+				yield return new WaitForEndOfFrame();
+			}
+
+			_animator.SetFloat(pParamName, pValue);
+		}
+	}
+
+	private void OnPhonemeGenerationFail(string pError)
+	{
 		Debug.LogError(pError);
 	}
 
-	private void OnPhonemeGenerationComplete(AudioClip pAudioClip, List<PhonemeMarker> pMarkers) {
+	private void OnPhonemeGenerationComplete(AudioClip pAudioClip, List<PhonemeMarker> pMarkers)
+	{
 		LipSyncData data = LipSyncRuntimeManager.Instance.lipSyncData;
 		data.clip = pAudioClip;
 		data.phonemeData = pMarkers.ToArray();
@@ -183,4 +283,3 @@ public class NPC : MonoBehaviour
 	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
 	public bool IsSpeaking => _audioSource.isPlaying;
 }
- 
