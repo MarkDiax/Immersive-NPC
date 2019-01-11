@@ -443,6 +443,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 314840725, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
+      propertyPath: m_Name
+      value: Akemaz
+      objectReference: {fileID: 0}
     - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
         type: 3}
       propertyPath: animCurves.Array.size
@@ -577,10 +581,6 @@ PrefabInstance:
         type: 3}
       propertyPath: boneUpdateAnimation
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 314840725, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_Name
-      value: Akemaz
       objectReference: {fileID: 0}
     - target: {fileID: 314840727, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1512,7 +1512,7 @@ PrefabInstance:
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000014971308
+      value: 0.0000011588486
       objectReference: {fileID: 0}
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 3}

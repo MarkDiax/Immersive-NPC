@@ -20,12 +20,26 @@ public class ClientScript : MonoBehaviour
 	private Socket _socket = null;
 	private List<ServerPackage> _packageQueue = new List<ServerPackage>();
 
-	enum MessageStatus
+	public class Elements
 	{
-		Undiscovered,
-		Discovered,
-		InProgress,
-		Completed
+		public string animation { get; set; }
+	}
+
+	public class Payload
+	{
+		public string template_type { get; set; }
+		public Elements elements { get; set; }
+	}
+
+	public class Attachment
+	{
+		public string type { get; set; }
+		public Payload payload { get; set; }
+	}
+
+	public class RootObject
+	{
+		public Attachment attachment { get; set; }
 	}
 
 	void Destroy() {
@@ -61,7 +75,6 @@ public class ClientScript : MonoBehaviour
 			});
 
 			_socket.On("bot_uttered", (data) => {
-
 				var jsonString = JsonConvert.SerializeObject(data);
 				var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
 
@@ -70,6 +83,12 @@ public class ClientScript : MonoBehaviour
 				else {
 					string strChatLog = "Server: " + serverMessage.text;
 					Debug.Log(strChatLog);
+
+					/*
+					RootObject command = JsonConvert.DeserializeObject<RootObject>(jsonString);
+					string receivedAnimationEvent = command?.attachment.payload.elements.animation;
+					Debug.Log("Received Animation Event: " + receivedAnimationEvent);
+					*/
 
 					//add message to list that is iterated on in the main thread
 					lock (eventLocker)
