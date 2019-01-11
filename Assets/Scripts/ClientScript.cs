@@ -107,26 +107,15 @@ public class ClientScript : MonoBehaviour
 				Debug.Log(serverMessage);
 
 				var animationEvent = JsonConvert.DeserializeObject<RootObject>(jsonString);
-				if (animationEvent == null)
+				var animationRequest = animationEvent?.attachment?.payload?.elements?.animation;
+
+				if (animationRequest != null)
 				{
-					Debug.Log("Thingy is null");
+					Debug.Log("Received Animation Event: " + animationRequest);
+
+					lock (eventLocker)
+						_animationEventQueue.Add(animationRequest);
 				}
-
-				string animationRequest = animationEvent?.attachment?.payload?.elements?.animation;
-				Debug.Log("Animation Event Received: " + animationRequest);
-
-				//string animationToPlay = animationEvent.attachment.payload.elements.animation;
-
-				//Debug.Log(animationToPlay);
-
-				//if (!string.IsNullOrEmpty(animationToPlay) && !string.IsNullOrWhiteSpace(animationToPlay))
-				//{
-				//	Debug.Log("Received Animation Event: " + animationToPlay);
-
-				//	lock (eventLocker)
-				//		_animationEventQueue.Add(animationToPlay);
-				//}
-
 
 				if (string.IsNullOrEmpty(serverMessage.text) || string.IsNullOrWhiteSpace(serverMessage.text))
 					Debug.LogError("Server text was null or whitespace! Ignoring server message.");

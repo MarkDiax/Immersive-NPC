@@ -447,141 +447,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Akemaz
       objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[1].m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[1].time
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[1].value
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[1].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[1].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[2].time
-      value: 0.8732647
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[2].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[2].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[2].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[2].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[3].time
-      value: 0.89826465
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[3].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[3].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[3].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[3].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[0].m_Curve.Array.data[4].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[1].m_Curve.Array.data[0].value
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[1].m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[1].m_Curve.Array.data[1].value
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[1].m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: animCurves.Array.data[1].m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217284748310496525, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: boneUpdateAnimation
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 314840727, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.14
@@ -625,59 +490,6 @@ PrefabInstance:
     - target: {fileID: 314840727, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1741923918, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[3]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1741923918, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[5]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1741923918, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[6]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 314840726, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 5232ba71520ef6045b4618a7c5c4db82, type: 2}
-    - target: {fileID: 847414381, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[3]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 847414381, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[5]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 847414381, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[6]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510411592666936201, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: _blendables.Array.data[3].currentWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510411592666936201, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: _blendables.Array.data[5].currentWeight
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8510411592666936201, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: _blendables.Array.data[6].currentWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954884708362152191, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: usingLocalHost
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954884708362152191, guid: d4a198378a0148e41973d8d9d03d811d,
-        type: 3}
-      propertyPath: serverURL
-      value: http://80209013.ngrok.io/
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
@@ -882,6 +694,11 @@ PrefabInstance:
       propertyPath: inputField
       value: 
       objectReference: {fileID: 822805362}
+    - target: {fileID: 114616902206626274, guid: 34cfdbdcba1888c4bb294a43c75595bb,
+        type: 3}
+      propertyPath: usingVoiceInput
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114374792887807100, guid: 34cfdbdcba1888c4bb294a43c75595bb,
         type: 3}
       propertyPath: m_UseFovKick

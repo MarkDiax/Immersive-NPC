@@ -211,24 +211,35 @@ public class NPC : MonoBehaviour
 		//reset the expressions
 		foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
 		{
-			if (expression.ToString() != _currentExpression && expression.ToString() != pAnimationEvent)
+			if (expression.ToString().ToLower() != _currentExpression && expression.ToString().ToLower() != pAnimationEvent)
 				SetFloatAnimator(expression.ToString(), 0, 0.5f);
 		}
 
 		if (string.IsNullOrEmpty(_currentExpression) || string.IsNullOrWhiteSpace(_currentExpression))
 		{
 			_currentExpression = pAnimationEvent;
-			SetFloatAnimator(_currentExpression, 0.5f, 0.5f);
+			SetFloatAnimator(FindExpressionEnum(_currentExpression), 0.5f, 0.5f);
 			return;
 		}
 
 		if (_currentExpression == pAnimationEvent)
-			SetFloatAnimator(pAnimationEvent, 1f, 0.5f);
+			SetFloatAnimator(FindExpressionEnum(pAnimationEvent), 1f, 0.5f);
 		else
 		{
-			SetFloatAnimator(_currentExpression, 0.5f, 0.5f);
-			SetFloatAnimator(pAnimationEvent, 0.5f, 0.5f);
+			SetFloatAnimator(FindExpressionEnum(_currentExpression), 0.5f, 0.5f);
+			SetFloatAnimator(FindExpressionEnum(pAnimationEvent), 0.5f, 0.5f);
 			_currentExpression = pAnimationEvent;
+		}
+
+		string FindExpressionEnum(string pAnimationRequest)
+		{
+			string properExpression = null;
+			foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
+			{
+				if (expression.ToString().ToLower() == pAnimationRequest)
+					properExpression = expression.ToString();
+			}
+			return properExpression;
 		}
 
 		Debug.Log($"Switching Facial Animation for {npcName} to {pAnimationEvent}.");
