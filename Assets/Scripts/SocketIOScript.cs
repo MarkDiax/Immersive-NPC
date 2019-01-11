@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data; 
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
@@ -48,7 +49,29 @@ public class SocketIOScript : MonoBehaviour
 		Completed
 	}
 
-	void Destroy() {
+    public class Elements
+    {
+        public string animation { get; set; }
+    }
+
+    public class Payload
+    {
+        public string template_type { get; set; }
+        public Elements elements { get; set; }
+    }
+
+    public class Attachment
+    {
+        public string type { get; set; }
+        public Payload payload { get; set; }
+    }
+
+    public class RootObject
+    {
+        public Attachment attachment { get; set; }
+    }
+
+    void Destroy() {
 		DoClose();
 	}
 
@@ -112,27 +135,26 @@ public class SocketIOScript : MonoBehaviour
 			socket = IO.Socket(serverURL);
 			socket.On(Socket.EVENT_CONNECT, () => {
 				ReadyMessage("Socket.IO connected.");
+                Debug.Log("Connected"); 
 			});
-
 
 			socket.On("bot_uttered", (data) => {
 				Debug.Log(data);
 
-				var jsonString = JsonConvert.SerializeObject(data);
-				var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
 
+				string jsonString = (string)JsonConvert.SerializeObject(data);
+
+                RootObject command = JsonConvert.DeserializeObject<RootObject>(jsonString);
+                Debug.Log(command.attachment.payload.elements.animation); 
+
+                
+                
+                var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
+                Debug.Log(serverMessage.keyword.ToString()); 
 				string strChatLog = "Server: " + serverMessage.text;
 				Debug.Log(jsonString);
-
-				/*
-				//if (serverMessage.status != -1) {
-					MessageStatus status = (MessageStatus)serverMessage.status;
-					Debug.Log(status.ToString());
-				//}
-
-				//if (!string.IsNullOrEmpty(serverMessage.keyword))
-					Debug.Log(serverMessage.keyword);
-					*/
+                Debug.Log(serverMessage); 
+				
 				ReadyMessage(strChatLog);
 				ReadyVoiceMessage(serverMessage.text);
 			});
