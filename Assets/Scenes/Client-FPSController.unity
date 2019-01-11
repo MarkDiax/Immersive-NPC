@@ -669,6 +669,16 @@ PrefabInstance:
       propertyPath: _blendables.Array.data[6].currentWeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4954884708362152191, guid: d4a198378a0148e41973d8d9d03d811d,
+        type: 3}
+      propertyPath: usingLocalHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954884708362152191, guid: d4a198378a0148e41973d8d9d03d811d,
+        type: 3}
+      propertyPath: serverURL
+      value: http://80209013.ngrok.io/
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4a198378a0148e41973d8d9d03d811d, type: 3}
 --- !u!224 &699644818 stripped
@@ -1512,7 +1522,7 @@ PrefabInstance:
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000011588486
+      value: 0.00007716793
       objectReference: {fileID: 0}
     - target: {fileID: 224055557619440090, guid: e765a7d2741770f4aaf326d38b528015,
         type: 3}

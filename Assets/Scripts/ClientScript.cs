@@ -4,6 +4,27 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Quobject.SocketIoClientDotNet.Client;
 
+public class Elements
+{
+	public string animation { get; set; }
+}
+
+public class Payload
+{
+	public string template_type { get; set; }
+	public Elements elements { get; set; }
+}
+
+public class Attachment
+{
+	public string type { get; set; }
+	public Payload payload { get; set; }
+}
+
+public class RootObject
+{
+	public Attachment attachment { get; set; }
+}
 
 public class ClientScript : MonoBehaviour
 {
@@ -23,28 +44,6 @@ public class ClientScript : MonoBehaviour
 	private Socket _socket = null;
 	private List<ServerPackage> _packageQueue = new List<ServerPackage>();
 	private List<string> _animationEventQueue = new List<string>();
-
-	public class Elements
-	{
-		public string animation { get; set; }
-	}
-
-	public class Payload
-	{
-		public string template_type { get; set; }
-		public Elements elements { get; set; }
-	}
-
-	public class Attachment
-	{
-		public string type { get; set; }
-		public Payload payload { get; set; }
-	}
-
-	public class RootObject
-	{
-		public Attachment attachment { get; set; }
-	}
 
 	void Destroy()
 	{
@@ -104,16 +103,29 @@ public class ClientScript : MonoBehaviour
 				var jsonString = JsonConvert.SerializeObject(data);
 				var serverMessage = JsonConvert.DeserializeObject<ServerPackage>(jsonString);
 
-				RootObject animationEvent = JsonConvert.DeserializeObject<RootObject>(jsonString);
-				string animationToPlay = animationEvent.attachment.payload.elements.animation;
+				Debug.Log(jsonString);
+				Debug.Log(serverMessage);
 
-				if (!string.IsNullOrEmpty(animationToPlay) && !string.IsNullOrWhiteSpace(animationToPlay))
+				var animationEvent = JsonConvert.DeserializeObject<RootObject>(jsonString);
+				if (animationEvent == null)
 				{
-					Debug.Log("Received Animation Event: " + animationToPlay);
-
-					lock (eventLocker)
-						_animationEventQueue.Add(animationToPlay);
+					Debug.Log("Thingy is null");
 				}
+
+				string animationRequest = animationEvent?.attachment?.payload?.elements?.animation;
+				Debug.Log("Animation Event Received: " + animationRequest);
+
+				//string animationToPlay = animationEvent.attachment.payload.elements.animation;
+
+				//Debug.Log(animationToPlay);
+
+				//if (!string.IsNullOrEmpty(animationToPlay) && !string.IsNullOrWhiteSpace(animationToPlay))
+				//{
+				//	Debug.Log("Received Animation Event: " + animationToPlay);
+
+				//	lock (eventLocker)
+				//		_animationEventQueue.Add(animationToPlay);
+				//}
 
 
 				if (string.IsNullOrEmpty(serverMessage.text) || string.IsNullOrWhiteSpace(serverMessage.text))
@@ -122,12 +134,6 @@ public class ClientScript : MonoBehaviour
 				{
 					string strChatLog = "Server: " + serverMessage.text;
 					Debug.Log(strChatLog);
-
-					/*
-					RootObject command = JsonConvert.DeserializeObject<RootObject>(jsonString);
-					string receivedAnimationEvent = command?.attachment.payload.elements.animation;
-					Debug.Log("Received Animation Event: " + receivedAnimationEvent);
-					*/
 
 					//add message to list that is iterated on in the main thread
 					lock (eventLocker)
