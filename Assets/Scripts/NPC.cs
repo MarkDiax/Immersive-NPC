@@ -18,18 +18,21 @@ public class NPC : MonoBehaviour
 
 	[Header("Voice Settings")]
 	public string maryttsVoiceName = "dfki-spike-hsmm";
-	public NPCVoiceSettings normalVoiceSettings;
+	public NPCVoiceSettings defaultVoiceSettings;
 	public NPCVoiceSettings happyVoiceSettings;
 	public NPCVoiceSettings angryVoiceSettings;
 	public NPCVoiceSettings surprisedVoiceSettings;
 	public NPCVoiceSettings confusedVoiceSettings;
+
+	[SerializeField]
+	private NPCVoiceSettings _currentVoiceSettings;
 
 	[Header("Voice Generation")]
 	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLAttributes;
 
 	private enum FacialExpressions
 	{
-		Happy, Angry, Confused, Surprised
+		Default, Happy, Angry, Confused, Surprised
 	}
 
 	private string _currentExpression;
@@ -40,7 +43,7 @@ public class NPC : MonoBehaviour
 	private AudioSource _audioSource;
 	private Animator _animator;
 
-	private bool _processingMessage;
+	private bool _isProcessingMessage;
 
 	private List<ServerPackage> _messageQueue = new List<ServerPackage>();
 
@@ -62,6 +65,8 @@ public class NPC : MonoBehaviour
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
+
+		_currentVoiceSettings = defaultVoiceSettings;
 	}
 
 	public void SaveVoiceSettings()
@@ -101,6 +106,7 @@ public class NPC : MonoBehaviour
 			{
 				text = pMessage
 			};
+			
 			OnMessageReceived(package);
 		}
 		//
@@ -113,8 +119,57 @@ public class NPC : MonoBehaviour
 		transform.eulerAngles = new Vector3(localEuler.x, transform.eulerAngles.y, localEuler.z);
 	}
 
+	//rushed method, code should be improved if there's time.
+	private void OnAnimationEventReceived(string pAnimationEvent)
+	{
+		//reset the expressions at start
+		foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
+		{
+			if (expression.ToString().ToLower() != _currentExpression && expression.ToString().ToLower() != pAnimationEvent)
+				SetFloatAnimator(expression.ToString(), 0, 0.5f);
+		}
+
+		if (string.IsNullOrEmpty(_currentExpression) || string.IsNullOrWhiteSpace(_currentExpression))
+		{
+			_currentExpression = pAnimationEvent;
+			SetFloatAnimator(FindExpressionEnum(_currentExpression).ToString(), 0.5f, 0.5f);
+			SetActiveVoiceSettings(FindExpressionEnum(_currentExpression));
+			return;
+		}
+
+		if (_currentExpression == pAnimationEvent)
+		{
+			FacialExpressions expression = FindExpressionEnum(pAnimationEvent);
+			SetActiveVoiceSettings(expression);
+
+			SetFloatAnimator(FindExpressionEnum(pAnimationEvent).ToString(), 1f, 0.5f);
+		}
+		else
+		{
+			SetFloatAnimator(FindExpressionEnum(_currentExpression).ToString(), 0.5f, 0.5f);
+			SetFloatAnimator(FindExpressionEnum(pAnimationEvent).ToString(), 0.5f, 0.5f);
+			SetActiveVoiceSettings(FindExpressionEnum(pAnimationEvent));
+			_currentExpression = pAnimationEvent;
+		}
+
+		FacialExpressions FindExpressionEnum(string pAnimationRequest)
+		{
+			foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
+			{
+				if (expression.ToString().ToLower() == pAnimationRequest.ToLower())
+					return expression;
+			}
+
+			return FacialExpressions.Default;
+		}
+
+		Debug.Log($"Switching Facial Animation for {npcName} to {pAnimationEvent}.");
+	}
+
 	private void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Keypad0))
+			OnAnimationEventReceived("Normal");
 
 		if (Input.GetKeyDown(KeyCode.Keypad1))
 		{
@@ -145,12 +200,46 @@ public class NPC : MonoBehaviour
 		UpdateMessageQueue();
 	}
 
+	private void SetActiveVoiceSettings(NPCVoiceSettings pVoiceSettings)
+	{
+		if (pVoiceSettings == null)
+		{
+			Debug.LogError("NPCVoiceSettings is not defined in the inspector!");
+			return;
+		}
+
+		Debug.Log("Switching voice settings to: " + pVoiceSettings);
+		_currentVoiceSettings = pVoiceSettings;
+	}
+
+	private void SetActiveVoiceSettings(FacialExpressions pFacialExpressions)
+	{
+		switch (pFacialExpressions)
+		{
+			case FacialExpressions.Default:
+				SetActiveVoiceSettings(defaultVoiceSettings);
+				break;
+			case FacialExpressions.Happy:
+				SetActiveVoiceSettings(happyVoiceSettings);
+				break;
+			case FacialExpressions.Angry:
+				SetActiveVoiceSettings(angryVoiceSettings);
+				break;
+			case FacialExpressions.Confused:
+				SetActiveVoiceSettings(confusedVoiceSettings);
+				break;
+			case FacialExpressions.Surprised:
+				SetActiveVoiceSettings(surprisedVoiceSettings);
+				break;
+		}
+	}
+
 	/// <summary>
 	/// This queue exists to make sure the NPC is not overriding its own spoken lines.
 	/// </summary>
 	private void UpdateMessageQueue()
 	{
-		if (_processingMessage || (_lipSync.IsPlaying && _audioSource.isPlaying))
+		if (_isProcessingMessage || (_lipSync.IsPlaying && _audioSource.isPlaying))
 			return;
 
 		if (_messageQueue.Count > 0)
@@ -158,6 +247,31 @@ public class NPC : MonoBehaviour
 			Debug.LogWarning("Dequeuing ServerPackage");
 			OnMessageReceived(_messageQueue[0]);
 			_messageQueue.RemoveAt(0);
+		}
+	}
+
+
+	/// <summary>
+	/// Sets a float parameter in the animator over time (in seconds).
+	/// </summary>
+	/// <param name="pParamName"></param>
+	/// <param name="pValue"></param>
+	/// <param name="pTime"></param>
+	private void SetFloatAnimator(string pParamName, float pValue, float pTime = 0f)
+	{
+		StartCoroutine(SetOverTime());
+		IEnumerator SetOverTime()
+		{
+			while (pTime > 0)
+			{
+				//float deltaTime = Time.deltaTime;
+				_animator.SetFloat(pParamName, pValue, pTime, Time.deltaTime);
+				pTime -= Time.deltaTime;
+
+				yield return new WaitForEndOfFrame();
+			}
+
+			_animator.SetFloat(pParamName, pValue);
 		}
 	}
 
@@ -189,14 +303,15 @@ public class NPC : MonoBehaviour
 
 	private void GenerateLipSync(ServerPackage pPackage)
 	{
-		_processingMessage = true;
-		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, maryXMLAttributes);
+		_isProcessingMessage = true;
+		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, _currentVoiceSettings.maryXMLAttributes);
 	}
 
 	private void OnMessageReceived(ServerPackage pPackage)
 	{
 		if (!(_lipSync.IsPlaying && _audioSource.isPlaying))
 		{
+			//start generating the new lipsync phonemes and audio for the text
 			GenerateLipSync(pPackage);
 			GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
 			return;
@@ -204,69 +319,6 @@ public class NPC : MonoBehaviour
 
 		Debug.LogWarning("NPC is busy, adding ServerPackage to queue");
 		_messageQueue.Add(pPackage);
-	}
-
-	private void OnAnimationEventReceived(string pAnimationEvent)
-	{
-		//reset the expressions
-		foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
-		{
-			if (expression.ToString().ToLower() != _currentExpression && expression.ToString().ToLower() != pAnimationEvent)
-				SetFloatAnimator(expression.ToString(), 0, 0.5f);
-		}
-
-		if (string.IsNullOrEmpty(_currentExpression) || string.IsNullOrWhiteSpace(_currentExpression))
-		{
-			_currentExpression = pAnimationEvent;
-			SetFloatAnimator(FindExpressionEnum(_currentExpression), 0.5f, 0.5f);
-			return;
-		}
-
-		if (_currentExpression == pAnimationEvent)
-			SetFloatAnimator(FindExpressionEnum(pAnimationEvent), 1f, 0.5f);
-		else
-		{
-			SetFloatAnimator(FindExpressionEnum(_currentExpression), 0.5f, 0.5f);
-			SetFloatAnimator(FindExpressionEnum(pAnimationEvent), 0.5f, 0.5f);
-			_currentExpression = pAnimationEvent;
-		}
-
-		string FindExpressionEnum(string pAnimationRequest)
-		{
-			string properExpression = null;
-			foreach (FacialExpressions expression in Enum.GetValues(typeof(FacialExpressions)))
-			{
-				if (expression.ToString().ToLower() == pAnimationRequest)
-					properExpression = expression.ToString();
-			}
-			return properExpression;
-		}
-
-		Debug.Log($"Switching Facial Animation for {npcName} to {pAnimationEvent}.");
-	}
-
-	/// <summary>
-	/// Sets a float parameter in the animator over time (in seconds).
-	/// </summary>
-	/// <param name="pParamName"></param>
-	/// <param name="pValue"></param>
-	/// <param name="pTime"></param>
-	private void SetFloatAnimator(string pParamName, float pValue, float pTime = 0f)
-	{
-		StartCoroutine(SetOverTime());
-		IEnumerator SetOverTime()
-		{
-			while (pTime > 0)
-			{
-				float deltaTime = Time.deltaTime;
-				_animator.SetFloat(pParamName, pValue, pTime, deltaTime);
-				pTime -= deltaTime;
-
-				yield return new WaitForEndOfFrame();
-			}
-
-			_animator.SetFloat(pParamName, pValue);
-		}
 	}
 
 	private void OnPhonemeGenerationFail(string pError)
@@ -287,7 +339,10 @@ public class NPC : MonoBehaviour
 
 		_audioSource.clip = pAudioClip;
 		_audioSource.Play();
-		_processingMessage = false;
+		_isProcessingMessage = false;
+
+		//reset voice settings to default
+		SetActiveVoiceSettings(defaultVoiceSettings);
 	}
 	#endregion
 

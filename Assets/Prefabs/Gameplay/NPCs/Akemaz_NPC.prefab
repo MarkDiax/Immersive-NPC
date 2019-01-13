@@ -325,7 +325,7 @@ MonoBehaviour:
   - number: 4
     currentWeight: 0
   - number: 5
-    currentWeight: 100
+    currentWeight: 0
   - number: 6
     currentWeight: 0
   - number: 7
@@ -456,11 +456,15 @@ MonoBehaviour:
   npcName: Akemaz
   playerInteractionRange: 3
   maryttsVoiceName: dfki-obadiah-hsmm
-  normalVoiceSettings: {fileID: 0}
-  happyVoiceSettings: {fileID: 0}
+  defaultVoiceSettings: {fileID: 11400000, guid: 929141f999ae1fd4f871f545d17febd6,
+    type: 2}
+  happyVoiceSettings: {fileID: 11400000, guid: ff4e261329ba2cd42b7684dc1b8891c1, type: 2}
   angryVoiceSettings: {fileID: 0}
-  surprisedVoiceSettings: {fileID: 0}
-  confusedVoiceSettings: {fileID: 0}
+  surprisedVoiceSettings: {fileID: 11400000, guid: 5495ca2889bf6dc4fb92a882779f34d0,
+    type: 2}
+  confusedVoiceSettings: {fileID: 11400000, guid: af7035d82d8541c4393bed75ce32c472,
+    type: 2}
+  _currentVoiceSettings: {fileID: 0}
   maryXMLAttributes:
   - attributeTitle: rate
     attributeValue: -13%
@@ -482,8 +486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9209f283cdd3eaf4181582dca6494ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverURL: http://5c5aac35.ngrok.io/
-  usingLocalHost: 0
+  serverURL: http://3f7bc26d.ngrok.io/
+  usingLocalHost: 1
 --- !u!168 &314840730
 AudioEchoFilter:
   m_ObjectHideFlags: 0

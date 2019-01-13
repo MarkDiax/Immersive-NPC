@@ -9,6 +9,12 @@ AnimatorController:
   m_Name: Akemaz
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: Default
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: Angry
     m_Type: 1
     m_DefaultFloat: 0
@@ -85,6 +91,14 @@ BlendTree:
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Surprised
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 02f46a7dd2078be4bad13dad137fe2e5, type: 2}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Default
     m_Mirror: 0
   m_BlendParameter: Angry
   m_BlendParameterY: Blend
