@@ -91,8 +91,11 @@ public class Player : MonoSingleton<Player>
 				onInteractWithNPCRequest.Invoke(true);
 		}
 
-		if (Input.GetKeyDown(KeyCode.F1)) {
-			_speechRecognizer.ToggleSpeechRecognizer();
-		}
+		if (Input.GetKeyDown(KeyCode.BackQuote))
+			_speechRecognizer.StartListen();
+
+		if (Input.GetKeyUp(KeyCode.BackQuote))
+			_speechRecognizer.StopListen();
+			
 	}
 }
