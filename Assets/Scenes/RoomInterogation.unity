@@ -1945,10 +1945,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -1965,7 +1964,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -1975,7 +1973,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &158017789
 Light:
   m_ObjectHideFlags: 0
@@ -4228,10 +4225,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -4248,7 +4244,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -4258,7 +4253,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &341282880
 Light:
   m_ObjectHideFlags: 0
@@ -5109,10 +5103,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -5129,7 +5122,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -5139,7 +5131,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &415548070
 Light:
   m_ObjectHideFlags: 0
@@ -6157,16 +6148,11 @@ MonoBehaviour:
     enableTransparentPostpass: 1
     enableDistortion: 1
     enablePostprocess: 1
+    enableAsyncCompute: 1
     enableOpaqueObjects: 1
     enableTransparentObjects: 1
     enableRealtimePlanarReflection: 1
     enableMSAA: 0
-    enableAsyncCompute: 1
-    runLightListAsync: 1
-    runSSRAsync: 1
-    runSSAOAsync: 1
-    runContactShadowsAsync: 1
-    runVolumeVoxelizationAsync: 1
     lightLoopSettings:
       overrides: 0
       enableTileAndCluster: 1
@@ -6193,7 +6179,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   stopNaNPropagation: 1
-  finalBlitToCameraTarget: 1
   antialiasingMode: 0
   temporalAntialiasing:
     jitterSpread: 0.75
@@ -6959,10 +6944,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -6979,7 +6963,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -6989,7 +6972,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &596466298
 Light:
   m_ObjectHideFlags: 0
@@ -7274,10 +7256,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -7294,7 +7275,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -7304,7 +7284,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &609273990
 Light:
   m_ObjectHideFlags: 0
@@ -9685,10 +9664,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -9705,7 +9683,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 535.92
@@ -9715,7 +9692,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &788554299
 Light:
   m_ObjectHideFlags: 0
@@ -10651,9 +10627,9 @@ Transform:
   - {fileID: 755059363}
   - {fileID: 1842703265}
   - {fileID: 90975098}
+  - {fileID: 1011979335}
   - {fileID: 1193014789}
   - {fileID: 768682276}
-  - {fileID: 1011979335}
   - {fileID: 1439329477}
   - {fileID: 774969075}
   - {fileID: 563073311}
@@ -14782,16 +14758,11 @@ MonoBehaviour:
     enableTransparentPostpass: 1
     enableDistortion: 1
     enablePostprocess: 1
+    enableAsyncCompute: 1
     enableOpaqueObjects: 1
     enableTransparentObjects: 1
     enableRealtimePlanarReflection: 1
     enableMSAA: 0
-    enableAsyncCompute: 1
-    runLightListAsync: 1
-    runSSRAsync: 1
-    runSSAOAsync: 1
-    runContactShadowsAsync: 1
-    runVolumeVoxelizationAsync: 1
     lightLoopSettings:
       overrides: 0
       enableTileAndCluster: 1
@@ -14973,6 +14944,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vent
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 158
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 600
@@ -15028,22 +15015,6 @@ PrefabInstance:
     - target: {fileID: 400004, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 158
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
@@ -19495,10 +19466,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -19515,7 +19485,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -19525,7 +19494,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &1818146841
 Light:
   m_ObjectHideFlags: 0
@@ -19762,6 +19730,18 @@ PrefabInstance:
     - target: {fileID: 400000, guid: cbf4e48925f705747a22a52f9eb0e3db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 16.130001
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cbf4e48925f705747a22a52f9eb0e3db, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cbf4e48925f705747a22a52f9eb0e3db, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cbf4e48925f705747a22a52f9eb0e3db, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbf4e48925f705747a22a52f9eb0e3db, type: 3}
@@ -21469,10 +21449,9 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  luxAtDistance: 1
   m_InnerSpotPercent: 0
   lightDimmer: 1
-  m_VolumetricDimmer: 1
+  volumetricDimmer: 1
   lightUnit: 0
   sunDiskSize: 1
   sunHaloSize: 0.1
@@ -21489,7 +21468,6 @@ MonoBehaviour:
   maxSmoothness: 1
   applyRangeAttenuation: 1
   useOldInspector: 0
-  useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
   displayLightIntensity: 200
@@ -21499,7 +21477,6 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
-  minFilterSize: 0.00001
 --- !u!108 &1969274650
 Light:
   m_ObjectHideFlags: 0
@@ -27173,6 +27150,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vent (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 158
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -500.00018
@@ -27228,22 +27221,6 @@ PrefabInstance:
     - target: {fileID: 400004, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.9999995
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 158
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24ee50ee836d36846a15f7c47133f8fe, type: 3}
