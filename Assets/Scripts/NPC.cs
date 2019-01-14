@@ -77,6 +77,7 @@ public class NPC : MonoBehaviour
 		StartCoroutine(RandomGestureSwitcher("RandomTalkingGesture", talkingGestureCount, talkingGestureTimer, true));
 		StartCoroutine(RandomGestureSwitcher("RandomBodyGesture", bodyGestureCount, bodyGestureTimer, false));
 
+		NPCManager.Instance.ConnectToNPC(this);
 	}
 
 	private IEnumerator RandomGestureSwitcher(string pAnimatorParam, int pMaxValue, float pTimer, bool pPlayDuringConversation)
@@ -341,6 +342,7 @@ public class NPC : MonoBehaviour
 			//start generating the new lipsync phonemes and audio for the text
 			GenerateLipSync(pPackage);
 			GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
+			GameManger.Instance.AddToServerTextMessage(npcName + ": " + pPackage.text);
 			return;
 		}
 
@@ -375,6 +377,7 @@ public class NPC : MonoBehaviour
 
 	private void OnDisable()
 	{
+		NPCManager.Instance.DisconnectWithNPC();
 		StopAllCoroutines();
 	}
 
