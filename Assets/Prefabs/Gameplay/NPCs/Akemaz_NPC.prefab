@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 314840727}
   - component: {fileID: 314840726}
-  - component: {fileID: 3217284748310496525}
-  - component: {fileID: 8510411592666936201}
   - component: {fileID: 403596713416328851}
   - component: {fileID: 3770215818835651114}
   - component: {fileID: 4954884708362152191}
   - component: {fileID: 314840730}
   - component: {fileID: 314840731}
+  - component: {fileID: 1314289201}
+  - component: {fileID: 1314289202}
   m_Layer: 0
   m_Name: Akemaz_NPC
   m_TagString: Untagged
@@ -63,7 +63,229 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3217284748310496525
+--- !u!82 &403596713416328851
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314840725}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &3770215818835651114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314840725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796520edf792e8c4f847ac0cce9a60b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcName: Akemaz
+  playerInteractionRange: 3
+  talkingGestureTimer: 0
+  bodyGestureTimer: 0
+  talkingGestureCount: 0
+  bodyGestureCount: 0
+  maryttsVoiceName: dfki-obadiah-hsmm
+  defaultVoiceSettings: {fileID: 11400000, guid: 929141f999ae1fd4f871f545d17febd6,
+    type: 2}
+  happyVoiceSettings: {fileID: 11400000, guid: ff4e261329ba2cd42b7684dc1b8891c1, type: 2}
+  angryVoiceSettings: {fileID: 11400000, guid: 5cdf09328f72bde4d88445ac5ffc8baf, type: 2}
+  surprisedVoiceSettings: {fileID: 11400000, guid: 5495ca2889bf6dc4fb92a882779f34d0,
+    type: 2}
+  confusedVoiceSettings: {fileID: 11400000, guid: af7035d82d8541c4393bed75ce32c472,
+    type: 2}
+  _currentVoiceSettings: {fileID: 0}
+  isUsingTestXMLAttributes: 0
+  maryXMLTestAttributes:
+  - attributeTitle: rate
+    attributeValue: -10%
+  - attributeTitle: pitch
+    attributeValue: +1%
+  - attributeTitle: accent-prominence
+    attributeValue: +80%
+  - attributeTitle: contour
+    attributeValue: (10%,-10%)(30%, +50%)(50%,+30%)(80%,-10%)(100%,-20%)
+--- !u!114 &4954884708362152191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314840725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9209f283cdd3eaf4181582dca6494ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverURL: http://3f7bc26d.ngrok.io/
+  usingLocalHost: 1
+--- !u!168 &314840730
+AudioEchoFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314840725}
+  m_Enabled: 1
+  m_Delay: 10
+  m_DecayRatio: 0.2
+  m_WetMix: 0.7
+  m_DryMix: 0.7
+--- !u!166 &314840731
+AudioChorusFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314840725}
+  m_Enabled: 1
+  m_DryMix: 1
+  m_WetMix1: 1
+  m_WetMix2: 1
+  m_WetMix3: 1
+  m_Delay: 70
+  m_Rate: 2
+  m_Depth: 0.9
+--- !u!114 &1314289201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314840725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9036ca68e4aa8924a9003edadadd85a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReady: 1
+  users:
+  - {fileID: 1314289202}
+  _blendables:
+  - number: 0
+    currentWeight: 0
+  - number: 1
+    currentWeight: 0
+  - number: 2
+    currentWeight: 0
+  - number: 3
+    currentWeight: 0
+  - number: 4
+    currentWeight: 0
+  - number: 5
+    currentWeight: 0
+  - number: 6
+    currentWeight: 0
+  - number: 7
+    currentWeight: 0
+  - number: 8
+    currentWeight: 0
+  - number: 9
+    currentWeight: 0
+  - number: 10
+    currentWeight: 0
+  - number: 11
+    currentWeight: 0
+  - number: 12
+    currentWeight: 0
+  - number: 13
+    currentWeight: 0
+  characterMesh: {fileID: 1741923918}
+  optionalOtherMeshes:
+  - {fileID: 847414381}
+--- !u!114 &1314289202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60953a4eedd70a246ab4eadbed9f0591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blendSystem: {fileID: 8510411592666936201}
+  blendSystem: {fileID: 1314289201}
   audioSource: {fileID: 403596713416328851}
   useBones: 1
   boneUpdateAnimation: 1
@@ -298,224 +520,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   lastUsedVersion: 1.401
---- !u!114 &8510411592666936201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314840725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9036ca68e4aa8924a9003edadadd85a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isReady: 1
-  users:
-  - {fileID: 3217284748310496525}
-  _blendables:
-  - number: 0
-    currentWeight: 0
-  - number: 1
-    currentWeight: 0
-  - number: 2
-    currentWeight: 0
-  - number: 3
-    currentWeight: 0
-  - number: 4
-    currentWeight: 0
-  - number: 5
-    currentWeight: 0
-  - number: 6
-    currentWeight: 0
-  - number: 7
-    currentWeight: 0
-  - number: 8
-    currentWeight: 0
-  - number: 9
-    currentWeight: 0
-  - number: 10
-    currentWeight: 0
-  - number: 11
-    currentWeight: 0
-  - number: 12
-    currentWeight: 0
-  - number: 13
-    currentWeight: 0
-  characterMesh: {fileID: 1741923918}
-  optionalOtherMeshes:
-  - {fileID: 847414381}
---- !u!82 &403596713416328851
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314840725}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &3770215818835651114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314840725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 796520edf792e8c4f847ac0cce9a60b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcName: Akemaz
-  playerInteractionRange: 3
-  maryttsVoiceName: dfki-obadiah-hsmm
-  defaultVoiceSettings: {fileID: 11400000, guid: 929141f999ae1fd4f871f545d17febd6,
-    type: 2}
-  happyVoiceSettings: {fileID: 11400000, guid: ff4e261329ba2cd42b7684dc1b8891c1, type: 2}
-  angryVoiceSettings: {fileID: 11400000, guid: 5cdf09328f72bde4d88445ac5ffc8baf, type: 2}
-  surprisedVoiceSettings: {fileID: 11400000, guid: 5495ca2889bf6dc4fb92a882779f34d0,
-    type: 2}
-  confusedVoiceSettings: {fileID: 11400000, guid: af7035d82d8541c4393bed75ce32c472,
-    type: 2}
-  _currentVoiceSettings: {fileID: 0}
-  isUsingTestXMLAttributes: 0
-  maryXMLTestAttributes:
-  - attributeTitle: rate
-    attributeValue: -10%
-  - attributeTitle: pitch
-    attributeValue: +1%
-  - attributeTitle: accent-prominence
-    attributeValue: +80%
-  - attributeTitle: contour
-    attributeValue: (10%,-10%)(30%, +50%)(50%,+30%)(80%,-10%)(100%,-20%)
---- !u!114 &4954884708362152191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314840725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9209f283cdd3eaf4181582dca6494ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverURL: http://3f7bc26d.ngrok.io/
-  usingLocalHost: 1
---- !u!168 &314840730
-AudioEchoFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314840725}
-  m_Enabled: 1
-  m_Delay: 10
-  m_DecayRatio: 0.2
-  m_WetMix: 0.7
-  m_DryMix: 0.7
---- !u!166 &314840731
-AudioChorusFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314840725}
-  m_Enabled: 1
-  m_DryMix: 1
-  m_WetMix1: 1
-  m_WetMix2: 1
-  m_WetMix3: 1
-  m_Delay: 70
-  m_Rate: 2
-  m_Depth: 0.9
 --- !u!1 &481315750
 GameObject:
   m_ObjectHideFlags: 0

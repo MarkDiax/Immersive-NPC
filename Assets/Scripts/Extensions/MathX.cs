@@ -32,6 +32,9 @@ public static class MathX
     /// <param name="MaxIndex"></param>
     /// <returns></returns>
         public static int GetRandomIndex(int CurrentIndex, int MaxIndex) {
+			if (!(MaxIndex > 0))
+				return 0;
+
             System.Random rnd = new System.Random();
 
             int index = rnd.Next(MaxIndex);
@@ -42,7 +45,10 @@ public static class MathX
         }
 
         public static int GetRandomIndex(int MaxIndex) {
-            System.Random rnd = new System.Random();
+			if (!(MaxIndex > 0))
+				return 0;
+
+			System.Random rnd = new System.Random();
             return rnd.Next(MaxIndex);
         }
     }

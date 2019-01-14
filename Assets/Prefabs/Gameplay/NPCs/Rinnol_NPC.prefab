@@ -2949,6 +2949,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Rinnol
   playerInteractionRange: 3
+  talkingGestureTimer: 3
+  bodyGestureTimer: 2
+  talkingGestureCount: 4
+  bodyGestureCount: 2
   maryttsVoiceName: cmu-bdl-hsmm
   defaultVoiceSettings: {fileID: 11400000, guid: 6da9d97c5cc2a6c468ef2c0b31509122,
     type: 2}

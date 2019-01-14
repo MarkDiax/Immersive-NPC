@@ -16,6 +16,11 @@ public class NPC : MonoBehaviour
 	[Header("AI")]
 	public float playerInteractionRange = 3f;
 
+	[Header("Animator")]
+	public float talkingGestureTimer;
+	public float bodyGestureTimer;
+	public int talkingGestureCount, bodyGestureCount;
+
 	[Header("Voice Settings")]
 	public string maryttsVoiceName = "dfki-spike-hsmm";
 	public NPCVoiceSettings defaultVoiceSettings;
@@ -68,6 +73,26 @@ public class NPC : MonoBehaviour
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
 
 		_currentVoiceSettings = defaultVoiceSettings;
+
+		StartCoroutine(RandomGestureSwitcher("RandomTalkingGesture", talkingGestureCount, talkingGestureTimer, true));
+		StartCoroutine(RandomGestureSwitcher("RandomBodyGesture", bodyGestureCount, bodyGestureTimer, false));
+
+	}
+
+	private IEnumerator RandomGestureSwitcher(string pAnimatorParam, int pMaxValue, float pTimer, bool pPlayDuringConversation)
+	{
+		int index = MathX.Int.GetRandomIndex(pMaxValue + 1);
+
+		while (true)
+		{
+			yield return new WaitForSeconds(pTimer);
+
+			if (pPlayDuringConversation)
+				yield return new WaitUntil(() => _audioSource.isPlaying);
+
+
+			_animator.SetInteger(pAnimatorParam, MathX.Int.GetRandomIndex(index, pMaxValue + 1));
+		}
 	}
 
 	public void SaveVoiceSettings()
@@ -107,7 +132,7 @@ public class NPC : MonoBehaviour
 			{
 				text = pMessage
 			};
-			
+
 			OnMessageReceived(package);
 		}
 		//
@@ -347,6 +372,11 @@ public class NPC : MonoBehaviour
 		SetActiveVoiceSettings(defaultVoiceSettings);
 	}
 	#endregion
+
+	private void OnDisable()
+	{
+		StopAllCoroutines();
+	}
 
 	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;
 	public bool IsSpeaking => _audioSource.isPlaying;
