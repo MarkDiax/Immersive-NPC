@@ -28,7 +28,8 @@ public class NPC : MonoBehaviour
 	private NPCVoiceSettings _currentVoiceSettings;
 
 	[Header("Voice Generation")]
-	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLAttributes;
+	public bool isUsingTestXMLAttributes;
+	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLTestAttributes;
 
 	private enum FacialExpressions
 	{
@@ -73,7 +74,7 @@ public class NPC : MonoBehaviour
 	{
 		NPCVoiceSettings voiceSettings = ScriptableObject.CreateInstance<NPCVoiceSettings>();
 		voiceSettings.maryttsVoiceName = maryttsVoiceName;
-		voiceSettings.maryXMLAttributes = maryXMLAttributes;
+		voiceSettings.maryXMLAttributes = maryXMLTestAttributes;
 
 		string npcAssetPath = "/ScriptableObjects/VoiceSettings/" + npcName + "/";
 		string folderPath = Application.dataPath + npcAssetPath;
@@ -304,7 +305,8 @@ public class NPC : MonoBehaviour
 	private void GenerateLipSync(ServerPackage pPackage)
 	{
 		_isProcessingMessage = true;
-		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, _currentVoiceSettings.maryXMLAttributes);
+		var voiceSettings = isUsingTestXMLAttributes ? maryXMLTestAttributes : _currentVoiceSettings.maryXMLAttributes;
+		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, voiceSettings);
 	}
 
 	private void OnMessageReceived(ServerPackage pPackage)

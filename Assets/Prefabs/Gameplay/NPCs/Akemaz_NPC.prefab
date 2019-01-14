@@ -459,21 +459,22 @@ MonoBehaviour:
   defaultVoiceSettings: {fileID: 11400000, guid: 929141f999ae1fd4f871f545d17febd6,
     type: 2}
   happyVoiceSettings: {fileID: 11400000, guid: ff4e261329ba2cd42b7684dc1b8891c1, type: 2}
-  angryVoiceSettings: {fileID: 0}
+  angryVoiceSettings: {fileID: 11400000, guid: 5cdf09328f72bde4d88445ac5ffc8baf, type: 2}
   surprisedVoiceSettings: {fileID: 11400000, guid: 5495ca2889bf6dc4fb92a882779f34d0,
     type: 2}
   confusedVoiceSettings: {fileID: 11400000, guid: af7035d82d8541c4393bed75ce32c472,
     type: 2}
   _currentVoiceSettings: {fileID: 0}
-  maryXMLAttributes:
+  isUsingTestXMLAttributes: 0
+  maryXMLTestAttributes:
   - attributeTitle: rate
-    attributeValue: -13%
+    attributeValue: -10%
   - attributeTitle: pitch
-    attributeValue: +20%
+    attributeValue: +1%
   - attributeTitle: accent-prominence
     attributeValue: +80%
   - attributeTitle: contour
-    attributeValue: (10%,+10%)(30%, +0%)(50%,-10%)(80%,-10%)(100%,-30%)
+    attributeValue: (10%,-10%)(30%, +50%)(50%,+30%)(80%,-10%)(100%,-20%)
 --- !u!114 &4954884708362152191
 MonoBehaviour:
   m_ObjectHideFlags: 0
