@@ -133,7 +133,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
         m_Texture: {fileID: 2800000, guid: 879ceb68a65ef1e4c8f9c968e4a6363c, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 0.5, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap0:
         m_Texture: {fileID: 0}
@@ -605,7 +605,7 @@ Material:
     - _InheritBaseNormal2: 0
     - _InheritBaseNormal3: 0
     - _InitialBend: 1
-    - _InvTilingScale: 0.5
+    - _InvTilingScale: 1.3333334
     - _InvTilingScale0: 1
     - _InvTilingScale1: 1
     - _InvTilingScale2: 1
@@ -631,7 +631,7 @@ Material:
     - _NormalMapSpace1: 0
     - _NormalMapSpace2: 0
     - _NormalMapSpace3: 0
-    - _NormalScale: 1
+    - _NormalScale: 2.01
     - _NormalScale0: 1
     - _NormalScale1: 1
     - _NormalScale2: 1
@@ -673,8 +673,8 @@ Material:
     - _SmoothnessRemapMin2: 0
     - _SmoothnessRemapMin3: 0
     - _SmoothnessTextureChannel: 0
-    - _SpecularAAScreenSpaceVariance: 0.1
-    - _SpecularAAThreshold: 0.2
+    - _SpecularAAScreenSpaceVariance: 0.465
+    - _SpecularAAThreshold: 0.316
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StencilRef: 1
