@@ -21,6 +21,12 @@ public class Player : MonoSingleton<Player>
 	public delegate void OnInteractWithNPCRequest(bool pIteracting);
 	public OnInteractWithNPCRequest onInteractWithNPCRequest;
 
+	private void Awake()
+	{
+		NPCManager.Instance.onInteractWithNPC += OnInteract;
+
+	}
+
 	private void Start() {
 		_controller = GetComponent<FirstPersonController>();
 		_speechRecognizer = SpeechRecognizer.Instance;
@@ -28,7 +34,6 @@ public class Player : MonoSingleton<Player>
 		inputField.onEndEdit.AddListener(SendUserMessage);
 		inputField.ActivateInputField();
 
-		NPCManager.Instance.onInteractWithNPC += OnInteract;
 		//NPCManager.Instance.onPlayerOutOfRange += StopInteractWithNPC;
 
 		SpeechRecognizer.Instance.onSpeechRecognized += (pText) => {

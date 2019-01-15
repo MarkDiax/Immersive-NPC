@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Akamaz Legs
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Akemaz_body
+    m_Weight: 0
+  - m_Path: Akemaz_eyes
+    m_Weight: 0
+  - m_Path: Akemaz_frame
+    m_Weight: 0
+  - m_Path: Akemaz_robe
+    m_Weight: 0
+  - m_Path: Akemaz_tongue
+    m_Weight: 0
+  - m_Path: Akemaz_Upper_teeth
+    m_Weight: 0
+  - m_Path: curve1
+    m_Weight: 0
+  - m_Path: group1
+    m_Weight: 0
+  - m_Path: joint1
+    m_Weight: 0
+  - m_Path: Pelvis
+    m_Weight: 0
+  - m_Path: Pelvis/L_Hip
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee/L_Underleg
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee/L_Underleg/L_Ankle
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee/L_Underleg/L_Ankle/L_Toe
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee/L_Underleg/L_Ankle/L_Toe/L_Toe_NUB
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee/L_Underleg/L_Ankle/L_Toe_1
+    m_Weight: 1
+  - m_Path: Pelvis/L_Hip/L_Knee/L_Underleg/L_Ankle/L_Toe_1/L_Toe_1_Nub
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee/R_Underleg
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee/R_Underleg/R_Ankle
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee/R_Underleg/R_Ankle/R_Toe
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee/R_Underleg/R_Ankle/R_Toe/R_Toe_NUB
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee/R_Underleg/R_Ankle/R_Toe_1
+    m_Weight: 1
+  - m_Path: Pelvis/R_Hip/R_Knee/R_Underleg/R_Ankle/R_Toe_1/R_Toe_1_Nub
+    m_Weight: 1
+  - m_Path: Pelvis/Spine
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/Head
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/Head/NUB
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/Head/NUB/L_Eye
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/Head/NUB/L_Eye/L_Eye_Nub
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/Head/NUB/R_Eye
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/Head/NUB/R_Eye/R_Eye_Nub
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Should_Jacket
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Pinky_Finger_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Pinky_Finger_1/L_Pinky_Finger_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Pinky_Finger_1/L_Pinky_Finger_2/L_Pinky_Finger_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Pointy_Finger_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Pointy_Finger_1/L_Pointy_Finger_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Pointy_Finger_1/L_Pointy_Finger_2/L_Pointy_Finger_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Ring_Finger_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Ring_Finger_1/L_Ring_Finger_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Ring_Finger_1/L_Ring_Finger_2/L_Ring_Finger_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Thump_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Thump_1/L_Thump_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/L_Clavicle/L_Shoulder/L_Elbow/L_Forearm/L_Wrist/L_Thump_1/L_Thump_2/L_Thump_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Should_Jacket
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Pinky_Finger_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Pinky_Finger_1/R_Pinky_Finger_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Pinky_Finger_1/R_Pinky_Finger_2/R_Pinky_Finger_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Pointy_Finger_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Pointy_Finger_1/R_Pointy_Finger_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Pointy_Finger_1/R_Pointy_Finger_2/R_Pointy_Finger_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Ring_Finger_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Ring_Finger_1/R_Ring_Finger_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Ring_Finger_1/R_Ring_Finger_2/R_Ring_Finger_3
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Thump_1
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Thump_1/R_Thump_2
+    m_Weight: 0
+  - m_Path: Pelvis/Spine/Chest/Neck/R_Clavicle/R_Shoulder/R_Elbow/R_Forearm/R_Wrist/R_Thump_1/R_Thump_2/R_Thump_3
+    m_Weight: 0
