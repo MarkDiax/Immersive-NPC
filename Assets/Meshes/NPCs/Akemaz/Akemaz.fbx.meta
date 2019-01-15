@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d221d41fbc23a0a4daf721ce341a44b4
+guid: 6bc2a5cc16b12a942b21a0bdebacbc29
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -10,6 +10,71 @@ ModelImporter:
     100008: Akemaz_robe
     100010: Akemaz_tongue
     100012: Akemaz_Upper_teeth
+    100014: Chest
+    100016: curve1
+    100018: group1
+    100020: Head
+    100022: joint1
+    100024: L_Ankle
+    100026: L_Clavicle
+    100028: L_Elbow
+    100030: L_Eye
+    100032: L_Eye_Nub
+    100034: L_Forearm
+    100036: L_Hip
+    100038: L_Knee
+    100040: L_Pinky_Finger_1
+    100042: L_Pinky_Finger_2
+    100044: L_Pinky_Finger_3
+    100046: L_Pointy_Finger_1
+    100048: L_Pointy_Finger_2
+    100050: L_Pointy_Finger_3
+    100052: L_Ring_Finger_1
+    100054: L_Ring_Finger_2
+    100056: L_Ring_Finger_3
+    100058: L_Should_Jacket
+    100060: L_Shoulder
+    100062: L_Thump_1
+    100064: L_Thump_2
+    100066: L_Thump_3
+    100068: L_Toe
+    100070: L_Toe_1
+    100072: L_Toe_1_Nub
+    100074: L_Toe_NUB
+    100076: L_Underleg
+    100078: L_Wrist
+    100080: Neck
+    100082: NUB
+    100084: Pelvis
+    100086: R_Ankle
+    100088: R_Clavicle
+    100090: R_Elbow
+    100092: R_Eye
+    100094: R_Eye_Nub
+    100096: R_Forearm
+    100098: R_Hip
+    100100: R_Knee
+    100102: R_Pinky_Finger_1
+    100104: R_Pinky_Finger_2
+    100106: R_Pinky_Finger_3
+    100108: R_Pointy_Finger_1
+    100110: R_Pointy_Finger_2
+    100112: R_Pointy_Finger_3
+    100114: R_Ring_Finger_1
+    100116: R_Ring_Finger_2
+    100118: R_Ring_Finger_3
+    100120: R_Should_Jacket
+    100122: R_Shoulder
+    100124: R_Thump_1
+    100126: R_Thump_2
+    100128: R_Thump_3
+    100130: R_Toe
+    100132: R_Toe_1
+    100134: R_Toe_1_Nub
+    100136: R_Toe_NUB
+    100138: R_Underleg
+    100140: R_Wrist
+    100142: Spine
     400000: //RootNode
     400002: Akemaz_body
     400004: Akemaz_eyes
@@ -17,26 +82,97 @@ ModelImporter:
     400008: Akemaz_robe
     400010: Akemaz_tongue
     400012: Akemaz_Upper_teeth
+    400014: Chest
+    400016: curve1
+    400018: group1
+    400020: Head
+    400022: joint1
+    400024: L_Ankle
+    400026: L_Clavicle
+    400028: L_Elbow
+    400030: L_Eye
+    400032: L_Eye_Nub
+    400034: L_Forearm
+    400036: L_Hip
+    400038: L_Knee
+    400040: L_Pinky_Finger_1
+    400042: L_Pinky_Finger_2
+    400044: L_Pinky_Finger_3
+    400046: L_Pointy_Finger_1
+    400048: L_Pointy_Finger_2
+    400050: L_Pointy_Finger_3
+    400052: L_Ring_Finger_1
+    400054: L_Ring_Finger_2
+    400056: L_Ring_Finger_3
+    400058: L_Should_Jacket
+    400060: L_Shoulder
+    400062: L_Thump_1
+    400064: L_Thump_2
+    400066: L_Thump_3
+    400068: L_Toe
+    400070: L_Toe_1
+    400072: L_Toe_1_Nub
+    400074: L_Toe_NUB
+    400076: L_Underleg
+    400078: L_Wrist
+    400080: Neck
+    400082: NUB
+    400084: Pelvis
+    400086: R_Ankle
+    400088: R_Clavicle
+    400090: R_Elbow
+    400092: R_Eye
+    400094: R_Eye_Nub
+    400096: R_Forearm
+    400098: R_Hip
+    400100: R_Knee
+    400102: R_Pinky_Finger_1
+    400104: R_Pinky_Finger_2
+    400106: R_Pinky_Finger_3
+    400108: R_Pointy_Finger_1
+    400110: R_Pointy_Finger_2
+    400112: R_Pointy_Finger_3
+    400114: R_Ring_Finger_1
+    400116: R_Ring_Finger_2
+    400118: R_Ring_Finger_3
+    400120: R_Should_Jacket
+    400122: R_Shoulder
+    400124: R_Thump_1
+    400126: R_Thump_2
+    400128: R_Thump_3
+    400130: R_Toe
+    400132: R_Toe_1
+    400134: R_Toe_1_Nub
+    400136: R_Toe_NUB
+    400138: R_Underleg
+    400140: R_Wrist
+    400142: Spine
     2100000: AkemazOrganic
     2100002: unwrapChekcerShader
     2100004: AkemazNonOrganic
-    2300000: Akemaz_eyes
-    2300002: Akemaz_frame
-    2300004: Akemaz_robe
-    2300006: Akemaz_Upper_teeth
-    3300000: Akemaz_eyes
-    3300002: Akemaz_frame
-    3300004: Akemaz_robe
-    3300006: Akemaz_Upper_teeth
     4300000: Akemaz_body
     4300002: Akemaz_tongue
     4300004: Akemaz_frame
     4300006: Akemaz_Upper_teeth
     4300008: Akemaz_eyes
     4300010: Akemaz_robe
+    7400000: Sit Down
+    7400002: Sit Leg Crossing
+    7400004: Sit Leg Crossing Backwards
+    7400006: Sit Leg Crossing regular
+    7400008: Neck Cracking
+    7400010: Locking around
+    7400012: Shoulder Lifting "No Idea"
+    7400014: Arm Gesture 1
+    7400016: Arm Gesture 2
+    7400018: Finger Movement Nervous/Impatiant
     9500000: //RootNode
     13700000: Akemaz_body
-    13700002: Akemaz_tongue
+    13700002: Akemaz_eyes
+    13700004: Akemaz_frame
+    13700006: Akemaz_robe
+    13700008: Akemaz_tongue
+    13700010: Akemaz_Upper_teeth
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -57,18 +193,298 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Sit Down
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Sit Leg Crossing
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 128
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Sit Leg Crossing Backwards
+      takeName: Take 001
+      firstFrame: 128
+      lastFrame: 176
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Sit Leg Crossing regular
+      takeName: Take 001
+      firstFrame: 176
+      lastFrame: 206
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Neck Cracking
+      takeName: Take 001
+      firstFrame: 210
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Locking around
+      takeName: Take 001
+      firstFrame: 250
+      lastFrame: 368
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Shoulder Lifting "No Idea"
+      takeName: Take 001
+      firstFrame: 368
+      lastFrame: 392
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Arm Gesture 1
+      takeName: Take 001
+      firstFrame: 392
+      lastFrame: 442
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Arm Gesture 2
+      takeName: Take 001
+      firstFrame: 442
+      lastFrame: 490
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Finger Movement Nervous/Impatiant
+      takeName: Take 001
+      firstFrame: 548
+      lastFrame: 594
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 25
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -89,11 +505,11 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.099999994
+    previousCalculatedGlobalScale: 0.25
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
@@ -114,7 +530,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

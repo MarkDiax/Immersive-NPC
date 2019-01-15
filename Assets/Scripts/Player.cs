@@ -21,14 +21,20 @@ public class Player : MonoSingleton<Player>
 	public delegate void OnInteractWithNPCRequest(bool pIteracting);
 	public OnInteractWithNPCRequest onInteractWithNPCRequest;
 
+	private void Awake()
+	{
+		NPCManager.Instance.onInteractWithNPC += OnInteract;
+
+	}
+
 	private void Start() {
 		_controller = GetComponent<FirstPersonController>();
 		_speechRecognizer = SpeechRecognizer.Instance;
 
 		inputField.onEndEdit.AddListener(SendUserMessage);
+		inputField.ActivateInputField();
 
-		NPCManager.Instance.onInteractWithNPC += OnInteract;
-		NPCManager.Instance.onPlayerOutOfRange += StopInteractWithNPC;
+		//NPCManager.Instance.onPlayerOutOfRange += StopInteractWithNPC;
 
 		SpeechRecognizer.Instance.onSpeechRecognized += (pText) => {
 			if (_isInteracting) {
@@ -40,27 +46,39 @@ public class Player : MonoSingleton<Player>
 
 	private void StartInteractWithNPC() {
 		_isInteracting = true;
-		_controller.enabled = false;
+		//_controller.enabled = false;
+		//inputField.gameObject.SetActive(true);
+
+		//inputField.ActivateInputField();
+
+		//if (usingVoiceInput) {
+		//	_speechRecognizer.StartListen();
+		//	voiceIsOn = true;
+		//}
+	}
+
+	private void DisableInputField()
+	{
+		inputField.text = "";
+		inputField.DeactivateInputField();
+		inputField.gameObject.SetActive(false);
+	}
+
+	private void EnableInputField() {
 		inputField.gameObject.SetActive(true);
-
 		inputField.ActivateInputField();
-
-		if (usingVoiceInput) {
-			_speechRecognizer.StartListen();
-			voiceIsOn = true;
-		}
 	}
 
 	private void StopInteractWithNPC() {
 		_isInteracting = false;
-		_controller.enabled = true;
-		inputField.DeactivateInputField();
-		inputField.gameObject.SetActive(false);
+		//_controller.enabled = true;
+		//inputField.DeactivateInputField();
+		//inputField.gameObject.SetActive(false);
 
-		if (usingVoiceInput) {
-			_speechRecognizer.StopListen();
-			voiceIsOn = false;
-		}
+		//if (usingVoiceInput) {
+		//	_speechRecognizer.StopListen();
+		//	voiceIsOn = false;
+		//}
 	}
 
 	private void OnInteract(NPC pNPC) {
@@ -82,17 +100,25 @@ public class Player : MonoSingleton<Player>
 	}
 
 	private void Update() {
-		if (_isInteracting) {
-			if (Input.GetMouseButtonDown(1))
-				onInteractWithNPCRequest.Invoke(false);
-		}
-		else {
-			if (Input.GetMouseButtonDown(0))
-				onInteractWithNPCRequest.Invoke(true);
+		//if (_isInteracting) {
+		//	if (Input.GetMouseButtonDown(1))
+		//		onInteractWithNPCRequest.Invoke(false);
+		//}
+		//else {
+		//	if (Input.GetMouseButtonDown(0))
+		//		onInteractWithNPCRequest.Invoke(true);
+		//}
+
+		if (Input.GetKeyDown(KeyCode.BackQuote))
+		{
+			DisableInputField();
+			_speechRecognizer.StartListen();
 		}
 
-		if (Input.GetKeyDown(KeyCode.F1)) {
-			_speechRecognizer.ToggleSpeechRecognizer();
+		if (Input.GetKeyUp(KeyCode.BackQuote))
+		{
+			EnableInputField();
+			_speechRecognizer.StopListen();	
 		}
 	}
 }

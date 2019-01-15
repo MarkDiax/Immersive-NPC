@@ -17,6 +17,7 @@ public class ConfigFile
 public class GameManger : MonoBehaviour
 {
 	public ChatLog chatLog;
+	public Text npcServerMessageDisplay;
 
 	[HideInInspector]
 	public static GameManger Instance = null;
@@ -81,13 +82,19 @@ public class GameManger : MonoBehaviour
 		_speechRecognizerToggleRoutine = null;
 	}
 
-	public void AddToChatlog(string pMessage) {
-		if (chatLog == null) {
-			Debug.LogError("GM: Can't add message to ChatLog, ChatLog is NULL!");
-			return;
-		}
+	public void AddToServerTextMessage(string pMessage)
+	{
+		if (npcServerMessageDisplay == null || !npcServerMessageDisplay.gameObject.activeSelf)
+			Debug.LogError("GM: Can't add message to npcServerMessageDisplay, npcServerMessageDisplay is NULL!");
+		else
+			npcServerMessageDisplay.text = pMessage;
+	}
 
-		chatLog.AddChatMessage(pMessage);
+	public void AddToChatlog(string pMessage) {
+		if (chatLog == null || !chatLog.gameObject.activeSelf) 
+			Debug.LogError("GM: Can't add message to ChatLog, ChatLog is NULL!");	
+		else
+			chatLog.AddChatMessage(pMessage);
 	}
 
 	#region Config File Settings

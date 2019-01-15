@@ -26,6 +26,7 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 	public OnSpeechRecognized onSpeechRecognized;
 
 	private int _dictationIndex;
+	private bool _stopOnNextResult;
 
 	public void StartListen() {
 		AddListeners();
@@ -38,9 +39,8 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 	}
 
 	public void StopListen() {
-		RemoveListeners();
-		_dictationRecognizer.Stop();
-		Debug.Log("SpeechRecognizer has stoppped listening.");
+		_stopOnNextResult = true;
+
 	}
 
 	public override void Init() {
@@ -75,6 +75,14 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 				pText = pText.Replace("mall", "mole");
 
 			//replace "on" with "uun"
+
+			if (_stopOnNextResult)
+			{
+				_stopOnNextResult = false;
+				RemoveListeners();
+				_dictationRecognizer.Stop();
+				Debug.Log("SpeechRecognizer has stoppped listening.");
+			}
 
 			onSpeechRecognized.Invoke(pText);
 			_dictationIndex++;
@@ -193,6 +201,7 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 		//A check for whether the text has changed in this method.
 		return textCopy != pText;
 	}
+	
 
 	public void ToggleSpeechRecognizer() {
 		if (IsListening)
