@@ -96,8 +96,10 @@ public class NPC : MonoBehaviour
 		}
 	}
 
+#if UNITY_EDITOR
 	public void SaveVoiceSettings()
-	{
+	{ 
+
 		NPCVoiceSettings voiceSettings = ScriptableObject.CreateInstance<NPCVoiceSettings>();
 		voiceSettings.maryttsVoiceName = maryttsVoiceName;
 		voiceSettings.maryXMLAttributes = maryXMLTestAttributes;
@@ -114,6 +116,7 @@ public class NPC : MonoBehaviour
 		EditorUtility.FocusProjectWindow();
 		Selection.activeObject = voiceSettings;
 	}
+#endif
 
 	public void SendUserMessage(string pMessage)
 	{
