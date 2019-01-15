@@ -11,7 +11,7 @@ public class SpeechRecognizer : Singleton<SpeechRecognizer>
 	private List<string> _akemazPhrases = new List<string> {
 		"akemaz","akkemaz", "akkemas", "akemas", "acemaz", "acemas", "acamas", "akim's", "acronis",
 		"akron", "achema", "acromas", "a conos", "a kamos", "a cummers", "a camaz", "aacomas", "arcanus",
-		"i kemas", "our cameras" //TODO: repair multiple words like "a camos"
+		"i kemas", "our cameras", "hokiness", "aquilus", //TODO: repair multiple words like "a camos"
 	};
 
 	private List<string> _veeqPhrases = new List<string> {
