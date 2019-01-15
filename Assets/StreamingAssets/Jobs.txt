@@ -1,0 +1,14 @@
+{
+  "Items": [
+    "Cook",
+    "Cleaner",
+    "Guard",
+    "Security officer",
+    "CEO",
+    "Habitant",
+    "Doctor",
+    "IT",
+    "AR(Alien Resources)",
+    "Pilot"
+  ]
+}
