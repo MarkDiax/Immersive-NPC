@@ -47,8 +47,23 @@ public class SearchEngine : MonoBehaviour{
     public int CaptureTryes = 0;
     public List<string> DisplayTexts = new List<string>();
 
-    // Start is called before the first frame update
-    void Start()
+	public static SearchEngine Instance = null;
+
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         _names.Add(CriminalName);
         _races.Add(CriminalRace);

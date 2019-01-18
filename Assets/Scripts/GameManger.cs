@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.IO;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
+
 
 [Serializable]
 public class ConfigFile
@@ -45,12 +47,15 @@ public class GameManger : MonoBehaviour
 		_player = Player.Instance;
 		_npcManager = NPCManager.Instance;
 		_speechRecognizer = SpeechRecognizer.Instance;
+	
 
 		if (chatLog == null)
 			chatLog = FindObjectOfType<ChatLog>();
 	}
 
 	private void Update() {
+		
+
 		if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 
@@ -82,13 +87,7 @@ public class GameManger : MonoBehaviour
 		_speechRecognizerToggleRoutine = null;
 	}
 
-	public void AddToServerTextMessage(string pMessage)
-	{
-		if (npcServerMessageDisplay == null || !npcServerMessageDisplay.gameObject.activeSelf)
-			Debug.LogError("GM: Can't add message to npcServerMessageDisplay, npcServerMessageDisplay is NULL!");
-		else
-			npcServerMessageDisplay.text = pMessage;
-	}
+
 
 	public void AddToChatlog(string pMessage) {
 		if (chatLog == null || !chatLog.gameObject.activeSelf) 

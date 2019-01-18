@@ -40,7 +40,11 @@ public class SceneHandler : MonoBehaviour
 
     public void Update() {
         if(Input.GetKeyDown(KeyCode.N)) {
-            GoToSceneWIthFadeOut(SceneManager.GetActiveScene().buildIndex + 1);
+			if (SceneManager.GetActiveScene().buildIndex <=1)
+			{
+				GoToSceneWIthFadeOut(SceneManager.GetActiveScene().buildIndex + 1);
+			}
+            
         }
     }
 

@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <maryxml xmlns="http://mary.dfki.de/2002/MaryXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.5" xml:lang="en-GB">
-  <prosody rate="+15%" pitch="-10%" accent-prominence="+80%" contour="(10%,+5%)(30%, +30%)(100%,+5%)">Goodbye</prosody>
+  <prosody rate="-5%" pitch="+30%" accent-prominence="+80%" contour="(10%,-10%)(30%, +20%)(50%,-10%)(80%,+20%)(90%, +15%)(100%,+10%)">No idea</prosody>
 </maryxml>

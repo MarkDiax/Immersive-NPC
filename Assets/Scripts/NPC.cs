@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class NPC : MonoBehaviour
 	public bool isUsingTestXMLAttributes;
 	public LipSyncRuntimeGenerator.MaryXMLAttribute[] maryXMLTestAttributes;
 
+	public Text npcServerMessageDisplay;
+
 	private enum FacialExpressions
 	{
 		Default, Happy, Angry, Confused, Surprised
@@ -53,12 +56,8 @@ public class NPC : MonoBehaviour
 
 	private List<ServerPackage> _messageQueue = new List<ServerPackage>();
 
-	private void Start()
+	private void Awake()
 	{
-		NPCManager.Instance.RegisterNPC(this);
-
-		_player = Player.Instance;
-
 		_client = GetComponent<ClientScript>();
 		_lipSync = GetComponent<LipSync>();
 		_audioSource = GetComponent<AudioSource>();
@@ -66,11 +65,24 @@ public class NPC : MonoBehaviour
 
 		_client.onMessageReceived += OnMessageReceived;
 		_client.onAnimationEventReceived += OnAnimationEventReceived;
-		_client.OpenServerChannel();
 
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
+	}
+
+	private void Start()
+	{
+		NPCManager.Instance.RegisterNPC(this);
+
+		_player = Player.Instance;
+
+
+
+
+		StartCoroutine(ConnectToClientDelayed(1f));
+
+
 
 		_currentVoiceSettings = defaultVoiceSettings;
 
@@ -78,6 +90,12 @@ public class NPC : MonoBehaviour
 		StartCoroutine(RandomGestureSwitcher("RandomBodyGesture", bodyGestureCount, bodyGestureTimer, false));
 
 		NPCManager.Instance.ConnectToNPC(this);
+	}
+
+	private IEnumerator ConnectToClientDelayed(float pTime)
+	{
+		yield return new WaitForSeconds(pTime);
+		_client.OpenServerChannel();
 	}
 
 	private IEnumerator RandomGestureSwitcher(string pAnimatorParam, int pMaxValue, float pTimer, bool pPlayDuringConversation)
@@ -338,14 +356,24 @@ public class NPC : MonoBehaviour
 		LipSyncRuntimeGenerator.GenerateAudioFile(pPackage.text, npcName, maryttsVoiceName, voiceSettings);
 	}
 
+	public void AddToServerTextMessage(string pMessage)
+	{
+		if (npcServerMessageDisplay == null || !npcServerMessageDisplay.gameObject.activeSelf)
+			Debug.LogError("GM: Can't add message to npcServerMessageDisplay, npcServerMessageDisplay is NULL!");
+		else
+			npcServerMessageDisplay.text = pMessage;
+	}
+
 	private void OnMessageReceived(ServerPackage pPackage)
 	{
 		if (!(_lipSync.IsPlaying && _audioSource.isPlaying))
 		{
 			//start generating the new lipsync phonemes and audio for the text
 			GenerateLipSync(pPackage);
-			GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
-			GameManger.Instance.AddToServerTextMessage(npcName + ": " + pPackage.text);
+			//GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
+			//GameManger.Instance.AddToServerTextMessage(npcName + ": " + pPackage.text);
+
+			AddToServerTextMessage(npcName + ": " + pPackage.text);
 			return;
 		}
 
@@ -380,8 +408,44 @@ public class NPC : MonoBehaviour
 
 	private void OnDisable()
 	{
+		RemoveListeners();
 		NPCManager.Instance.DisconnectWithNPC();
 		StopAllCoroutines();
+		Debug.Log("IM GOOOOOOOONNNEEEEEEE");
+	}
+
+	private void OnDestroy()
+	{
+		RemoveListeners();
+		NPCManager.Instance.DisconnectWithNPC();
+		StopAllCoroutines();
+		//Debug.Log("IM GOOOOOOOONNNEEEEEEE");
+	}
+
+	private void OnEnable()
+	{
+		AddListeners();
+		StartCoroutine(ConnectToClientDelayed(1f));
+	}
+
+	private void RemoveListeners()
+	{
+		_client.onMessageReceived -= OnMessageReceived;
+		_client.onAnimationEventReceived -= OnAnimationEventReceived;
+
+		Speaker.OnSpeakAudioGenerationComplete -= (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
+		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess -= OnPhonemeGenerationComplete;
+		LipSyncRuntimeGenerator.onPhonemeGenerateFail -= OnPhonemeGenerationFail;
+	}
+
+	private void AddListeners()
+	{
+		_client.onMessageReceived += OnMessageReceived;
+		_client.onAnimationEventReceived += OnAnimationEventReceived;
+
+		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
+		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
+		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
 	}
 
 	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;

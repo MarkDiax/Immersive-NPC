@@ -35,17 +35,23 @@ public class UILerp : MonoBehaviour
         Destroy(prim.GetComponent<Mesh>());
         prim.name = gameObject.name + "Startposition";
         _startTransformGameObject = prim;
-        DontDestroyOnLoad(_startTransformGameObject);
-        DontDestroyOnLoad(EndTransform.gameObject);
-        DontDestroyOnLoad(gameObject);
+
+		//if (SearchEngine.Instance == null)
+		//{
+			DontDestroyOnLoad(_startTransformGameObject);
+			DontDestroyOnLoad(EndTransform.gameObject);
+
+		//}
+      
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            StartLerp();
-        }
+        //if(Input.GetKeyDown(KeyCode.Space)) {
+        //    StartLerp();
+        //}
 
         switch(_state) {
             case LerpState.ToEnd:

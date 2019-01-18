@@ -19,8 +19,24 @@ public class RegistationFile : MonoBehaviour
 
     private string _currentSubjectSeleceted = "";
 
-    // Start is called before the first frame update
-    void Start()
+	public static RegistationFile Instance = null;
+
+	private void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
+
+
+	// Start is called before the first frame update
+	void Start()
     {
         fileLoctaion = Application.dataPath;
         for(int i = 0; i < Buttons.Count; i++) {
