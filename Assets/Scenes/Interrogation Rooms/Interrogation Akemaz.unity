@@ -309,16 +309,6 @@ PrefabInstance:
       propertyPath: inputField
       value: 
       objectReference: {fileID: 763379195}
-    - target: {fileID: 20693091307045080, guid: 34cfdbdcba1888c4bb294a43c75595bb,
-        type: 3}
-      propertyPath: field of view
-      value: 34.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114374792887807100, guid: 34cfdbdcba1888c4bb294a43c75595bb,
-        type: 3}
-      propertyPath: m_MouseLook.lockCursor
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34cfdbdcba1888c4bb294a43c75595bb, type: 3}
 --- !u!114 &763379195 stripped
@@ -662,6 +652,14 @@ PrefabInstance:
     - target: {fileID: 411916, guid: 966d2b798e0a0e044876ba6826f06a5b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493764, guid: 966d2b798e0a0e044876ba6826f06a5b, type: 3}
+      propertyPath: MaryTTSMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493764, guid: 966d2b798e0a0e044876ba6826f06a5b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 966d2b798e0a0e044876ba6826f06a5b, type: 3}
