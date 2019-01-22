@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
-
+using RogoDigital.Lipsync;
 
 [Serializable]
 public class ConfigFile
@@ -20,6 +20,7 @@ public class GameManger : MonoBehaviour
 {
 	public ChatLog chatLog;
 	public Text npcServerMessageDisplay;
+	public string soxInstallPath;
 
 	[HideInInspector]
 	public static GameManger Instance = null;
@@ -40,6 +41,7 @@ public class GameManger : MonoBehaviour
 			Destroy(gameObject);
 		}
 		#endregion
+
 		//CreateConfigFile();
 	}
 
@@ -47,14 +49,19 @@ public class GameManger : MonoBehaviour
 		_player = Player.Instance;
 		_npcManager = NPCManager.Instance;
 		_speechRecognizer = SpeechRecognizer.Instance;
-	
+
+		InitiateMiscSoftware();
 
 		if (chatLog == null)
 			chatLog = FindObjectOfType<ChatLog>();
 	}
 
+	private void InitiateMiscSoftware()
+	{
+		LipSyncRuntimeGenerator.SetSoxFilePath(soxInstallPath);
+	}
+
 	private void Update() {
-		
 
 		if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();

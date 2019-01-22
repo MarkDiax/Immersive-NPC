@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chatLog: {fileID: 0}
   npcServerMessageDisplay: {fileID: 0}
+  soxInstallPath: D:/Program Files (x86)/sox-14-4-2/sox.exe

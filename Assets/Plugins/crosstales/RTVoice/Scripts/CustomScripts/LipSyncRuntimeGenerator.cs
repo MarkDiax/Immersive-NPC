@@ -21,6 +21,11 @@ namespace RogoDigital.Lipsync
 		public static OnSpeakerAudioGenerated onSpeakerAudioGenerated;
 
 		private static string _audioFileName;
+		private static string _soxFilePath;
+
+		public static void SetSoxFilePath(string pFilePath) {
+			_soxFilePath = pFilePath;
+		}
 
 		/// <summary>
 		/// Generates Phenome set based on the audio clip.
@@ -36,7 +41,7 @@ namespace RogoDigital.Lipsync
 			string audioFilePath = LipSyncRuntimeManager.Instance.StreamingAssetsAudioPath + _audioFileName + ".wav";
 
 			AutoSyncRuntime.SetAudioPath(audioFilePath);
-			AutoSyncRuntime.ProcessAudio(pInputAudio, SuccessCallback, FailedCallback, audioOptions, "D:/Program Files (x86)/sox-14-4-2/sox.exe");
+			AutoSyncRuntime.ProcessAudio(pInputAudio, SuccessCallback, FailedCallback, audioOptions, _soxFilePath);
 		}
 
 		private static void SuccessCallback(AudioClip pAudioClip, List<PhonemeMarker> pMarkers) {
