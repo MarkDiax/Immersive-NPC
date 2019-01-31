@@ -30,9 +30,6 @@ public class ClientScript : MonoBehaviour
 {
 	public string serverURL = "http://localhost:5005";
 
-	public bool usingLocalHost;
-	private readonly string _localURL = "http://localhost:5005";
-
 	public delegate void OnMessageReceived(ServerPackage serverPackage);
 	public OnMessageReceived onMessageReceived;
 
@@ -48,12 +45,6 @@ public class ClientScript : MonoBehaviour
 	void Destroy()
 	{
 		DoClose();
-	}
-
-	private void Start()
-	{
-		if (usingLocalHost)
-			serverURL = _localURL;
 	}
 
 	private void Update()

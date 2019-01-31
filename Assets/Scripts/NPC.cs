@@ -39,6 +39,8 @@ public class NPC : MonoBehaviour
 
 	public Text npcServerMessageDisplay;
 
+	private bool _initialized;
+
 	private enum FacialExpressions
 	{
 		Default, Happy, Angry, Confused, Surprised
@@ -63,12 +65,12 @@ public class NPC : MonoBehaviour
 		_audioSource = GetComponent<AudioSource>();
 		_animator = GetComponent<Animator>();
 
-		_client.onMessageReceived += OnMessageReceived;
-		_client.onAnimationEventReceived += OnAnimationEventReceived;
+		//_client.onMessageReceived += OnMessageReceived;
+		//_client.onAnimationEventReceived += OnAnimationEventReceived;
 
-		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
-		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
-		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
+		//Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
+		//LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
+		//LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
 	}
 
 	private void Start()
@@ -77,12 +79,7 @@ public class NPC : MonoBehaviour
 
 		_player = Player.Instance;
 
-
-
-
-		StartCoroutine(ConnectToClientDelayed(1f));
-
-
+		//StartCoroutine(ConnectToClientDelayed(1f));
 
 		_currentVoiceSettings = defaultVoiceSettings;
 
@@ -116,7 +113,7 @@ public class NPC : MonoBehaviour
 
 #if UNITY_EDITOR
 	public void SaveVoiceSettings()
-	{ 
+	{
 
 		NPCVoiceSettings voiceSettings = ScriptableObject.CreateInstance<NPCVoiceSettings>();
 		voiceSettings.maryttsVoiceName = maryttsVoiceName;
@@ -366,13 +363,16 @@ public class NPC : MonoBehaviour
 
 	private void OnMessageReceived(ServerPackage pPackage)
 	{
+		if (!_client.IsConnected)
+		{
+			AddToServerTextMessage("NO CONNECTION TO SERVER! Attempted to send : " + pPackage.text);
+			return;
+		}
+
 		if (!(_lipSync.IsPlaying && _audioSource.isPlaying))
 		{
 			//start generating the new lipsync phonemes and audio for the text
 			GenerateLipSync(pPackage);
-			//GameManger.Instance.AddToChatlog(npcName + ": " + pPackage.text);
-			//GameManger.Instance.AddToServerTextMessage(npcName + ": " + pPackage.text);
-
 			AddToServerTextMessage(npcName + ": " + pPackage.text);
 			return;
 		}
@@ -408,24 +408,34 @@ public class NPC : MonoBehaviour
 
 	private void OnDisable()
 	{
-		RemoveListeners();
-		NPCManager.Instance.DisconnectWithNPC();
-		StopAllCoroutines();
-		Debug.Log("IM GOOOOOOOONNNEEEEEEE");
+		if (_initialized)
+		{
+			RemoveListeners();
+			NPCManager.Instance.DisconnectWithNPC();
+			StopAllCoroutines();
+
+			Debug.Log("On Byebye");
+		}
 	}
 
 	private void OnDestroy()
 	{
-		RemoveListeners();
-		NPCManager.Instance.DisconnectWithNPC();
-		StopAllCoroutines();
-		//Debug.Log("IM GOOOOOOOONNNEEEEEEE");
+		if (_initialized)
+		{
+			RemoveListeners();
+			NPCManager.Instance.DisconnectWithNPC();
+			StopAllCoroutines();
+		}
 	}
 
 	private void OnEnable()
 	{
-		AddListeners();
-		StartCoroutine(ConnectToClientDelayed(1f));
+		if (!_initialized)
+		{
+			Debug.Log("Onenable");
+			AddListeners();
+			StartCoroutine(ConnectToClientDelayed(1f));
+		}
 	}
 
 	private void RemoveListeners()
@@ -436,6 +446,8 @@ public class NPC : MonoBehaviour
 		Speaker.OnSpeakAudioGenerationComplete -= (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess -= OnPhonemeGenerationComplete;
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail -= OnPhonemeGenerationFail;
+
+		_initialized = false;
 	}
 
 	private void AddListeners()
@@ -446,6 +458,8 @@ public class NPC : MonoBehaviour
 		Speaker.OnSpeakAudioGenerationComplete += (pModel) => StartCoroutine(LoadAudioRoutine(pModel));
 		LipSyncRuntimeGenerator.onPhonemeGenerateSuccess += OnPhonemeGenerationComplete;
 		LipSyncRuntimeGenerator.onPhonemeGenerateFail += OnPhonemeGenerationFail;
+
+		_initialized = true;
 	}
 
 	public bool InInteractRange => Vector3.Distance(transform.position, _player.transform.position) < playerInteractionRange;

@@ -18,8 +18,6 @@ public class ConfigFile
 
 public class GameManger : MonoBehaviour
 {
-	public ChatLog chatLog;
-	public Text npcServerMessageDisplay;
 	public string soxInstallPath;
 
 	[HideInInspector]
@@ -51,9 +49,6 @@ public class GameManger : MonoBehaviour
 		_speechRecognizer = SpeechRecognizer.Instance;
 
 		InitiateMiscSoftware();
-
-		if (chatLog == null)
-			chatLog = FindObjectOfType<ChatLog>();
 	}
 
 	private void InitiateMiscSoftware()
@@ -66,7 +61,7 @@ public class GameManger : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 
-		CheckForNPCAudio();
+		//CheckForNPCAudio();
 	}
 
 	/// <summary>
@@ -94,14 +89,6 @@ public class GameManger : MonoBehaviour
 		_speechRecognizerToggleRoutine = null;
 	}
 
-
-
-	public void AddToChatlog(string pMessage) {
-		if (chatLog == null || !chatLog.gameObject.activeSelf) 
-			Debug.LogError("GM: Can't add message to ChatLog, ChatLog is NULL!");	
-		else
-			chatLog.AddChatMessage(pMessage);
-	}
 
 	#region Config File Settings
 	public void CreateConfigFile() {

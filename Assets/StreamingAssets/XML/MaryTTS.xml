@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <maryxml xmlns="http://mary.dfki.de/2002/MaryXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.5" xml:lang="en-GB">
-  <prosody rate="-5%" pitch="+30%" accent-prominence="+80%" contour="(10%,-10%)(30%, +20%)(50%,-10%)(80%,+20%)(90%, +15%)(100%,+10%)">I'm the most important one. I came up with the plan. I hid the information. All of this wouldn't have happened without me.</prosody>
+  <prosody rate="-8%" pitch="+10%" accent-prominence="-20%" contour="(10%,-10%)(30%, -10%)(50%,-30%)(70%, +15%)(80%,-5%)(100%,-10%)">I am sorry, I dont know what that means. Got any other questions?</prosody>
 </maryxml>

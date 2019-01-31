@@ -95,8 +95,6 @@ public class Player : MonoSingleton<Player>
 		NPC npc = NPCManager.Instance.currentInteractingNPC;
 		if (npc != null)
 			npc.SendUserMessage(pMessage);
-
-		GameManger.Instance.AddToChatlog("Player: " + pMessage);
 	}
 
 	private void Update() {
@@ -112,13 +110,13 @@ public class Player : MonoSingleton<Player>
 		if (Input.GetKeyDown(KeyCode.BackQuote))
 		{
 			DisableInputField();
-			_speechRecognizer.StartListen();
+			SpeechRecognizer.Instance.StartListen();
 		}
 
 		if (Input.GetKeyUp(KeyCode.BackQuote))
 		{
 			EnableInputField();
-			_speechRecognizer.StopListen();	
+			SpeechRecognizer.Instance.StopListen();	
 		}
 	}
 }
